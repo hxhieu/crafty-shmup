@@ -14,6 +14,10 @@ module.exports = {
     path: path.resolve(__dirname, prodPath),
     filename: '[name].[chunkhash].js'
   },
+  devServer: {
+    contentBase: path.join(__dirname, '../public'),
+    publicPath: '/'
+  },
   // devtool: 'cheap-module-source-map',
   devtool: 'source-map',
   module: {

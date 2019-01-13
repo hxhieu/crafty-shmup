@@ -2,6 +2,7 @@ const path = require('path')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const WebpackMd5Hash = require('webpack-md5-hash')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
+const CopyWebpackPlugin = require('copy-webpack-plugin')
 
 const {
   prodPath,
@@ -37,6 +38,10 @@ module.exports = {
       template: './' + srcPath + '/index.html',
       filename: 'index.html'
     }),
-    new WebpackMd5Hash()
+    new WebpackMd5Hash(),
+    // Static assets
+    new CopyWebpackPlugin([
+      { from: './public', to: './' }
+    ])
   ]
 }
