@@ -1,0 +1,33 @@
+{
+  "name": "webpack-4-boilerplate",
+  "version": "1.0.0",
+  "author": "mwieth",
+  "dependencies": {
+    "craftyjs": "^0.9.0"
+  },
+  "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-loader": "^7.1.5",
+    "babel-preset-env": "^1.7.0",
+    "clean-webpack-plugin": "^0.1.19",
+    "eslint": "^5.12.0",
+    "eslint-config-standard": "^12.0.0",
+    "eslint-loader": "^2.1.1",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^8.0.1",
+    "eslint-plugin-promise": "^4.0.1",
+    "eslint-plugin-standard": "^4.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "webpack": "^4.28.4",
+    "webpack-cli": "^3.2.1",
+    "webpack-dev-server": "^3.1.14",
+    "webpack-md5-hash": "0.0.6"
+  },
+  "license": "ISC",
+  "main": "index.js",
+  "scripts": {
+    "build": "webpack --env prod --mode production",
+    "dev": "webpack-dev-server --env dev --mode none",
+    "lint": "eslint ./src/**/*.js"
+  }
+}
