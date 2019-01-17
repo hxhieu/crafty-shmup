@@ -1,7 +1,19 @@
 {
-  "name": "webpack-4-boilerplate",
+  "name": "crafty-shmup",
   "version": "1.0.0",
-  "author": "mwieth",
+  "author": "hxhieu",
+  "build": {
+    "nwVersion": "0.28.4",
+    "output": "./bin/",
+    "files": [
+      "entry.js",
+      "dist/**/*"
+    ],
+    "packed": true,
+    "targets": [
+      "zip"
+    ]
+  },
   "dependencies": {
     "craftyjs": "^0.9.0"
   },
@@ -19,14 +31,18 @@
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-standard": "^4.0.0",
     "html-webpack-plugin": "^3.2.0",
+    "nwjs-builder-phoenix": "^1.15.0",
     "webpack": "^4.28.4",
     "webpack-cli": "^3.2.1",
     "webpack-dev-server": "^3.1.14",
     "webpack-md5-hash": "0.0.6"
   },
   "license": "ISC",
-  "main": "index.js",
+  "main": "entry.js",
   "scripts": {
+    "bin:build": "rm -rf bin & build --tasks win-x64,linux-x64,mac-x64 --mirror https://dl.nwjs.io/ .",
+    "bin:build-arm": "build --tasks linux-x64 --mirror http://localhost:5000/ .",
+    "bin:start": "run --x64 --mirror https://dl.nwjs.io/ .",
     "build": "webpack --env prod --mode production",
     "dev": "webpack-dev-server --env dev --mode none",
     "lint": "eslint ./src/**/*.js"

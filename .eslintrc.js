@@ -1,6 +1,7 @@
 module.exports = {
     "extends": "standard",
     globals:{
-        Crafty: true
+        Crafty: true,
+        nw: true
     }
 };
