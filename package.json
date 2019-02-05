@@ -44,6 +44,7 @@
     "bin:build-arm": "build --tasks linux-x64 --mirror http://localhost:5000/ .",
     "bin:start": "run --x64 --mirror https://dl.nwjs.io/ .",
     "build": "webpack --env prod --mode production",
+    "deploy": "yarn build && scp -r ./dist/* 192.168.0.27:/home/cpi/games/schmup",
     "dev": "webpack-dev-server --env dev --mode none",
     "lint": "eslint ./src/**/*.js"
   }

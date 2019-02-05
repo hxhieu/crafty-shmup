@@ -1,5 +1,12 @@
 <html>
 <head>
+  <style>
+    body, #container{
+      overflow: hidden;
+      margin: 0;
+      padding: 0;
+    }
+  </style>
 </head>
 <body>
   <div id="container">
@@ -7,5 +14,4 @@
   </div>
   <script src="<%= htmlWebpackPlugin.files.chunks.main.entry %>"></script>
 </body>
-
 </html>

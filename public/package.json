@@ -1,0 +1,15 @@
+{
+  "name": "schmup",
+  "main": "index.html",
+  "window": {
+      "width": 320,
+      "height": 240,
+      "max_width": 320,
+      "max_height": 240,
+      "resizable": false,
+      "fullscreen": true,
+      "frame": false,
+      "transparent": true,
+      "kiosk": true
+  }
+}

@@ -9,7 +9,7 @@ Crafty.paths({
 Crafty.load(assets, () => {
   console.log('Assets loaded!')
   generateSharedSprites()
-  Crafty.init(640, 480, document.getElementById('game')).background('#000')
+  Crafty.init(320, 240, document.getElementById('game')).background('#000')
   hello()
 }, progress => {
   console.log(progress)
