@@ -1,6 +1,7 @@
 import '../libs/crafty'
+import { screen } from './sizes'
 import { assets, generateSharedSprites } from './assets-loader'
-import { Player } from './ships/player'
+import { Player } from '@/ships/player'
 
 Crafty.paths({
   images: 'assets/'
@@ -9,7 +10,12 @@ Crafty.paths({
 Crafty.load(assets, () => {
   console.log('Assets loaded!')
   generateSharedSprites()
-  Crafty.init(320, 240, document.getElementById('game')).background('#000')
+  Crafty.init(
+    screen.w,
+    screen.h,
+    document.getElementById('game')
+  ).background('#000')
+
   hello()
 }, progress => {
   console.log(progress)

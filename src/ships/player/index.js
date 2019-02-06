@@ -1,5 +1,6 @@
-import '../../components/move-to-mouse'
-import '../../components/collider'
+import '@/components/move-to-mouse'
+import '@/components/collider'
+import { screen, unit } from '@/sizes'
 
 // import PhotonShell from '../../projectiles/photon-shell';
 
@@ -8,8 +9,8 @@ export class Player {
     //   Crafty.addEvent(_entity, Crafty.stage.elem, 'mousedown', mouseDown)
     //   Crafty.addEvent(_entity, Crafty.stage.elem, 'mouseup', mouseUp)
     this._entity = Crafty.e('Sprite_ShipHumanLargeSprite01, Collider, CollisionProfilePlayer, Fourway')
-    const size = 32 * 1.5
-    this._entity.attr({ w: size, h: size, x: (320 - size) / 2, y: (240 - size) / 2 })
+    const size = unit.w
+    this._entity.attr({ w: size, h: size, x: (screen.w - size) / 2, y: (screen.h - size) / 2 })
     this._entity.fourway(200, { normalize: true })
     // this._entity.moveToMouse(speed)
     this._entity.bind('KeyDown', e => {
