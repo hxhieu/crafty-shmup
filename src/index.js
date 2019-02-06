@@ -1,4 +1,5 @@
 import '../libs/crafty'
+import './maths'
 import { screen } from './sizes'
 import { assets, generateSharedSprites } from './assets-loader'
 import { Player } from '@/ships/player'

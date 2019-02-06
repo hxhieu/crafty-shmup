@@ -1,26 +1,24 @@
-import '@/components/move-to-mouse'
 import '@/components/collider'
 import '@/components/four-way-bounded'
+import '@/components/move-rotate'
 import { screen, unit } from '@/sizes'
 
 // import PhotonShell from '../../projectiles/photon-shell';
 
 export class Player {
   constructor (speed) {
-    //   Crafty.addEvent(_entity, Crafty.stage.elem, 'mousedown', mouseDown)
-    //   Crafty.addEvent(_entity, Crafty.stage.elem, 'mouseup', mouseUp)
-    this._entity = Crafty.e('Sprite_PlayerGreen, Collider, CollisionProfilePlayer, FourwayBounded')
+    this._entity = Crafty.e('Sprite_PlayerGreen, Collider, CollisionProfilePlayer, FourwayBounded, MoveRotate')
     const size = unit.w * 2
     this._entity.attr({ w: size, h: size, x: (screen.w - size) / 2, y: (screen.h - size) / 2 })
     this._entity.fourwayBounded(speed, screen)
-    // this._entity.moveToMouse(speed)
     this._entity.bind('KeyDown', e => {
       if (e.key === Crafty.keys.ESC) {
         Crafty.stop(true)
         nw.App.closeAllWindows()
-        // window.location.replace('../../../index.html')
       }
     })
+
+    // this._entity.lookDirection(new Crafty.math.Vector2D(1, 1))
 
     // var options = {
     //   maxParticles: 150,

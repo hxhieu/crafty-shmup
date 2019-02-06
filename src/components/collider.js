@@ -1,15 +1,12 @@
 import './two-dee-ext'
+
 import { CollisionProfiles } from '../constants'
 
 Crafty.c('Collider', {
+  // Umm required Color for Canvas?...
+  required: '2DExt, Color, Collision',
 
   _showHitBox: false,
-
-  init: function () {
-    // Must have 2d coords
-    // Umm required Color for Canvas?...
-    this.requires('2DExt, Color, Collision')
-  },
 
   centreOffset: function () {
     return {
@@ -42,8 +39,8 @@ Crafty.c('Collider', {
 /** * Collision Profiles ***/
 
 Crafty.c('CollisionProfilePlayer', {
+  required: 'Collision',
   init: function () {
-    this.requires('Collision')
     this.checkHits('CollisionProfileEnemy, CollisionProfileSolid')
   },
 
@@ -51,8 +48,8 @@ Crafty.c('CollisionProfilePlayer', {
 })
 
 Crafty.c('CollisionProfileEnemy', {
+  required: 'Collision',
   init: function () {
-    this.requires('Collision')
     this.checkHits('CollisionProfilePlayer, CollisionProfileSolid')
   },
 
@@ -60,8 +57,8 @@ Crafty.c('CollisionProfileEnemy', {
 })
 
 Crafty.c('CollisionProfileSolid', {
+  required: 'Collision',
   init: function () {
-    this.requires('Collision')
     this.checkHits('CollisionProfileEnemy, CollisionProfilePlayer, CollisionProfileSolid')
   },
 

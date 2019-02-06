@@ -1,6 +1,8 @@
 import './two-dee-ext'
 
 Crafty.c('MoveTo', {
+  required: '2DExt',
+
   _moveSpeed: 2,
 
   _target: undefined,
@@ -80,9 +82,6 @@ Crafty.c('MoveTo', {
   },
 
   init: function () {
-    // Must have 2d coords
-    this.requires('2DExt')
-
     this._target = {
       x: this.x,
       y: this.y

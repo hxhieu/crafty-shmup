@@ -1,11 +1,9 @@
 Crafty.c('2DExt', {
+  required: '2D',
 
   _forward: new Crafty.math.Vector2D(0, -1),
 
   init: function () {
-    // Must have 2d coords
-    this.requires('2D')
-
     // Centre pivot
     this.origin('center')
   },
@@ -18,7 +16,7 @@ Crafty.c('2DExt', {
     return this
   },
 
-  forward: function () {
+  getForward: function () {
     return this._forward
   }
 })

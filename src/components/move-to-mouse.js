@@ -1,6 +1,7 @@
 import './move-to'
 
 Crafty.c('MoveToMouse', {
+  required: 'MoveTo, Mouse, Collider',
 
   _enabled: true,
   _followSpeed: 0,
@@ -12,10 +13,6 @@ Crafty.c('MoveToMouse', {
   },
 
   init: function () {
-    this.requires('2D, MoveTo, Mouse')
-    if (!this.has('Collider')) {
-      throw new Error('A collider component is required for MoveToMouse')
-    }
     Crafty.addEvent(this, Crafty.stage.elem, 'mousemove', this._mouseMove)
   },
 

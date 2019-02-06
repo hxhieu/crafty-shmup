@@ -1,6 +1,8 @@
 import { screen } from '@/sizes'
 
 Crafty.c('FourwayBounded', {
+  required: 'Fourway',
+
   _bound: screen,
 
   _enterFrame: function () {
@@ -19,7 +21,6 @@ Crafty.c('FourwayBounded', {
   },
 
   init: function () {
-    this.addComponent('Fourway')
     this.bind('EnterFrame', this._enterFrame)
   },
 
