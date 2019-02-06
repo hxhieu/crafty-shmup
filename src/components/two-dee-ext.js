@@ -1,7 +1,9 @@
+let forward = new Crafty.math.Vector2D(0, -1)
+
+// Component definition
+
 Crafty.c('2DExt', {
   required: '2D',
-
-  _forward: new Crafty.math.Vector2D(0, -1),
 
   init: function () {
     // Centre pivot
@@ -11,12 +13,12 @@ Crafty.c('2DExt', {
   lookDirection: function (target) {
     target = target.normalize()
     this.rotation = this._forward.angleBetween(target).toDeg()
-    this._forward = target
+    forward = target
 
     return this
   },
 
   getForward: function () {
-    return this._forward
+    return forward
   }
 })

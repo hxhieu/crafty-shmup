@@ -1,37 +1,43 @@
 import { screen } from '@/sizes'
 
+// Local vars
+
+let bound
+
+// Component definition
+
 Crafty.c('FourwayBounded', {
   required: 'Fourway',
 
-  _bound: screen,
-
-  _enterFrame: function () {
-    if (this.x <= this._bound.left) {
-      this.x = 0
-    }
-    if (this.x >= this._bound.right) {
-      this.x = this._bound.right
-    }
-    if (this.y >= this._bound.bottom) {
-      this.y = this._bound.bottom
-    }
-    if (this.y <= this._bound.top) {
-      this.y = this._bound.top
-    }
+  events: {
+    EnterFrame: enterFrame
   },
 
-  init: function () {
-    this.bind('EnterFrame', this._enterFrame)
-  },
-
-  fourwayBounded: function (speed, bound) {
-    bound = bound || screen
-    this._bound = {
+  fourwayBounded: function (speed, rect) {
+    rect = rect || screen
+    bound = {
       left: 0,
       top: 0,
-      right: bound.w - this.w,
-      bottom: bound.h - this.h
+      right: rect.w - this.w,
+      bottom: rect.h - this.h
     }
     this.fourway(speed, { normalize: true })
   }
 })
+
+// Helpers
+
+function enterFrame () {
+  if (this.x <= bound.left) {
+    this.x = 0
+  }
+  if (this.x >= bound.right) {
+    this.x = bound.right
+  }
+  if (this.y >= bound.bottom) {
+    this.y = bound.bottom
+  }
+  if (this.y <= bound.top) {
+    this.y = bound.top
+  }
+}

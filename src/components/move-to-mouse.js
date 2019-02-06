@@ -1,24 +1,30 @@
 import './move-to'
 
+// Local vars
+
+let enabled = true
+let followSpeed = 0
+
+// Component definition
+
 Crafty.c('MoveToMouse', {
   required: 'MoveTo, Mouse, Collider',
 
-  _enabled: true,
-  _followSpeed: 0,
-
-  _mouseMove: function (e) {
-    if (!this._enabled) return
-    var centre = this.centreOffset()
-    this.moveTo(e.x - centre.x, e.y - centre.y, this._followSpeed)
-  },
-
   init: function () {
-    Crafty.addEvent(this, Crafty.stage.elem, 'mousemove', this._mouseMove)
+    Crafty.addEvent(this, Crafty.stage.elem, 'mousemove', mouseMove)
   },
 
   moveToMouse: function (speed) {
-    this._followSpeed = speed
-    this._enabled = speed > 0
+    followSpeed = speed
+    enabled = speed > 0
     return this
   }
 })
+
+// Helpers
+
+function mouseMove (e) {
+  if (!enabled) return
+  var centre = this.getCentre()
+  this.moveTo(e.x - centre.x, e.y - centre.y, followSpeed)
+}

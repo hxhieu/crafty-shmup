@@ -1,22 +1,21 @@
 import './two-dee-ext'
-
 import { CollisionProfiles } from '../constants'
+
+let showHitBox = false
 
 Crafty.c('Collider', {
   // Umm required Color for Canvas?...
   required: '2DExt, Color, Collision',
 
-  _showHitBox: false,
-
-  centreOffset: function () {
+  getCentre: function () {
     return {
       x: this.pos()._w / 2,
       y: this.pos()._h / 2
     }
   },
 
-  centre: function () {
-    var offset = this.centreOffset()
+  getCentrePos: function () {
+    var offset = this.getCentre()
     return {
       x: offset.x + this.x,
       y: offset.y + this.y
@@ -28,10 +27,8 @@ Crafty.c('Collider', {
   },
 
   toggleHitbox: function (show) {
-    this._showHitBox = show
-
-    if (show) { this.addComponent('WiredHitBox') } else this.removeComponent('WiredHitBox')
-
+    showHitBox = show
+    if (showHitBox) { this.addComponent('WiredHitBox') } else this.removeComponent('WiredHitBox')
     return this
   }
 })
