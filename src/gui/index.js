@@ -1,4 +1,5 @@
 import { keypad } from '@/device'
+import '@/gui/main-menu'
 
 let mainMenu
 

@@ -9,6 +9,13 @@ export const assets = {
         PlayerYellowSprite: [5, 2, 1, 1]
       }
     },
+    'SCHMUP_Projectiles.png': {
+      tile: 16,
+      tileh: 16,
+      map: {
+        VulcanProjectileSprite1: [0, 2, 1, 1]
+      }
+    },
     'ships_human.png': {
       tile: 32,
       tileh: 32,
@@ -104,6 +111,12 @@ export const generateSharedSprites = () => {
           [1, 2, 1, 1]
         ])
         .animate('level', -1)
+    }
+  })
+
+  Crafty.c('Sprite_VulcanProjectile1', {
+    init: function () {
+      this.requires('Canvas, VulcanProjectileSprite1')
     }
   })
 }

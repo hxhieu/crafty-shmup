@@ -1,18 +1,18 @@
 import '@/components/collider'
 import '@/components/four-way-bounded'
 import '@/components/move-rotate'
-import '@/gui/main-menu'
+import './controller'
 import { screenSize } from '@/device'
 
 // import PhotonShell from '../../projectiles/photon-shell';
 export class PlayerBase {
   constructor (speed) {
-    this._entity = Crafty.e(`Collider, CollisionProfilePlayer, FourwayBounded, MoveRotate`)
+    this._entity = Crafty.e(`Collider, CollisionProfilePlayer, FourwayBounded, MoveRotate, PlayerController`)
     const size = 32
     this._entity.attr({ w: size, h: size, x: (screenSize.w - size) / 2, y: (screenSize.h - size) / 2 })
     this._entity.fourwayBounded(speed, screenSize)
     this._entity.collision([8, 8, 8, 24, 24, 24, 24, 8])
-    this._entity.toggleHitbox(true)
+    // this._entity.toggleHitbox(true)
 
     // this._entity.lookDirection(new Crafty.math.Vector2D(0, 1))
 

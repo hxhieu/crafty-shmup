@@ -8,18 +8,18 @@ Crafty.c('Collider', {
   required: '2DExt, Color, Collision',
 
   getCentre: function () {
-    return {
-      x: this.pos()._w / 2,
-      y: this.pos()._h / 2
-    }
+    return new Crafty.math.Vector2D(
+      this.pos()._w / 2,
+      this.pos()._h / 2
+    )
   },
 
   getCentrePos: function () {
     var offset = this.getCentre()
-    return {
-      x: offset.x + this.x,
-      y: offset.y + this.y
-    }
+    return new Crafty.math.Vector2D(
+      offset.x + this.x,
+      offset.y + this.y
+    )
   },
 
   outOfScreen: function () {

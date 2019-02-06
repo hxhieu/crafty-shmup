@@ -8,6 +8,7 @@ let oldDirection = {
   x: 0,
   y: 0
 }
+let animated
 
 // Component definition
 
@@ -15,9 +16,9 @@ Crafty.c('MoveTo', {
   required: '2DExt',
 
   events: {
-    EnterFrame: enterFrame,
-    NewDirection: newDirection,
-    MoveEnded: moveEnded
+    EnterFrame,
+    NewDirection,
+    MoveEnded
   },
   init: function () {
     target = {
@@ -26,8 +27,9 @@ Crafty.c('MoveTo', {
     }
   },
 
-  moveTo: function (x, y, speed) {
+  moveTo: function (x, y, speed, animate = true) {
     moveSpeed = speed || moveSpeed
+    animated = animate
 
     target = {
       x: x,
@@ -41,24 +43,30 @@ Crafty.c('MoveTo', {
 
 function stopMove () {
   target = undefined
-  this.trigger('MoveEnded')
+  if (this) {
+    this.trigger('MoveEnded')
+  }
 }
 
-function newDirection (dir) {
-  if (dir.x > 0) {
-    this.flip('X').animate('rotate', -1)
-  } else if (dir.x < 0) {
-    this.unflip('X').animate('rotate', -1)
-  } else {
+function NewDirection (dir) {
+  if (animated) {
+    if (dir.x > 0) {
+      this.flip('X').animate('rotate', -1)
+    } else if (dir.x < 0) {
+      this.unflip('X').animate('rotate', -1)
+    } else {
+      this.animate('level', -1)
+    }
+  }
+}
+
+function MoveEnded () {
+  if (animated) {
     this.animate('level', -1)
   }
 }
 
-function moveEnded () {
-  this.animate('level', -1)
-}
-
-function enterFrame () {
+function EnterFrame () {
   if (!target) return
 
   var dx = target.x - this.x
