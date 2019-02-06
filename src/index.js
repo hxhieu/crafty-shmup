@@ -1,8 +1,9 @@
 import '../libs/crafty'
 import './maths'
-import { screen } from './sizes'
+import { screenSize } from './device'
 import { assets, generateSharedSprites } from './assets-loader'
-import { Player } from '@/ships/player'
+import { GuiManager } from '@/gui'
+import { PlayerYellowFighter } from '@/ships/player'
 
 Crafty.paths({
   images: 'assets/'
@@ -12,10 +13,12 @@ Crafty.load(assets, () => {
   console.log('Assets loaded!')
   generateSharedSprites()
   Crafty.init(
-    screen.w,
-    screen.h,
+    screenSize.w,
+    screenSize.h,
     document.getElementById('game')
   ).background('#000')
+
+  GuiManager.init()
 
   hello()
 }, progress => {
@@ -25,6 +28,6 @@ Crafty.load(assets, () => {
 })
 
 function hello () {
-  const player = new Player(80)
+  const player = new PlayerYellowFighter(80)
   console.log(player)
 }

@@ -1,5 +1,3 @@
-import { screen } from '@/sizes'
-
 // Local vars
 
 let bound
@@ -14,7 +12,6 @@ Crafty.c('FourwayBounded', {
   },
 
   fourwayBounded: function (speed, rect) {
-    rect = rect || screen
     bound = {
       left: 0,
       top: 0,
