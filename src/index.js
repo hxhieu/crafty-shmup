@@ -24,6 +24,6 @@ Crafty.load(assets, () => {
 })
 
 const hello = () => {
-  const player = new Player(5)
+  const player = new Player(80)
   console.log(player)
 }
