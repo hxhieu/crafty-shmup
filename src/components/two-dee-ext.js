@@ -12,7 +12,7 @@ Crafty.c('2DExt', {
 
   lookDirection: function (target) {
     target = target.normalize()
-    this.rotation = this._forward.angleBetween(target).toDeg()
+    this.rotation = forward.angleBetween(target).toDeg()
     forward = target
 
     return this

@@ -24,7 +24,7 @@ Crafty.load(assets, () => {
   console.error(err)
 })
 
-const hello = () => {
+function hello () {
   const player = new Player(80)
   console.log(player)
 }

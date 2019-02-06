@@ -63,9 +63,11 @@ export const generateSharedSprites = () => {
           [5, 0, 1, 1],
           [6, 0, 1, 1]
         ])
-        .reel('rotate', 150, [
-          [0, 1.5, 2, 1.5],
-          [2, 1.5, 2, 1.5]
+        .reel('rotateLeft', 150, [
+          [3, 0, 1, 1]
+        ])
+        .reel('rotateRight', 150, [
+          [1, 0, 1, 1]
         ])
         .animate('level', -1)
     }
@@ -78,9 +80,11 @@ export const generateSharedSprites = () => {
           [5, 1, 1, 1],
           [6, 1, 1, 1]
         ])
-        .reel('rotate', 150, [
-          [0, 1.5, 2, 1.5],
-          [2, 1.5, 2, 1.5]
+        .reel('rotateLeft', 150, [
+          [3, 1, 1, 1]
+        ])
+        .reel('rotateRight', 150, [
+          [1, 1, 1, 1]
         ])
         .animate('level', -1)
     }
@@ -93,9 +97,11 @@ export const generateSharedSprites = () => {
           [5, 2, 1, 1],
           [6, 2, 1, 1]
         ])
-        .reel('rotate', 150, [
-          [0, 1.5, 2, 1.5],
-          [2, 1.5, 2, 1.5]
+        .reel('rotateLeft', 150, [
+          [3, 2, 1, 1]
+        ])
+        .reel('rotateRight', 150, [
+          [1, 2, 1, 1]
         ])
         .animate('level', -1)
     }

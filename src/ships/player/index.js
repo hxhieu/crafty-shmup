@@ -1,14 +1,15 @@
 import '@/components/collider'
 import '@/components/four-way-bounded'
 import '@/components/move-rotate'
-import { screen, unit } from '@/sizes'
+import { screen } from '@/sizes'
+
+const ship = 'Yellow'
 
 // import PhotonShell from '../../projectiles/photon-shell';
-
 export class Player {
   constructor (speed) {
-    this._entity = Crafty.e('Sprite_PlayerGreen, Collider, CollisionProfilePlayer, FourwayBounded, MoveRotate')
-    const size = unit.w * 2
+    this._entity = Crafty.e(`Sprite_Player${ship}, Collider, CollisionProfilePlayer, FourwayBounded, MoveRotate`)
+    const size = 32
     this._entity.attr({ w: size, h: size, x: (screen.w - size) / 2, y: (screen.h - size) / 2 })
     this._entity.fourwayBounded(speed, screen)
     this._entity.bind('KeyDown', e => {
@@ -17,8 +18,10 @@ export class Player {
         nw.App.closeAllWindows()
       }
     })
+    this._entity.collision([8, 8, 8, 24, 24, 24, 24, 8])
+    this._entity.toggleHitbox(true)
 
-    // this._entity.lookDirection(new Crafty.math.Vector2D(1, 1))
+    // this._entity.lookDirection(new Crafty.math.Vector2D(0, 1))
 
     // var options = {
     //   maxParticles: 150,
