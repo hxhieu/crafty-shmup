@@ -1,21 +1,34 @@
 export const assets = {
   sprites: {
-    'SCHMUP_Player.png': {
+    // Player
+    'Player_Unit.png': {
       tile: 32,
       tileh: 32,
       map: {
-        PlayerRedSprite: [5, 0, 1, 1],
-        PlayerGreenSprite: [5, 1, 1, 1],
-        PlayerYellowSprite: [5, 2, 1, 1]
+        PlayerRedSprite: [4, 0, 1, 1],
+        PlayerGreenSprite: [4, 1, 1, 1],
+        PlayerYellowSprite: [4, 2, 1, 1]
       }
     },
-    'SCHMUP_Projectiles.png': {
+    'Player_Projectile.png': {
       tile: 16,
       tileh: 16,
       map: {
-        VulcanProjectileSprite1: [0, 0, 1, 1]
+        VulcanProjectileSprite1: [3, 0, 1, 1]
       }
     },
+
+    // Enemy
+    'Enemies_Unit.png': {
+      tile: 32,
+      tileh: 32,
+      map: {
+        EnemyBoss01Sprite: [0, 0, 1, 1],
+        EnemyBoss02Sprite: [10, 0, 1, 1]
+      }
+    },
+
+    // Random
     'ships_human.png': {
       tile: 32,
       tileh: 32,
@@ -67,8 +80,8 @@ export const generateSharedSprites = () => {
     init: function () {
       this.requires('Canvas, SpriteAnimation, PlayerRedSprite')
         .reel('level', 150, [
-          [5, 0, 1, 1],
-          [6, 0, 1, 1]
+          [4, 0, 1, 1],
+          [5, 0, 1, 1]
         ])
         .reel('rotateLeft', 150, [
           [3, 0, 1, 1]
@@ -84,8 +97,8 @@ export const generateSharedSprites = () => {
     init: function () {
       this.requires('Canvas, SpriteAnimation, PlayerGreenSprite')
         .reel('level', 150, [
-          [5, 1, 1, 1],
-          [6, 1, 1, 1]
+          [4, 1, 1, 1],
+          [5, 1, 1, 1]
         ])
         .reel('rotateLeft', 150, [
           [3, 1, 1, 1]
@@ -101,8 +114,8 @@ export const generateSharedSprites = () => {
     init: function () {
       this.requires('Canvas, SpriteAnimation, PlayerYellowSprite')
         .reel('level', 150, [
-          [5, 2, 1, 1],
-          [6, 2, 1, 1]
+          [4, 2, 1, 1],
+          [5, 2, 1, 1]
         ])
         .reel('rotateLeft', 150, [
           [3, 2, 1, 1]
@@ -111,6 +124,39 @@ export const generateSharedSprites = () => {
           [1, 2, 1, 1]
         ])
         .animate('level', -1)
+    }
+  })
+
+  Crafty.c('Sprite_EnemyBoss01', {
+    init: function () {
+      this.requires('Canvas, SpriteAnimation, EnemyBoss01Sprite')
+        .reel('default', 750, [
+          [1, 0, 1, 1],
+          [0, 0, 1, 1],
+          [2, 0, 1, 1],
+          [3, 0, 1, 1]
+        ])
+        // .reel('explode', 500, [
+        //   [0, 0.5, 1, 1],
+        //   [1, 0.5, 1, 1],
+        //   [2, 0.5, 1, 1],
+        //   [3, 0.5, 1, 1],
+        //   [4, 0.5, 1, 1]
+        // ])
+        .animate('default', -1)
+    }
+  })
+
+  Crafty.c('Sprite_EnemyBoss02', {
+    init: function () {
+      this.requires('Canvas, SpriteAnimation, EnemyBoss02Sprite')
+        .reel('default', 750, [
+          [10, 0, 1, 1],
+          [11, 0, 1, 1],
+          [12, 0, 1, 1],
+          [13, 0, 1, 1]
+        ])
+        .animate('default', -1)
     }
   })
 

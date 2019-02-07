@@ -4,6 +4,7 @@ import { screenSize } from './device'
 import { assets, generateSharedSprites } from './assets-loader'
 import { GuiManager } from '@/gui'
 import { PlayerYellowFighter } from '@/ships/player'
+import { YellowCrabBoss, BlueSucklingBoss } from '@/ships/enemies'
 
 Crafty.paths({
   images: 'assets/'
@@ -28,6 +29,8 @@ Crafty.load(assets, () => {
 })
 
 function hello () {
-  const player = new PlayerYellowFighter(80)
-  console.log(player)
+  /* eslint-disable no-new */
+  new PlayerYellowFighter(80)
+  new YellowCrabBoss()
+  new BlueSucklingBoss()
 }
