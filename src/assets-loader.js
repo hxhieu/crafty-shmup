@@ -13,7 +13,7 @@ export const assets = {
       tile: 16,
       tileh: 16,
       map: {
-        VulcanProjectileSprite1: [0, 2, 1, 1]
+        VulcanProjectileSprite1: [0, 0, 1, 1]
       }
     },
     'ships_human.png': {

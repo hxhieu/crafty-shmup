@@ -1,6 +1,7 @@
 import { keypad } from '@/device'
 
 // Local vars
+let fireTimer
 
 let ProjectileClass
 
@@ -31,18 +32,46 @@ function EnterFrame () {
 
 }
 
-function startFire () {
-  const { x, y } = this.getCentrePos()
-  const proj = new ProjectileClass({
+function spawnProjectiles (pos) {
+  const { x, y } = pos
+  // const forward = this.getForward()
+  // console.log(forward)
+  /* eslint-disable no-new */
+  new ProjectileClass({
+    x: x + 4,
+    y,
+    forward: new Crafty.math.Vector2D(0, -1)
+  })
+
+  new ProjectileClass({
+    x: x - 4,
+    y,
+    forward: new Crafty.math.Vector2D(0, -1)
+  })
+
+  new ProjectileClass({
     x,
     y,
-    forward: this.getForward()
+    forward: new Crafty.math.Vector2D(-1, -1)
   })
-  console.log(proj)
+
+  new ProjectileClass({
+    x,
+    y,
+    forward: new Crafty.math.Vector2D(1, -1)
+  })
+}
+
+function startFire () {
+  stopFire()
+  // spawnProjectiles(this.getCentrePos())
+  fireTimer = setInterval(() => {
+    spawnProjectiles(this.getCentrePos())
+  }, 300)
 }
 
 function stopFire () {
-  console.log('Stop fire')
+  clearInterval(fireTimer)
 }
 
 function KeyDown (e) {

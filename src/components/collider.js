@@ -17,8 +17,8 @@ Crafty.c('Collider', {
   getCentrePos: function () {
     var offset = this.getCentre()
     return new Crafty.math.Vector2D(
-      offset.x + this.x,
-      offset.y + this.y
+      offset.x / 2 + this.x,
+      offset.y / 2 + this.y
     )
   },
 
