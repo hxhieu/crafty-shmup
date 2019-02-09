@@ -30,4 +30,9 @@ Crafty.c('Collider', {
     if (showHitBox) { this.addComponent('WiredHitBox') } else this.removeComponent('WiredHitBox')
     return this
   }
+
+  // Debug
+  // init: function () {
+  //   this.toggleHitbox(true)
+  // }
 })

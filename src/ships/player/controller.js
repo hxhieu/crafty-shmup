@@ -67,7 +67,7 @@ function spawnProjectiles (pos) {
 
 function startFire () {
   stopFire()
-  // spawnProjectiles(this.getCentrePos())
+  spawnProjectiles(this.getCentrePos())
   fireTimer = setInterval(() => {
     spawnProjectiles(this.getCentrePos())
   }, 300)

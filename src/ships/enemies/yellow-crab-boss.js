@@ -1,8 +1,9 @@
-import '@/components/collider'
+import { EnemyBase } from './base'
 
-export class YellowCrabBoss {
+export class YellowCrabBoss extends EnemyBase {
   constructor () {
-    this._entity = Crafty.e(`Sprite_EnemyBoss01, Collider, CollisionProfileEnemy`)
+    super('Sprite_EnemyBoss01')
     this._entity.attr({ x: 160, y: 20 })
+    this._entity.setStructure(100)
   }
 }

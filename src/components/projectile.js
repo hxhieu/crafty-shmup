@@ -1,4 +1,5 @@
 let impact
+let pow
 
 Crafty.c('Projectile', {
   required: 'Collision',
@@ -8,8 +9,9 @@ Crafty.c('Projectile', {
     HitOff
   },
 
-  setProjectile: function (profile, impactEffect) {
+  setProjectile: function (profile, power, impactEffect) {
     impact = impactEffect
+    pow = power
     this.addComponent(profile)
     return this
   }
@@ -28,7 +30,9 @@ function HitOn (hitData) {
 
   if (hitData && hitData.length > 0) {
     var other = hitData[0].obj
-    if (other.hasOwnProperty('structure')) { console.log(other) }
+    if (other.has('Structure')) {
+      other.takeDamage(pow)
+    }
   }
 }
 
