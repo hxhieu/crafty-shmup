@@ -11,5 +11,6 @@ Crafty.c('MoveForward', {
     const velocity = this.velocity()
     velocity.x = forward.x * speed
     velocity.y = forward.y * speed
+    return this
   }
 })

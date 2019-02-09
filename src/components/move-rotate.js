@@ -5,13 +5,13 @@ import './velocity'
 Crafty.c('MoveRotate', {
   required: 'Velocity, SpriteAnimation',
   events: {
-    'EnterFrame': enterFrame
+    EnterFrame
   }
 })
 
 // Helpers
 
-function enterFrame () {
+function EnterFrame () {
   const velocity = this.getVelocity()
   const forward = this.getForward()
   const currentReel = this.getReel().id

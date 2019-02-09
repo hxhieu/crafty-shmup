@@ -11,7 +11,7 @@ let velocity = new Crafty.math.Vector2D()
 Crafty.c('Velocity', {
   required: '2DExt, Fourway',
   events: {
-    EnterFrame: enterFrame
+    EnterFrame
   },
   getVelocity: function () {
     return velocity
@@ -20,7 +20,7 @@ Crafty.c('Velocity', {
 
 // Helpers
 
-function enterFrame () {
+function EnterFrame () {
   velocity = new Crafty.math.Vector2D(this.x - lastX, this.y - lastY)
   lastX = this.x
   lastY = this.y

@@ -8,7 +8,7 @@ Crafty.c('FourwayBounded', {
   required: 'Fourway',
 
   events: {
-    EnterFrame: enterFrame
+    EnterFrame
   },
 
   fourwayBounded: function (speed, rect) {
@@ -19,12 +19,13 @@ Crafty.c('FourwayBounded', {
       bottom: rect.h - this.h
     }
     this.fourway(speed, { normalize: true })
+    return this
   }
 })
 
 // Helpers
 
-function enterFrame () {
+function EnterFrame () {
   if (this.x <= bound.left) {
     this.x = 0
   }
