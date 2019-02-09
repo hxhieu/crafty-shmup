@@ -1,10 +1,9 @@
 import { keypad } from '@/device'
-import { CollisionProfiles } from '@/physics'
+import { CollisionProfiles } from '@/constants'
 
 // Local vars
-let fireTimer
-
-let ProjectileClass
+const fireTimer = new WeakMap()
+const projectileClass = new WeakMap()
 
 // Component definition
 
@@ -20,8 +19,8 @@ Crafty.c('PlayerController', {
   init: function () {
 
   },
-  setProjectileClass: function (projectileClass) {
-    ProjectileClass = projectileClass
+  setProjectileClass: function (projectile) {
+    projectileClass.set(this, projectile)
   },
   startFire,
   stopFire
@@ -33,8 +32,9 @@ function EnterFrame () {
 
 }
 
-function spawnProjectiles (pos) {
-  const { x, y } = pos
+function spawnProjectiles (entity) {
+  const { x, y } = entity.getCentrePos()
+  const ProjectileClass = projectileClass.get(entity)
   // const forward = this.getForward()
   // console.log(forward)
   /* eslint-disable no-new */
@@ -67,14 +67,14 @@ function spawnProjectiles (pos) {
 
 function startFire () {
   stopFire()
-  spawnProjectiles(this.getCentrePos())
-  fireTimer = setInterval(() => {
-    spawnProjectiles(this.getCentrePos())
-  }, 300)
+  spawnProjectiles(this)
+  fireTimer.set(this, setInterval(() => {
+    spawnProjectiles(this)
+  }, 300))
 }
 
 function stopFire () {
-  clearInterval(fireTimer)
+  clearInterval(fireTimer.get(this))
 }
 
 function KeyDown (e) {
@@ -89,6 +89,11 @@ function KeyUp (e) {
   switch (e.key) {
     case keypad.Y: {
       this.stopFire()
+      break
+    }
+    case Crafty.keys.F: {
+      this.toggleHitbox(true)
+      break
     }
   }
 }

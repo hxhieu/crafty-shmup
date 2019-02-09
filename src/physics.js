@@ -1,8 +1,4 @@
-const CollisionProfiles = {
-  player: 'CollisionProfilePlayer',
-  enemy: 'CollisionProfileEnemy',
-  solid: 'CollisionProfileSolid'
-}
+import { CollisionProfiles } from './constants'
 
 class PhysicsManager {
   static init () {
@@ -36,6 +32,5 @@ class PhysicsManager {
 }
 
 export {
-  CollisionProfiles,
   PhysicsManager
 }
