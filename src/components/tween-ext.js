@@ -1,5 +1,5 @@
 // Local vars
-let isFlashing
+const isFlashing = new WeakMap()
 
 // Component definition
 
@@ -11,7 +11,7 @@ Crafty.c('TweenExt', {
   },
   tweenflash: function () {
     this.tween({ alpha: 0.5 }, 200)
-    isFlashing = true
+    isFlashing.set(this, true)
     return this
   }
 })
@@ -19,8 +19,8 @@ Crafty.c('TweenExt', {
 // Helpers
 
 function TweenEnd () {
-  if (isFlashing) {
-    isFlashing = false
+  if (isFlashing.get(this)) {
+    isFlashing.set(this, false)
     this.attr({ alpha: 1 })
   }
 }

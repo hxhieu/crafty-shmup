@@ -1,7 +1,7 @@
 import { keypad } from '@/device'
 import '@/gui/main-menu'
 
-let mainMenu
+const mainMenu = new WeakMap()
 
 export class GuiManager {
   static init () {
@@ -13,11 +13,11 @@ export class GuiManager {
 function keyUp (e) {
   switch (e.key) {
     case keypad.MENU: {
-      if (!mainMenu) {
-        mainMenu = Crafty.e('UILayer, MainMenu')
+      if (!mainMenu.get(this)) {
+        mainMenu.set(this, Crafty.e('UILayer, MainMenu'))
       } else {
-        mainMenu.hide()
-        mainMenu = undefined
+        mainMenu.get(this).hide()
+        mainMenu.set(this, undefined)
       }
 
       break

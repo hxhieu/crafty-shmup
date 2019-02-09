@@ -2,9 +2,9 @@ import './two-dee-ext'
 
 // Local vars
 
-let lastX = 0
-let lastY = 0
-let velocity = new Crafty.math.Vector2D()
+const lastX = new WeakMap()
+const lastY = new WeakMap()
+const velocity = new WeakMap()
 
 // Component definition
 
@@ -14,14 +14,14 @@ Crafty.c('Velocity', {
     EnterFrame
   },
   getVelocity: function () {
-    return velocity
+    return velocity.get(this) || new Crafty.math.Vector2D()
   }
 })
 
 // Helpers
 
 function EnterFrame () {
-  velocity = new Crafty.math.Vector2D(this.x - lastX, this.y - lastY)
-  lastX = this.x
-  lastY = this.y
+  velocity.set(this, new Crafty.math.Vector2D(this.x - lastX.get(this), this.y - lastY.get(this)))
+  lastX.set(this, this.x)
+  lastY.set(this, this.y)
 }

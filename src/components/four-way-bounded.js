@@ -1,6 +1,6 @@
 // Local vars
 
-let bound
+const bound = new WeakMap()
 
 // Component definition
 
@@ -12,12 +12,12 @@ Crafty.c('FourwayBounded', {
   },
 
   fourwayBounded: function (speed, rect) {
-    bound = {
+    bound.set(this, {
       left: 0,
       top: 0,
       right: rect.w - this.w,
       bottom: rect.h - this.h
-    }
+    })
     this.fourway(speed, { normalize: true })
     return this
   }
@@ -26,16 +26,17 @@ Crafty.c('FourwayBounded', {
 // Helpers
 
 function EnterFrame () {
-  if (this.x <= bound.left) {
+  const rect = bound.get(this)
+  if (this.x <= rect.left) {
     this.x = 0
   }
-  if (this.x >= bound.right) {
-    this.x = bound.right
+  if (this.x >= rect.right) {
+    this.x = rect.right
   }
-  if (this.y >= bound.bottom) {
-    this.y = bound.bottom
+  if (this.y >= rect.bottom) {
+    this.y = rect.bottom
   }
-  if (this.y <= bound.top) {
-    this.y = bound.top
+  if (this.y <= rect.top) {
+    this.y = rect.top
   }
 }

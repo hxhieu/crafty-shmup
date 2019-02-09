@@ -1,5 +1,5 @@
-let impact
-let pow
+const impact = new WeakMap()
+const pow = new WeakMap()
 
 Crafty.c('Projectile', {
   required: 'Collision',
@@ -10,16 +10,17 @@ Crafty.c('Projectile', {
   },
 
   setProjectile: function (profile, power, impactEffect) {
-    impact = impactEffect
-    pow = power
+    impact.set(this, impactEffect)
+    pow.set(this, power)
     this.addComponent(profile)
     return this
   }
 })
 
 function HitOn (hitData) {
-  if (impact) {
-    Crafty.e(impact)
+  const impactEffect = impact.get(this)
+  if (impactEffect) {
+    Crafty.e(impactEffect)
       .attr({
         x: this.x,
         y: this.y
@@ -31,7 +32,7 @@ function HitOn (hitData) {
   if (hitData && hitData.length > 0) {
     var other = hitData[0].obj
     if (other.has('Structure')) {
-      other.takeDamage(pow)
+      other.takeDamage(pow.get(this))
     }
   }
 }

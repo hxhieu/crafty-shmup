@@ -16,7 +16,7 @@ Crafty.c('MainMenu', {
 
   init: function () {
     this.attr({ x: 100, y: 100, w: 100, h: 20 })
-      .text('Press Start to exit')
+      .text('Press Start to exit, Select to reset')
       .textColor('#FFFFFF')
   },
 
@@ -34,6 +34,9 @@ function keyUp (e) {
       Crafty.stop(true)
       nw.App.closeAllWindows()
       break
+    }
+    case keypad.SELECT: {
+      window.location.reload()
     }
   }
   console.log(e.key)

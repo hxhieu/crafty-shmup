@@ -1,6 +1,6 @@
 import './two-dee-ext'
 
-let showHitBox = false
+const showHitBox = new WeakMap()
 
 Crafty.c('Collider', {
   // Umm required Color for Canvas?...
@@ -26,8 +26,8 @@ Crafty.c('Collider', {
   },
 
   toggleHitbox: function (show) {
-    showHitBox = show
-    if (showHitBox) { this.addComponent('WiredHitBox') } else this.removeComponent('WiredHitBox')
+    showHitBox.set(this, show)
+    if (show) { this.addComponent('WiredHitBox') } else this.removeComponent('WiredHitBox')
     return this
   }
 
