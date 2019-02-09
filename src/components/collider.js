@@ -1,5 +1,4 @@
 import './two-dee-ext'
-import { CollisionProfiles } from '../constants'
 
 let showHitBox = false
 
@@ -31,33 +30,4 @@ Crafty.c('Collider', {
     if (showHitBox) { this.addComponent('WiredHitBox') } else this.removeComponent('WiredHitBox')
     return this
   }
-})
-
-/** * Collision Profiles ***/
-
-Crafty.c('CollisionProfilePlayer', {
-  required: 'Collision',
-  init: function () {
-    this.checkHits('CollisionProfileEnemy, CollisionProfileSolid')
-  },
-
-  collisionProfile: CollisionProfiles.player
-})
-
-Crafty.c('CollisionProfileEnemy', {
-  required: 'Collision',
-  init: function () {
-    this.checkHits('CollisionProfilePlayer, CollisionProfileSolid')
-  },
-
-  collisionProfile: CollisionProfiles.enemy
-})
-
-Crafty.c('CollisionProfileSolid', {
-  required: 'Collision',
-  init: function () {
-    this.checkHits('CollisionProfileEnemy, CollisionProfilePlayer, CollisionProfileSolid')
-  },
-
-  collisionProfile: CollisionProfiles.solid
 })

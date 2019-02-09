@@ -3,6 +3,7 @@ import './maths'
 import { screenSize } from './device'
 import { assets, generateSharedSprites } from './assets-loader'
 import { GuiManager } from '@/gui'
+import { PhysicsManager } from '@/physics'
 import { PlayerYellowFighter } from '@/ships/player'
 import { YellowCrabBoss, BlueSucklingBoss } from '@/ships/enemies'
 
@@ -20,6 +21,7 @@ Crafty.load(assets, () => {
   ).background('#000')
 
   GuiManager.init()
+  PhysicsManager.init()
 
   hello()
 }, progress => {

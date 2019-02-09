@@ -1,4 +1,5 @@
 import { keypad } from '@/device'
+import { CollisionProfiles } from '@/physics'
 
 // Local vars
 let fireTimer
@@ -40,26 +41,28 @@ function spawnProjectiles (pos) {
   new ProjectileClass({
     x: x + 4,
     y,
-    forward: new Crafty.math.Vector2D(0, -1)
+    forward: new Crafty.math.Vector2D(0, -1),
+    profile: CollisionProfiles.player
   })
 
   new ProjectileClass({
     x: x - 4,
     y,
-    forward: new Crafty.math.Vector2D(0, -1)
+    forward: new Crafty.math.Vector2D(0, -1),
+    profile: CollisionProfiles.player
   })
 
-  new ProjectileClass({
-    x,
-    y,
-    forward: new Crafty.math.Vector2D(-1, -1)
-  })
+  // new ProjectileClass({
+  //   x,
+  //   y,
+  //   forward: new Crafty.math.Vector2D(-1, -1)
+  // })
 
-  new ProjectileClass({
-    x,
-    y,
-    forward: new Crafty.math.Vector2D(1, -1)
-  })
+  // new ProjectileClass({
+  //   x,
+  //   y,
+  //   forward: new Crafty.math.Vector2D(1, -1)
+  // })
 }
 
 function startFire () {

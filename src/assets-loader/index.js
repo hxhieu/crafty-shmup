@@ -59,6 +59,13 @@ const generateSharedSprites = () => {
     safeAnimate: function (reel, loop) {
       if (!this.isPlaying(reel)) this.animate(reel, loop)
       return this
+    },
+
+    destroyOnEnd: function () {
+      this.bind('AnimationEnd', function () {
+        this.destroy()
+      })
+      return this
     }
   })
 

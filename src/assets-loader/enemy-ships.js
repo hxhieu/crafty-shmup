@@ -1,7 +1,7 @@
 export default () => {
   Crafty.c('Sprite_EnemyBoss01', {
     init: function () {
-      this.requires('Canvas, SpriteAnimation, EnemyBoss01Sprite')
+      this.requires('Canvas, SpriteAnimationExt, EnemyBoss01Sprite')
         .reel('default', 750, [
           [1, 0, 1, 1],
           [0, 0, 1, 1],
@@ -21,7 +21,7 @@ export default () => {
 
   Crafty.c('Sprite_EnemyBoss02', {
     init: function () {
-      this.requires('Canvas, SpriteAnimation, EnemyBoss02Sprite')
+      this.requires('Canvas, SpriteAnimationExt, EnemyBoss02Sprite')
         .reel('default', 750, [
           [10, 0, 1, 1],
           [11, 0, 1, 1],
