@@ -24,12 +24,14 @@ const assets = {
     },
 
     // Enemy
-    'Enemies_Unit.png': {
-      tile: 32,
-      tileh: 32,
+    'Enemies_Unit_Boss.png': {
+      tile: 64,
+      tileh: 64,
       map: {
         EnemyBoss01Sprite: [0, 0, 1, 1],
-        EnemyBoss02Sprite: [10, 0, 1, 1]
+        EnemyBoss02Sprite: [5, 0, 1, 1],
+        ExplosionBossYellowCrabSprite: [0, 1, 1, 1],
+        ExplosionBossBlueSucklingSprite: [5, 1, 1, 1]
       }
     },
 
@@ -54,7 +56,11 @@ const assets = {
 const generateSharedSprites = () => {
   // Some helpers
   Crafty.c('SpriteAnimationExt', {
-    required: 'SpriteAnimation',
+    required: '2D, SpriteAnimation',
+
+    init: function () {
+      this.origin('center')
+    },
 
     safeAnimate: function (reel, loop) {
       if (!this.isPlaying(reel)) this.animate(reel, loop)

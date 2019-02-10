@@ -2,7 +2,7 @@ const impact = new WeakMap()
 const pow = new WeakMap()
 
 Crafty.c('Projectile', {
-  required: 'Collision',
+  required: 'Collider',
 
   events: {
     HitOn,

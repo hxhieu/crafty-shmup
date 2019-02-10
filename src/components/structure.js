@@ -6,6 +6,7 @@ const maxArmour = new WeakMap()
 const currentArmour = new WeakMap()
 const maxShield = new WeakMap()
 const currentShield = new WeakMap()
+const explosionEffect = new WeakMap()
 
 // Component definition
 
@@ -29,14 +30,15 @@ Crafty.c('Structure', {
 
 // Helpers
 
-function setStructure (armour, shield) {
+function setStructure (armour, shield, explode) {
   maxArmour.set(this, armour || 0)
   currentArmour.set(this, armour || 0)
   maxShield.set(this, shield || 0)
   currentShield.set(this, shield || 0)
+  explosionEffect.set(this, explode)
 }
 
-function takeDamage (amount) {
+async function takeDamage (amount) {
   let shield = currentShield.get(this)
   shield -= amount
   currentShield.set(this, shield)
@@ -47,8 +49,21 @@ function takeDamage (amount) {
     armour += shield
     currentShield.set(this, 0)
     if (armour <= 0) {
-      this.destroy()
+      // Mark as death
+      this.removeComponent(this.collisionProfile)
       this.trigger(Events.STRUCTURE_DESTROY)
+
+      if (this.has('DeathSequence')) {
+        await this.activateDeathSequence()
+        const explode = explosionEffect.get(this)
+        if (explode) {
+          const { x, y } = this
+          Crafty.e(explode).attr({ x, y })
+        }
+        this.destroy()
+        return this
+      }
+
       return this
     }
     currentArmour.set(this, armour)

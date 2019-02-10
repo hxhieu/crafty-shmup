@@ -1,5 +1,5 @@
 import '../libs/crafty'
-import './maths'
+import './utils/maths'
 import { screenSize } from './device'
 import { assets, generateSharedSprites } from './assets-loader'
 import { GuiManager } from '@/gui'

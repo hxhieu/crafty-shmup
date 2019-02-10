@@ -39,15 +39,15 @@ function spawnProjectiles (entity) {
   // console.log(forward)
   /* eslint-disable no-new */
   new ProjectileClass({
-    x: x + 4,
-    y,
+    x: x - 4,
+    y: y - 8,
     forward: new Crafty.math.Vector2D(0, -1),
     profile: CollisionProfiles.player
   })
 
   new ProjectileClass({
-    x: x - 4,
-    y,
+    x: x - 12,
+    y: y - 8,
     forward: new Crafty.math.Vector2D(0, -1),
     profile: CollisionProfiles.player
   })
