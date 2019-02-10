@@ -33,6 +33,17 @@ Crafty.load(assets, () => {
 function hello () {
   /* eslint-disable no-new */
   new PlayerYellowFighter(80)
-  new YellowCrabBoss()
-  new BlueSucklingBoss()
+  for (let i = 0; i < 5; i++) {
+    const boss1 = new YellowCrabBoss()
+    boss1._entity.attr({
+      x: Crafty.math.randomInt(0, screenSize.w),
+      y: Crafty.math.randomInt(0, screenSize.h - 100)
+    })
+    console.log(boss1)
+    const boss2 = new BlueSucklingBoss()
+    boss2._entity.attr({
+      x: Crafty.math.randomInt(0, screenSize.w),
+      y: Crafty.math.randomInt(0, screenSize.h - 100)
+    })
+  }
 }
