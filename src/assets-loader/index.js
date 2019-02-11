@@ -36,15 +36,14 @@ const assets = {
     },
 
     // Scene
-    'parallax-space-sheet.png': {
-      tile: 320,
-      tileh: 240,
+    'Parallax_Space_Sheet.png': {
+      tile: 48,
+      tileh: 48,
       map: {
-        ParallaxSpaceBgSprite: [0, 0, 1, 1],
-        ParallaxSpaceBigPlanetSprite: [1, 0, 1, 1],
+        ParallaxSpaceBigPlanetSprite: [0, 0, 2, 2],
         ParallaxSpaceFarPlanetSprite: [2, 0, 1, 1],
-        ParallaxSpaceRingPlanetSprite: [0, 1, 1, 1],
-        ParallaxSpaceStarsSprite: [1, 1, 1, 1]
+        ParallaxSpaceStars1Sprite: [3, 0, 2, 2],
+        ParallaxSpaceStars2Sprite: [5, 0, 2, 2]
       }
     },
 

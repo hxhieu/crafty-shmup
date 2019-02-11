@@ -1,17 +1,19 @@
 import '@/components/timed-scroller'
-import '@/components/tween-ext'
+import '@/components/self-destroy'
 import { screenSize } from '../device'
 
 // Helpers
 export class ParallaxSpaceScene {
   constructor () {
-    this.bg = Crafty.e('2DExt, Canvas, SpriteAnimationExt, ParallaxSpaceBgSprite').attr({ alpha: 0.95 })
-    this.farPlanets = Crafty.e('2DExt, Canvas, SpriteAnimationExt, ParallaxSpaceFarPlanetSprite, TimedScroller')
-    // this.ringPlanets = Crafty.e('2DExt, Canvas, SpriteAnimationExt, ParallaxSpaceRingPlanetSprite')
-    this.bigPlanet = Crafty.e('2DExt, Canvas, SpriteAnimationExt, ParallaxSpaceBigPlanetSprite, TimedScroller')
+    Crafty.createLayer('BGLayer', 'DOM', { scaleResponse: 0, xResponse: 0, yResponse: 0, z: 0 })
+
+    Crafty.background('url(assets/Parallax_Space_BG.png)')
+    this.farPlanets = Crafty.e('2DExt, BGLayer, ParallaxSpaceFarPlanetSprite, TimedScroller')
+    // // this.ringPlanets = Crafty.e('2DExt, Canvas, SpriteAnimationExt, ParallaxSpaceRingPlanetSprite')
+    this.bigPlanet = Crafty.e('2DExt, BGLayer, ParallaxSpaceBigPlanetSprite, TimedScroller')
 
     this.bigPlanet
-      .attr({ x: 0, y: -240, w: screenSize.w * 1.5, h: screenSize.h * 1.5 })
+      .attr({ x: 120, y: -40, w: 96 * 1.5, h: 96 * 1.5 })
       .setTimedScroll({
         speed: 0.01
       })
@@ -21,24 +23,30 @@ export class ParallaxSpaceScene {
     })
 
     this.buildStarField()
+    this.buildStarField()
+    this.starsGenerator()
+  }
+
+  starsGenerator () {
+    const rand = Crafty.math.randomInt(400, 10000)
+    setTimeout(() => {
+      this.buildStarField()
+      this.starsGenerator()
+    }, rand)
   }
 
   buildStarField () {
-    for (let i = 0; i < 2; i++) {
-      const stars = Crafty.e('2DExt, Canvas, SpriteAnimationExt, ParallaxSpaceStarsSprite, TimedScroller')
-      const x = Crafty.math.randomInt(-screenSize.w / 2, screenSize.w / 2)
-      const y = Crafty.math.randomInt(-screenSize.h / 2, screenSize.h / 2)
-      const rotation = Crafty.math.randomInt(0, 360)
-      const alpha = Crafty.math.randomNumber(0.8, 1)
-      const speed = Crafty.math.randomNumber(0.01, 0.2)
+    const type = Crafty.math.randomInt(1, 2)
+    const stars = Crafty.e(`2DExt, BGLayer, ParallaxSpaceStars${type}Sprite, TimedScroller`)
+    const x = Crafty.math.randomInt(0, screenSize.w)
+    const y = Crafty.math.randomInt(-150, -50)
+    const rotation = Crafty.math.randomInt(0, 360)
+    const alpha = Crafty.math.randomNumber(0.6, 1)
+    const speed = Crafty.math.randomNumber(0.1, 0.4)
 
-      stars
-        .origin('center')
-        .attr({ x, y, alpha, rotation })
-        .setTimedScroll({
-          speed,
-          repeat: true
-        })
-    }
+    stars
+      .origin('center')
+      .attr({ x, y, alpha, rotation })
+      .setTimedScroll({ speed })
   }
 }

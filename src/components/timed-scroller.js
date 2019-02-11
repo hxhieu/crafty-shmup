@@ -1,18 +1,17 @@
 import '@/components/two-dee-ext'
+import { screenSize } from '@/device'
 
 Crafty.c('TimedScroller', {
   required: '2DExt',
   _speed: 0,
-  _repeat: false,
 
   events: {
     EnterFrame
   },
 
   setTimedScroll: function (opts) {
-    const { speed, repeat } = opts
+    const { speed } = opts
     this._speed = speed
-    this._repeat = repeat || false
     return this
   }
 })
@@ -24,7 +23,7 @@ function EnterFrame () {
 
   this.y += this._speed
 
-  if (this._repeat && this.y >= this.h) {
-    this.y = -this.h
+  if (this.y > screenSize.h) {
+    this.destroy()
   }
 }
