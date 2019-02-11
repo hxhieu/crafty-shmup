@@ -70,7 +70,7 @@ async function takeDamage (amount) {
   }
 
   // If we got this far then we survived!
-  this.tweenflash()
+  this.tweenFlash()
   this.trigger(Events.STRUCTURE_TAKE_DAMAGE, amount)
 
   return this

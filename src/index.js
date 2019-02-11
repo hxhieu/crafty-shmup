@@ -6,6 +6,7 @@ import { GuiManager } from '@/gui'
 import { PhysicsManager } from '@/physics'
 import { PlayerYellowFighter } from '@/ships/player'
 import { YellowCrabBoss, BlueSucklingBoss } from '@/ships/enemies'
+import { ParallaxSpaceScene } from './scenes'
 
 Crafty.paths({
   images: 'assets/'
@@ -18,7 +19,7 @@ Crafty.load(assets, () => {
     screenSize.w,
     screenSize.h,
     document.getElementById('game')
-  ).background('#000')
+  ).background('#fff')
 
   GuiManager.init()
   PhysicsManager.init()
@@ -32,8 +33,9 @@ Crafty.load(assets, () => {
 
 function hello () {
   /* eslint-disable no-new */
+  new ParallaxSpaceScene()
   new PlayerYellowFighter(80)
-  for (let i = 0; i < 5; i++) {
+  for (let i = 0; i < 1; i++) {
     const boss1 = new YellowCrabBoss()
     boss1._entity.attr({
       x: Crafty.math.randomInt(0, screenSize.w),

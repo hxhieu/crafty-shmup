@@ -9,8 +9,10 @@ Crafty.c('TweenExt', {
   events: {
     TweenEnd
   },
-  tweenflash: function () {
-    this.tween({ alpha: 0.5 }, 200)
+  tweenFlash: function ({ alpha, time } = {}) {
+    alpha = alpha || 0.5
+    time = time || 200
+    this.tween({ alpha }, time)
     isFlashing.set(this, true)
     return this
   }

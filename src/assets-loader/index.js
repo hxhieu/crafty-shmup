@@ -35,6 +35,19 @@ const assets = {
       }
     },
 
+    // Scene
+    'parallax-space-sheet.png': {
+      tile: 320,
+      tileh: 240,
+      map: {
+        ParallaxSpaceBgSprite: [0, 0, 1, 1],
+        ParallaxSpaceBigPlanetSprite: [1, 0, 1, 1],
+        ParallaxSpaceFarPlanetSprite: [2, 0, 1, 1],
+        ParallaxSpaceRingPlanetSprite: [0, 1, 1, 1],
+        ParallaxSpaceStarsSprite: [1, 1, 1, 1]
+      }
+    },
+
     // Random
     'ships_human.png': {
       tile: 32,
