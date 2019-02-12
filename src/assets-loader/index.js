@@ -34,6 +34,14 @@ const assets = {
         ExplosionBossBlueSucklingSprite: [5, 1, 1, 1]
       }
     },
+    'Enemies_Unit_Regular.png': {
+      tile: 32,
+      tileh: 32,
+      map: {
+        EnemyPowerHostSprite: [10, 3, 1, 1],
+        ExplosionEnemyPowerHostSprite: [10, 2, 1, 1]
+      }
+    },
 
     // Scene
     'Parallax_Space_Sheet.png': {

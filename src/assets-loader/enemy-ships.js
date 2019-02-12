@@ -31,4 +31,17 @@ export default () => {
         .animate('default', -1)
     }
   })
+
+  Crafty.c('Sprite_EnemyPowerHost', {
+    init: function () {
+      this.requires('Canvas, SpriteAnimationExt, EnemyPowerHostSprite')
+        .reel('default', 250, [
+          [10, 3, 1, 1],
+          [11, 3, 1, 1],
+          [12, 3, 1, 1],
+          [13, 3, 1, 1]
+        ])
+        .animate('default', -1)
+    }
+  })
 }
