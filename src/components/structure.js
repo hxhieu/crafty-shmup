@@ -36,6 +36,7 @@ function setStructure (armour, shield, explode) {
   maxShield.set(this, shield || 0)
   currentShield.set(this, shield || 0)
   explosionEffect.set(this, explode)
+  return this
 }
 
 async function takeDamage (amount) {
@@ -55,18 +56,19 @@ async function takeDamage (amount) {
 
       if (this.has('DeathSequence')) {
         await this.activateDeathSequence()
-        const explode = explosionEffect.get(this)
-        if (explode) {
-          const { x, y } = this
-          Crafty.e(explode).attr({ x, y })
-        }
-        this.destroy()
-        return this
       }
 
+      const explode = explosionEffect.get(this)
+      if (explode) {
+        const { x, y } = this
+        Crafty.e(explode).attr({ x, y })
+      }
+
+      this.destroy()
       return this
     }
     currentArmour.set(this, armour)
+    return this
   }
 
   // If we got this far then we survived!
