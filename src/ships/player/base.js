@@ -13,7 +13,7 @@ export class PlayerBase {
     this._entity.attr({ w: size, h: size, x: (screenSize.w - size) / 2, y: screenSize.h - size })
     this._entity.fourwayBounded(speed, screenSize)
     this._entity.collision([8, 8, 8, 24, 24, 24, 24, 8])
-    this._entity.setProjectileClass(VulcanProjectile)
+    this._entity.setProjectile({ ProjectileClass: VulcanProjectile })
     // this._entity.lookDirection(new Crafty.math.Vector2D(0, 1))
     // this._entity.toggleHitbox(true)
 

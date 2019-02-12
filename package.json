@@ -15,7 +15,8 @@
     ]
   },
   "dependencies": {
-    "craftyjs": "^0.9.0"
+    "craftyjs": "^0.9.0",
+    "lodash.throttle": "^4.1.1"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",

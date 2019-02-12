@@ -1,9 +1,10 @@
+import throttle from 'lodash.throttle'
 import { keypad } from '@/device'
 import { CollisionProfiles } from '@/constants'
 
 // Local vars
 const fireTimer = new WeakMap()
-const projectileClass = new WeakMap()
+const throttleFire = new WeakMap()
 
 // Component definition
 
@@ -19,8 +20,18 @@ Crafty.c('PlayerController', {
   init: function () {
 
   },
-  setProjectileClass: function (projectile) {
-    projectileClass.set(this, projectile)
+
+  setProjectile: function (options) {
+    let defaultOptions = {
+      waveCount: 2,
+      perSecond: 2
+    }
+
+    defaultOptions = Object.assign(defaultOptions, options)
+
+    const { ProjectileClass, waveCount, perSecond } = defaultOptions
+    this.weaponOptions = { ProjectileClass, waveCount, perSecond }
+    throttleFire.set(this, throttle(fire.bind(this), 1000 / perSecond, { trailing: false }))
   },
   startFire,
   stopFire
@@ -32,9 +43,7 @@ function EnterFrame () {
 
 }
 
-function spawnProjectiles (entity) {
-  const { x, y } = entity.getCentrePos()
-  const ProjectileClass = projectileClass.get(entity)
+function spawnProjectiles ({ x, y, ProjectileClass }) {
   // const forward = this.getForward()
   // console.log(forward)
   /* eslint-disable no-new */
@@ -65,12 +74,25 @@ function spawnProjectiles (entity) {
   // })
 }
 
+function fire () {
+  const { x, y } = this.getCentrePos()
+  const { ProjectileClass, waveCount } = this.weaponOptions
+  spawnProjectiles({ x, y, ProjectileClass })
+  // Waves
+  for (let i = 1; i < waveCount; i++) {
+    setTimeout(() => {
+      spawnProjectiles({ x, y, ProjectileClass })
+    }, i * 100)
+  }
+}
+
 function startFire () {
   stopFire()
-  spawnProjectiles(this)
+  throttleFire.get(this)()
+  const { perSecond } = this.weaponOptions
   fireTimer.set(this, setInterval(() => {
-    spawnProjectiles(this)
-  }, 300))
+    fire.call(this, { wave: 2 })
+  }, 1000 / perSecond))
 }
 
 function stopFire () {
