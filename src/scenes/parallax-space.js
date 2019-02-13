@@ -7,7 +7,7 @@ export class ParallaxSpaceScene {
   constructor () {
     Crafty.createLayer('BGLayer', 'DOM', { scaleResponse: 0, xResponse: 0, yResponse: 0, z: 0 })
 
-    Crafty.background('url(assets/Parallax_Space_BG.png)')
+    // Crafty.background('url(assets/images/Parallax_Space_BG.png)')
     this.farPlanets = Crafty.e('2DExt, BGLayer, ParallaxSpaceFarPlanetSprite, TimedScroller')
     // // this.ringPlanets = Crafty.e('2DExt, Canvas, SpriteAnimationExt, ParallaxSpaceRingPlanetSprite')
     this.bigPlanet = Crafty.e('2DExt, BGLayer, ParallaxSpaceBigPlanetSprite, TimedScroller')

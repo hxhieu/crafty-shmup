@@ -2,31 +2,40 @@ import { CollisionProfiles } from './constants'
 
 class PhysicsManager {
   static init () {
-    Crafty.c(CollisionProfiles.player, {
+    Crafty.c(CollisionProfiles.PLAYER, {
       required: 'Collision',
       init: function () {
-        this.checkHits(`${CollisionProfiles.solid}, ${CollisionProfiles.enemy}`)
+        this.checkHits(`${CollisionProfiles.ENEMY}, ${CollisionProfiles.SOLID}`)
       },
 
-      collisionProfile: CollisionProfiles.player
+      collisionProfile: CollisionProfiles.PLAYER
     })
 
-    Crafty.c(CollisionProfiles.enemy, {
+    Crafty.c(CollisionProfiles.ENEMY, {
       required: 'Collision',
       init: function () {
-        this.checkHits(`${CollisionProfiles.solid}, ${CollisionProfiles.player}`)
+        this.checkHits(`${CollisionProfiles.PLAYER}, ${CollisionProfiles.SOLID}`)
       },
 
-      collisionProfile: CollisionProfiles.enemy
+      collisionProfile: CollisionProfiles.ENEMY
     })
 
-    Crafty.c(CollisionProfiles.solid, {
+    Crafty.c(CollisionProfiles.SOLID, {
       required: 'Collision',
       init: function () {
-        this.checkHits(`${CollisionProfiles.solid}, ${CollisionProfiles.enemy}, ${CollisionProfiles.player}`)
+        this.checkHits(`${CollisionProfiles.PLAYER}, ${CollisionProfiles.ENEMY}, ${CollisionProfiles.SOLID}`)
       },
 
-      collisionProfile: CollisionProfiles.solid
+      collisionProfile: CollisionProfiles.SOLID
+    })
+
+    Crafty.c(CollisionProfiles.LOOT, {
+      required: 'Collision',
+      init: function () {
+        this.checkHits(`${CollisionProfiles.PLAYER}`)
+      },
+
+      collisionProfile: CollisionProfiles.LOOT
     })
   }
 }

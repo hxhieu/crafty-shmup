@@ -1,21 +1,21 @@
 import '@/components/collider'
 import '@/components/four-way-bounded'
 import '@/components/move-rotate'
+import '@/components/looter'
 import './controller'
 import { screenSize } from '@/device'
 import { VulcanProjectile } from '@/projectiles'
+import { CollisionProfiles } from '@/constants'
 
-// import PhotonShell from '../../projectiles/photon-shell';
 export class PlayerBase {
   constructor (speed) {
     const size = 32
-    this._entity = Crafty.e(`Collider, CollisionProfilePlayer, FourwayBounded, MoveRotate, PlayerController`)
+    this._entity = Crafty.e(`Collider, ${CollisionProfiles.PLAYER}, FourwayBounded, MoveRotate, PlayerController, Looter`)
       .attr({ w: size, h: size, x: (screenSize.w - size) / 2, y: screenSize.h - size })
       .fourwayBounded(speed, screenSize)
       .collision([8, 8, 8, 24, 24, 24, 24, 8])
       .setWeaponOptions({ ProjectileClass: VulcanProjectile })
     // this._entity.lookDirection(new Crafty.math.Vector2D(0, 1))
-    // this._entity.toggleHitbox(true)
 
     // this._entity.lookDirection(new Crafty.math.Vector2D(0, 1))
 
@@ -60,20 +60,3 @@ export class PlayerBase {
     //   .particles(options)
   }
 }
-// var _fireTimer;
-
-// var mouseDown = function(e) {
-//     fire();
-//     _fireTimer = setInterval(function() {
-//         fire();
-//     }, 200);
-// };
-
-// var mouseUp = function(e) {
-//     clearInterval(_fireTimer);
-// };
-
-// var fire = function() {
-//     if (!_entity) return;
-//     var bullet = new PhotonShell(10, _entity.forward(), 'Explosion01_Component', _entity);
-// };

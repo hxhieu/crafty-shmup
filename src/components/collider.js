@@ -1,15 +1,23 @@
 import './two-dee-ext'
+import { Events } from '@/constants'
 
 const showHitBox = new WeakMap()
 const hitbox = new WeakMap()
 
 Crafty.c('Collider', {
   // Umm required Color for Canvas?...
-  required: '2DExt, Color, Collision',
+  required: '2DExt, Collision',
+
+  events: {
+    [Events.TOGGLE_HITBOX]: function (show) {
+      showHitBox.set(this, show)
+      if (show) { this.addComponent('WiredHitBox') } else this.removeComponent('WiredHitBox')
+    }
+  },
 
   init: function () {
     this.origin('center')
-    this.toggleHitbox(true)
+    // this.trigger(Events.TOGGLE_HITBOX, true)
   },
 
   getCentrePos: function () {
@@ -35,11 +43,5 @@ Crafty.c('Collider', {
   getHitbox: function () {
     const { _w, _h } = this.pos()
     return hitbox.get(this) || { w: _w, h: _h }
-  },
-
-  toggleHitbox: function (show) {
-    showHitBox.set(this, show)
-    if (show) { this.addComponent('WiredHitBox') } else this.removeComponent('WiredHitBox')
-    return this
   }
 })

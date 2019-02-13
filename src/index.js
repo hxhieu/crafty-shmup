@@ -11,7 +11,8 @@ import { EnemyPowerHost } from '@/ships/enemies'
 import { ObjectPowerUp } from '@/scenes/objects'
 
 Crafty.paths({
-  images: 'assets/'
+  images: 'assets/images/',
+  audio: 'assets/audio/'
 })
 
 Crafty.load(assets, () => {
@@ -42,7 +43,8 @@ function hello () {
   const powerUpSpawner = new GenericSpawner(ObjectPowerUp, 2000, 6000)
   powerUpSpawner.start()
 
-  new PlayerRedFighter(80)
+  const player = new PlayerRedFighter(80)
+  console.log(player)
   // const boss1 = new YellowCrabBoss()
   // boss1._entity.attr({
   //   x: Crafty.math.randomInt(0, screenSize.w),

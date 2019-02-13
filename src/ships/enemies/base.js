@@ -1,10 +1,11 @@
 import '@/components/collider'
 import '@/components/structure'
 import '@/components/death-sequence'
+import { CollisionProfiles } from '@/constants'
 
 class EnemyBase {
   constructor (sprite) {
-    this._entity = Crafty.e(`${sprite}, Collider, CollisionProfileEnemy, Structure`)
+    this._entity = Crafty.e(`${sprite}, Collider, ${CollisionProfiles.ENEMY}, Structure`)
       .setStructure(1)
       .lookDirection(new Crafty.math.Vector2D(0, 1))
   }

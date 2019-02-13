@@ -1,6 +1,5 @@
 import throttle from 'lodash.throttle'
 import { keypad } from '@/device'
-import { CollisionProfiles } from '@/constants'
 
 // Local vars
 const fireTimer = new WeakMap()
@@ -45,22 +44,22 @@ function EnterFrame () {
 
 }
 
-function spawnProjectiles ({ x, y, ProjectileClass }) {
+function spawnProjectiles ({ x, y, collisionProfile, ProjectileClass }) {
   // const forward = this.getForward()
   // console.log(forward)
   /* eslint-disable no-new */
   new ProjectileClass({
     x: x - 4,
-    y: y - 8,
+    y: y - 16,
     forward: new Crafty.math.Vector2D(0, -1),
-    profile: CollisionProfiles.player
+    profile: collisionProfile
   })
 
   new ProjectileClass({
     x: x - 12,
-    y: y - 8,
+    y: y - 16,
     forward: new Crafty.math.Vector2D(0, -1),
-    profile: CollisionProfiles.player
+    profile: collisionProfile
   })
 
   // new ProjectileClass({
@@ -78,12 +77,13 @@ function spawnProjectiles ({ x, y, ProjectileClass }) {
 
 function fire () {
   const { x, y } = this.getCentrePos()
+  const { collisionProfile } = this
   const { ProjectileClass, waveCount } = this.weaponOptions
-  spawnProjectiles({ x, y, ProjectileClass })
+  spawnProjectiles({ x, y, collisionProfile, ProjectileClass })
   // Waves
   for (let i = 1; i < waveCount; i++) {
     setTimeout(() => {
-      spawnProjectiles({ x, y, ProjectileClass })
+      spawnProjectiles({ x, y, collisionProfile, ProjectileClass })
     }, i * 100)
   }
 }
@@ -104,7 +104,14 @@ function stopFire () {
 function KeyDown (e) {
   switch (e.key) {
     case keypad.Y: {
+      this.stopFire()
       this.startFire()
+      break
+    }
+    case keypad.X: {
+      this.stopFire()
+      this.startFire()
+      break
     }
   }
 }
@@ -115,8 +122,8 @@ function KeyUp (e) {
       this.stopFire()
       break
     }
-    case Crafty.keys.F: {
-      this.toggleHitbox(true)
+    case keypad.X: {
+      this.stopFire()
       break
     }
   }

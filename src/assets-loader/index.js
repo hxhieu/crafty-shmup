@@ -74,6 +74,9 @@ const assets = {
         ObjectPowerUpSilverSprite: [17, 0, 1, 1]
       }
     }
+  },
+  audio: {
+    PowerUp01: ['SFX_Powerup_01.wav']
   }
 }
 
