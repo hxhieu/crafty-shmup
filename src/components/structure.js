@@ -6,7 +6,7 @@ const maxArmour = new WeakMap()
 const currentArmour = new WeakMap()
 const maxShield = new WeakMap()
 const currentShield = new WeakMap()
-const explosionEffect = new WeakMap()
+const deadEffect = new WeakMap()
 
 // Component definition
 
@@ -30,12 +30,12 @@ Crafty.c('Structure', {
 
 // Helpers
 
-function setStructure (armour, shield, explode) {
+function setStructure (armour, shield, effect) {
   maxArmour.set(this, armour || 0)
   currentArmour.set(this, armour || 0)
   maxShield.set(this, shield || 0)
   currentShield.set(this, shield || 0)
-  explosionEffect.set(this, explode)
+  deadEffect.set(this, effect)
   return this
 }
 
@@ -57,10 +57,13 @@ async function takeDamage (amount) {
         await this.activateDeathSequence()
       }
 
-      const explode = explosionEffect.get(this)
+      const { explode, sound, volume } = deadEffect.get(this)
       if (explode) {
         const { x, y } = this
         Crafty.e(explode).attr({ x, y })
+      }
+      if (sound) {
+        Crafty.audio.play(sound, 1, volume || 1)
       }
 
       // Neccessary post destroy events

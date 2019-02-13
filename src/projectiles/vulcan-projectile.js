@@ -5,7 +5,7 @@ export class VulcanProjectile extends ProjectileBase {
     super({ x, y, forward, profile }, level = 1)
     this._entity
       .addComponent(`Sprite_ProjectileVulcan${level}`)
-      .setProjectile(profile, 1, 'Sprite_ExplosionSmall01')
+      .setProjectile(profile, 1, { impact: 'Sprite_ExplosionSmall01', sound: 'GunShoot01' })
       .collision([4, 4, 4, 12, 12, 12, 12, 4])
       .moveForward(150)
   }

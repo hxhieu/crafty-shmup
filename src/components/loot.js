@@ -30,9 +30,9 @@ Crafty.c('Loot', {
 // Helpers
 
 function giveLoot (other) {
-  const { sound, id, value } = data.get(this)
+  const { sound, id, value, volume } = data.get(this)
   if (sound) {
-    Crafty.audio.play(sound)
+    Crafty.audio.play(sound, 1, volume || 1)
   }
   other.trigger(Events.LOOT_ACQUIRED, { id, value })
   this.destroy()

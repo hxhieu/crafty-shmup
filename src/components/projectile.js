@@ -1,4 +1,4 @@
-const impact = new WeakMap()
+const fx = new WeakMap()
 const pow = new WeakMap()
 
 Crafty.c('Projectile', {
@@ -9,8 +9,12 @@ Crafty.c('Projectile', {
     HitOff
   },
 
-  setProjectile: function (profile, power, impactEffect) {
-    impact.set(this, impactEffect)
+  setProjectile: function (profile, power, effects) {
+    const { sound, volume } = effects
+    if (sound) {
+      Crafty.audio.play(sound, 1, volume || 1)
+    }
+    fx.set(this, effects)
     pow.set(this, power)
     this.addComponent(profile)
     return this
@@ -18,9 +22,9 @@ Crafty.c('Projectile', {
 })
 
 function HitOn (hitData) {
-  const impactEffect = impact.get(this)
-  if (impactEffect) {
-    Crafty.e(impactEffect)
+  const { impact } = fx.get(this)
+  if (impact) {
+    Crafty.e(impact)
       .attr({
         x: this.x,
         y: this.y

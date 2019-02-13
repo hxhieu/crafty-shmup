@@ -76,7 +76,10 @@ const assets = {
     }
   },
   audio: {
-    PowerUp01: ['SFX_Powerup_01.wav']
+    PowerUp01: ['SFX_Powerup_01.wav'],
+    ExplosionSmall01: ['atari_boom.wav'],
+    GunShoot01: ['shoot_01.ogg'],
+    Loop01: ['CH-AY-NA.ogg']
   }
 }
 
