@@ -9,7 +9,7 @@ Crafty.c('Collider', {
 
   init: function () {
     this.origin('center')
-    this.toggleHitbox(false)
+    this.toggleHitbox(true)
   },
 
   getCentrePos: function () {

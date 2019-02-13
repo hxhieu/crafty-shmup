@@ -2,6 +2,7 @@ import buildPlayer from './player-ships'
 import buildEnemies from './enemy-ships'
 import buildProjectiles from './projectiles'
 import buildExplosions from './explosions'
+import buildObjects from './objects'
 
 const assets = {
   sprites: {
@@ -19,7 +20,7 @@ const assets = {
       tile: 16,
       tileh: 16,
       map: {
-        VulcanProjectileSprite1: [3, 0, 1, 1]
+        ProjectileVulcan1Sprite: [3, 0, 1, 1]
       }
     },
 
@@ -67,7 +68,10 @@ const assets = {
       tile: 16,
       tileh: 16,
       map: {
-        ExplosionSmall01Sprite: [8, 0, 1, 1]
+        ExplosionSmall01Sprite: [8, 0, 1, 1],
+        ProjectilePhoton1Sprite: [15, 0, 1, 1],
+        ObjectPowerUpGoldSprite: [17, 0, 1, 1],
+        ObjectPowerUpSilverSprite: [17, 0, 1, 1]
       }
     }
   }
@@ -100,6 +104,7 @@ const generateSharedSprites = () => {
   buildEnemies()
   buildProjectiles()
   buildExplosions()
+  buildObjects()
 }
 
 export {

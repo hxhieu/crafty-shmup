@@ -8,12 +8,12 @@ import { VulcanProjectile } from '@/projectiles'
 // import PhotonShell from '../../projectiles/photon-shell';
 export class PlayerBase {
   constructor (speed) {
-    this._entity = Crafty.e(`Collider, CollisionProfilePlayer, FourwayBounded, MoveRotate, PlayerController`)
     const size = 32
-    this._entity.attr({ w: size, h: size, x: (screenSize.w - size) / 2, y: screenSize.h - size })
-    this._entity.fourwayBounded(speed, screenSize)
-    this._entity.collision([8, 8, 8, 24, 24, 24, 24, 8])
-    this._entity.setProjectile({ ProjectileClass: VulcanProjectile })
+    this._entity = Crafty.e(`Collider, CollisionProfilePlayer, FourwayBounded, MoveRotate, PlayerController`)
+      .attr({ w: size, h: size, x: (screenSize.w - size) / 2, y: screenSize.h - size })
+      .fourwayBounded(speed, screenSize)
+      .collision([8, 8, 8, 24, 24, 24, 24, 8])
+      .setWeaponOptions({ ProjectileClass: VulcanProjectile })
     // this._entity.lookDirection(new Crafty.math.Vector2D(0, 1))
     // this._entity.toggleHitbox(true)
 

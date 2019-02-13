@@ -8,6 +8,7 @@ import { PlayerRedFighter } from '@/ships/player'
 import { ParallaxSpaceScene } from './scenes'
 import { GenericSpawner } from '@/spawners'
 import { EnemyPowerHost } from '@/ships/enemies'
+import { ObjectPowerUp } from '@/scenes/objects'
 
 Crafty.paths({
   images: 'assets/'
@@ -35,10 +36,13 @@ Crafty.load(assets, () => {
 function hello () {
   /* eslint-disable no-new */
   new ParallaxSpaceScene()
-  new PlayerRedFighter(80)
 
   const powerHostSpawner = new GenericSpawner(EnemyPowerHost, 2000, 6000)
   powerHostSpawner.start()
+  const powerUpSpawner = new GenericSpawner(ObjectPowerUp, 2000, 6000)
+  powerUpSpawner.start()
+
+  new PlayerRedFighter(80)
   // const boss1 = new YellowCrabBoss()
   // boss1._entity.attr({
   //   x: Crafty.math.randomInt(0, screenSize.w),

@@ -21,7 +21,7 @@ Crafty.c('PlayerController', {
 
   },
 
-  setProjectile: function (options) {
+  setWeaponOptions: function (options) {
     let defaultOptions = {
       waveCount: 2,
       perSecond: 2
@@ -32,6 +32,8 @@ Crafty.c('PlayerController', {
     const { ProjectileClass, waveCount, perSecond } = defaultOptions
     this.weaponOptions = { ProjectileClass, waveCount, perSecond }
     throttleFire.set(this, throttle(fire.bind(this), 1000 / perSecond, { trailing: false }))
+
+    return this
   },
   startFire,
   stopFire
