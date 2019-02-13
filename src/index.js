@@ -8,7 +8,6 @@ import { PlayerRedFighter } from '@/ships/player'
 import { ParallaxSpaceScene } from './scenes'
 import { GenericSpawner } from '@/spawners'
 import { EnemyPowerHost } from '@/ships/enemies'
-import { ObjectPowerUp } from '@/scenes/objects'
 
 Crafty.paths({
   images: 'assets/images/',
@@ -40,8 +39,6 @@ function hello () {
 
   const powerHostSpawner = new GenericSpawner(EnemyPowerHost, 2000, 6000)
   powerHostSpawner.start()
-  const powerUpSpawner = new GenericSpawner(ObjectPowerUp, 2000, 6000)
-  powerUpSpawner.start()
 
   const player = new PlayerRedFighter(80)
   console.log(player)

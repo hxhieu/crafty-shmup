@@ -52,7 +52,6 @@ async function takeDamage (amount) {
     if (armour <= 0) {
       // Mark as death
       this.removeComponent(this.collisionProfile)
-      this.trigger(Events.STRUCTURE_DESTROY)
 
       if (this.has('DeathSequence')) {
         await this.activateDeathSequence()
@@ -64,9 +63,13 @@ async function takeDamage (amount) {
         Crafty.e(explode).attr({ x, y })
       }
 
+      // Neccessary post destroy events
+      this.trigger(Events.STRUCTURE_DESTROY)
+
       this.destroy()
       return this
     }
+
     currentArmour.set(this, armour)
     return this
   }

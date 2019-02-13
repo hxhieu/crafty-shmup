@@ -16,6 +16,11 @@ Crafty.c('Loot', {
     return this
   },
 
+  setLootParent (entity) {
+    const { x, y } = entity.getCentrePos()
+    this.attr({ x: x + this.w / 2, y: y + this.h / 2 })
+  },
+
   events: {
     HitOn,
     HitOff

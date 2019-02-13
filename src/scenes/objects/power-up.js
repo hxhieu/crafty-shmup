@@ -11,7 +11,7 @@ export class ObjectPowerUp {
       .moveForward(20)
   }
 
-  setPosition ({ x, y }) {
-    this._entity.attr({ x, y })
+  setParent (entity) {
+    this._entity.setLootParent(entity)
   }
 }
