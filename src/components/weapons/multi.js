@@ -6,6 +6,7 @@ const fireTimer = new WeakMap()
 const throttleFire = new WeakMap()
 const fireOptions = new WeakMap()
 const specs = new WeakMap()
+const currentLevel = new WeakMap()
 
 export class WeaponMulti {
   constructor (options) {
@@ -13,7 +14,15 @@ export class WeaponMulti {
     this.setWeaponLevel(1)
   }
 
+  levelUp () {
+    this.setWeaponLevel(currentLevel.get(this) + 1)
+  }
+
   setWeaponLevel (level) {
+    if (level > 5) {
+      return
+    }
+
     let newSpecs = {
       level,
       power: 1,
@@ -57,7 +66,10 @@ export class WeaponMulti {
     }
 
     specs.set(this, newSpecs)
+    currentLevel.set(this, level)
     throttleFire.set(this, throttle(fire.bind(this), 1000 / newSpecs.rateOfFire, { trailing: false }))
+
+    return this
   }
 
   startFire () {

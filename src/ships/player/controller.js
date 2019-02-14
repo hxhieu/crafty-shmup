@@ -1,4 +1,5 @@
 import { keypad } from '@/device'
+import { Events } from '@/constants'
 
 // Local vars
 const currentWeapon = new WeakMap()
@@ -13,6 +14,9 @@ Crafty.c('PlayerController', {
     KeyUp,
     Remove: function () {
       currentWeapon.get(this).stopFire()
+    },
+    [Events.LOOT_ACQUIRED]: function () {
+      currentWeapon.get(this).levelUp()
     }
   },
   setWeapon: function (weapon) {
