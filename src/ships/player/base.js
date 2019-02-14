@@ -3,6 +3,7 @@ import '@/components/four-way-bounded'
 import '@/components/move-rotate'
 import '@/components/looter'
 import '@/components/solid-hit'
+import './collision-check'
 import './controller'
 import { screenSize } from '@/device'
 import { VulcanProjectile } from '@/projectiles'
@@ -16,9 +17,10 @@ export class PlayerBase {
       ${CollisionProfiles.PLAYER},\
       FourwayBounded,\
       MoveRotate,\
-      PlayerController,\
       Structure,\
       SolidHit,\
+      PlayerCollision,\
+      PlayerController,\
       Looter`
     this._entity = Crafty.e(components)
       .attr({ w: size, h: size, x: (screenSize.w - size) / 2, y: screenSize.h - size })

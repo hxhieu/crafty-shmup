@@ -30,6 +30,11 @@ Crafty.c('Structure', {
       current: currentShield.get(this),
       max: maxShield.get(this)
     }
+  },
+  getStructurePoints: function () {
+    const { current: shield } = this.getShield()
+    const { current: armour } = this.getArmour()
+    return shield + armour
   }
 })
 

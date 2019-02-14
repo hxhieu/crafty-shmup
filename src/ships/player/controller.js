@@ -13,7 +13,10 @@ Crafty.c('PlayerController', {
   events: {
     EnterFrame,
     KeyDown,
-    KeyUp
+    KeyUp,
+    Remove: function () {
+      this.stopFire()
+    }
   },
 
   init: function () {
