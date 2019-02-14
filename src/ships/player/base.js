@@ -2,6 +2,7 @@ import '@/components/collider'
 import '@/components/four-way-bounded'
 import '@/components/move-rotate'
 import '@/components/looter'
+import '@/components/solid-hit'
 import './controller'
 import { screenSize } from '@/device'
 import { VulcanProjectile } from '@/projectiles'
@@ -10,11 +11,21 @@ import { CollisionProfiles } from '@/constants'
 export class PlayerBase {
   constructor (speed) {
     const size = 32
-    this._entity = Crafty.e(`Collider, ${CollisionProfiles.PLAYER}, FourwayBounded, MoveRotate, PlayerController, Looter`)
+    const components =
+      `Collider,\
+      ${CollisionProfiles.PLAYER},\
+      FourwayBounded,\
+      MoveRotate,\
+      PlayerController,\
+      Structure,\
+      SolidHit,\
+      Looter`
+    this._entity = Crafty.e(components)
       .attr({ w: size, h: size, x: (screenSize.w - size) / 2, y: screenSize.h - size })
       .fourwayBounded(speed, screenSize)
       .collision([8, 8, 8, 24, 24, 24, 24, 8])
       .setWeaponOptions({ ProjectileClass: VulcanProjectile })
+      .setStructure(1, 0, { explode: 'Sprite_ExplosionEnemyHost', sound: 'ExplosionSmall01' })
     // this._entity.lookDirection(new Crafty.math.Vector2D(0, 1))
 
     // this._entity.lookDirection(new Crafty.math.Vector2D(0, 1))

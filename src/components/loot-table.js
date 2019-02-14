@@ -11,7 +11,7 @@ Crafty.c('LootTable', {
   required: 'Collider',
 
   events: {
-    [Events.STRUCTURE_DESTROY]: spawnLoot
+    [Events.STRUCTURE_DESTROYED]: spawnLoot
   },
 
   setLootTable: function (table) {

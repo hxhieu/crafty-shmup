@@ -12,6 +12,11 @@ const deadEffect = new WeakMap()
 
 Crafty.c('Structure', {
   required: 'TweenExt, Color',
+
+  events: {
+    [Events.TRIGGER_DESTROY]: triggerDestroy
+  },
+
   takeDamage,
   setStructure,
   getArmour: function () {
@@ -50,26 +55,7 @@ async function takeDamage (amount) {
     armour += shield
     currentShield.set(this, 0)
     if (armour <= 0) {
-      // Mark as death
-      this.removeComponent(this.collisionProfile)
-
-      if (this.has('DeathSequence')) {
-        await this.activateDeathSequence()
-      }
-
-      const { explode, sound, volume } = deadEffect.get(this)
-      if (explode) {
-        const { x, y } = this
-        Crafty.e(explode).attr({ x, y })
-      }
-      if (sound) {
-        Crafty.audio.play(sound, 1, volume || 1)
-      }
-
-      // Neccessary post destroy events
-      this.trigger(Events.STRUCTURE_DESTROY)
-
-      this.destroy()
+      await triggerDestroy.call(this)
       return this
     }
 
@@ -79,7 +65,30 @@ async function takeDamage (amount) {
 
   // If we got this far then we survived!
   this.tweenFlash()
-  this.trigger(Events.STRUCTURE_TAKE_DAMAGE, amount)
+  this.trigger(Events.STRUCTURE_HIT, amount)
 
   return this
+}
+
+async function triggerDestroy () {
+// Mark as death
+  this.removeComponent(this.collisionProfile)
+
+  if (this.has('DeathSequence')) {
+    await this.activateDeathSequence()
+  }
+
+  const { explode, sound, volume } = deadEffect.get(this)
+  if (explode) {
+    const { x, y } = this
+    Crafty.e(explode).attr({ x, y })
+  }
+  if (sound) {
+    Crafty.audio.play(sound, 1, volume || 1)
+  }
+
+  // Neccessary post destroy events
+  this.trigger(Events.STRUCTURE_DESTROYED)
+
+  this.destroy()
 }

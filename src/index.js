@@ -7,7 +7,7 @@ import { PhysicsManager } from '@/physics'
 import { PlayerRedFighter } from '@/ships/player'
 import { ParallaxSpaceScene } from './scenes'
 import { GenericSpawner } from '@/spawners'
-import { EnemyPowerHost } from '@/ships/enemies'
+import { EnemyPowerHost, YellowCrabBoss } from '@/ships/enemies'
 
 Crafty.paths({
   images: 'assets/images/',
@@ -42,11 +42,11 @@ function hello () {
 
   const player = new PlayerRedFighter(80)
   console.log(player)
-  // const boss1 = new YellowCrabBoss()
-  // boss1._entity.attr({
-  //   x: Crafty.math.randomInt(0, screenSize.w),
-  //   y: Crafty.math.randomInt(0, screenSize.h - 200)
-  // })
+  const boss1 = new YellowCrabBoss()
+  boss1._entity.attr({
+    x: Crafty.math.randomInt(0, screenSize.w),
+    y: Crafty.math.randomInt(0, screenSize.h - 200)
+  })
   // const boss2 = new BlueSucklingBoss()
   // boss2._entity.attr({
   //   x: Crafty.math.randomInt(0, screenSize.w),
