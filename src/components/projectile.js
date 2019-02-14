@@ -5,13 +5,12 @@ Crafty.c('Projectile', {
   required: 'Collider',
 
   events: {
-    HitOn,
-    HitOff
+    HitOn
   },
 
   setProjectile: function (profile, power, effects) {
     const { sound, volume } = effects
-    if (sound) {
+    if (sound && !Crafty.audio.isPlaying(sound)) {
       Crafty.audio.play(sound, 1, volume || 1)
     }
     fx.set(this, effects)
@@ -39,8 +38,4 @@ function HitOn (hitData) {
       other.takeDamage(pow.get(this))
     }
   }
-}
-
-function HitOff (component) {
-  console.log(component)
 }

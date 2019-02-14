@@ -1,0 +1,1 @@
+export { WeaponMulti } from './multi'

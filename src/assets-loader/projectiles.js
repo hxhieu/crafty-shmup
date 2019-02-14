@@ -5,6 +5,18 @@ export default () => {
     }
   })
 
+  Crafty.c('Sprite_ProjectileMulti1', {
+    init: function () {
+      this.requires('Canvas, ProjectileMulti1Sprite')
+    }
+  })
+
+  Crafty.c('Sprite_ProjectileMulti2', {
+    init: function () {
+      this.requires('Canvas, ProjectileMulti2Sprite')
+    }
+  })
+
   Crafty.c('Sprite_ProjectilePhoton1', {
     init: function () {
       this.requires('Canvas, SpriteAnimationExt, ProjectilePhoton1Sprite')

@@ -20,7 +20,9 @@ const assets = {
       tile: 16,
       tileh: 16,
       map: {
-        ProjectileVulcan1Sprite: [3, 0, 1, 1]
+        ProjectileVulcan1Sprite: [3, 0, 1, 1],
+        ProjectileMulti1Sprite: [3, 2, 1, 1],
+        ProjectileMulti2Sprite: [8, 2, 1, 1]
       }
     },
 
