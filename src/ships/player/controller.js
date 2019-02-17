@@ -22,9 +22,9 @@ Crafty.c('PlayerController', {
   setWeapon: function (weapon) {
     // Attach
     const { x, y } = this.getCentrePos()
-    if (weapon._entity) {
-      weapon._entity.attr({ x, y })
-      this.attach(weapon._entity)
+    if (weapon.e) {
+      weapon.e.attr({ x, y })
+      this.attach(weapon.e)
     }
     currentWeapon.set(this, weapon)
     return this

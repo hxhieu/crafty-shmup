@@ -5,7 +5,7 @@ import { CollisionProfiles } from '@/constants'
 
 class EnemyBase {
   constructor (sprite) {
-    this._entity = Crafty.e(`${sprite}, Collider, ${CollisionProfiles.ENEMY}, Structure, SolidHit`)
+    this.e = Crafty.e(`${sprite}, Collider, ${CollisionProfiles.ENEMY}, Structure, SolidHit`)
       .setStructure(1)
       .lookDirection(new Crafty.math.Vector2D(0, 1))
   }
@@ -14,7 +14,7 @@ class EnemyBase {
 class BossBase extends EnemyBase {
   constructor (sprite) {
     super(sprite)
-    this._entity
+    this.e
       .addComponent(`DeathSequence`)
       .useDefaultBossDeathSequence()
   }

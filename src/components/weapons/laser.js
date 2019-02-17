@@ -99,11 +99,11 @@ function fire () {
 }
 
 function spawnProjectiles () {
-  const forward = this._entity.getForward()
-  const { x, y } = this._entity.getCentrePos()
+  const forward = this.e.getForward()
+  const { x, y } = this.e.getCentrePos()
   const beam = new LaserBeam({
     x, y, forward
   })
-  this._entity.attach(beam._entity)
+  this.e.attach(beam.e)
   console.log(beam)
 }

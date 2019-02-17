@@ -43,12 +43,12 @@ function hello () {
   const player = new PlayerRedFighter(80)
   console.log(player)
   const boss1 = new YellowCrabBoss()
-  boss1._entity.attr({
+  boss1.e.attr({
     x: Crafty.math.randomInt(0, screenSize.w),
     y: Crafty.math.randomInt(0, screenSize.h - 200)
   })
   // const boss2 = new BlueSucklingBoss()
-  // boss2._entity.attr({
+  // boss2.e.attr({
   //   x: Crafty.math.randomInt(0, screenSize.w),
   //   y: Crafty.math.randomInt(0, screenSize.h - 100)
   // })

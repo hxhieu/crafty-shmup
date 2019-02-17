@@ -23,17 +23,17 @@ export class PlayerBase {
       PlayerCollision,\
       PlayerController,\
       Looter`
-    this._entity = Crafty.e(components)
+    this.e = Crafty.e(components)
       .attr({ w: size, h: size, x: (screenSize.w - size) / 2, y: screenSize.h - size })
       .fourwayBounded(speed, screenSize)
       .collision([8, 8, 8, 24, 24, 24, 24, 8])
       .setStructure(1, 0, { explode: 'Sprite_ExplosionEnemyHost', sound: 'ExplosionSmall01' })
 
-    // this._entity.lookDirection(new Crafty.math.Vector2D(0, 1))
+    // this.e.lookDirection(new Crafty.math.Vector2D(0, 1))
 
-    this._entity.setWeapon(new WeaponMulti({
-      forward: this._entity.getForward(),
-      getPosition: this._entity.getCentrePos.bind(this._entity),
+    this.e.setWeapon(new WeaponMulti({
+      forward: this.e.getForward(),
+      getPosition: this.e.getCentrePos.bind(this.e),
       profile: CollisionProfiles.PLAYER
     }))
 

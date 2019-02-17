@@ -3,6 +3,6 @@ import '@/components/collider'
 
 export class WeaponBase {
   constructor () {
-    this._entity = Crafty.e('2DExt, Collider')
+    this.e = Crafty.e('2DExt, Collider')
   }
 }
