@@ -1,36 +1,15 @@
-import throttle from 'lodash.throttle'
 import { WeaponBase } from './base'
 import { LaserBeam } from './projectiles'
 
-// Local vars
-const fireTimer = new WeakMap()
-const throttleFire = new WeakMap()
-const fireOptions = new WeakMap()
-const specs = new WeakMap()
-const currentLevel = new WeakMap()
-
 export class WeaponLaser extends WeaponBase {
-  constructor (options) {
-    super()
-    fireOptions.set(this, options)
-    this.setWeaponLevel(1)
-  }
-
-  levelUp () {
-    this.setWeaponLevel(currentLevel.get(this) + 1)
-  }
-
-  setWeaponLevel (level) {
-    if (level > 5) {
-      return
-    }
-
+  setLevel (level) {
     let newSpecs = {
       level,
       power: 1,
       wave: 1,
       rateOfFire: 2
     }
+    level = this.normaliseLevel(level)
     switch (level) {
       case 1: {
         newSpecs = Object.assign(newSpecs, {
@@ -67,44 +46,21 @@ export class WeaponLaser extends WeaponBase {
       }
     }
 
-    specs.set(this, newSpecs)
-    currentLevel.set(this, level)
-    throttleFire.set(this, throttle(fire.bind(this), 1000 / newSpecs.rateOfFire, { trailing: false }))
+    this.specs = newSpecs
+    this.setThrottleFire(newSpecs.rateOfFire)
 
     return this
   }
 
-  startFire () {
-    this.stopFire()
-    throttleFire.get(this)()
-    const { rateOfFire } = specs.get(this)
-    fireTimer.set(this, setInterval(() => {
-      fire.call(this)
-    }, 1000 / rateOfFire))
-  }
-  stopFire () {
-    clearInterval(fireTimer.get(this))
-  }
-}
+  spawnProjectiles () {
+    const forward = this.e.getForward()
+    const { x, y } = this.e.getCentrePos()
+    const { level } = this.specs
+    const beam = new LaserBeam({
+      x, y, forward, level
+    })
+    this.e.attach(beam.e)
 
-function fire () {
-  const { wave } = specs.get(this)
-  spawnProjectiles.call(this)
-  // Waves
-  for (let i = 1; i < wave; i++) {
-    setTimeout(() => {
-      spawnProjectiles.call(this)
-    }, i * 100)
+    return this
   }
-}
-
-function spawnProjectiles () {
-  const forward = this.e.getForward()
-  const { x, y } = this.e.getCentrePos()
-  const { level } = specs.get(this)
-  const beam = new LaserBeam({
-    x, y, forward, level
-  })
-  this.e.attach(beam.e)
-  console.log(beam)
 }
