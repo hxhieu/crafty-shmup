@@ -13,12 +13,14 @@ class ProjectileBase {
 
 class BeamBase {
   constructor ({ x, y, forward }, sprite) {
-    this.e = Crafty.e(`2DExt, ${sprite}`).attr({ x, y })
-    let growY = y
+    this.e = Crafty.e(`2DExt`).attr({ x, y })
+    let startY = y
     if (forward.y < 0) {
-      while (growY > 0) {
-        growY -= 16
-        const segment = Crafty.e(`${sprite}`).attr({ x, y: growY })
+      while (startY > 0) {
+        const segment = Crafty.e(`${sprite}`)
+        startY -= segment.h - 1
+        const startX = x - segment.w / 2
+        segment.attr({ x: startX, y: startY })
         this.e.attach(segment)
       }
     } else {

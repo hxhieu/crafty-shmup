@@ -37,7 +37,7 @@ export default () => {
           [5, 5, 1, 1],
           [6, 5, 1, 1]
         ])
-        .attr({ w: 8 })
+        .attr({ w: 8, h: 48 })
         .animate('default')
         .destroyOnEnd()
     }
@@ -52,6 +52,7 @@ export default () => {
           [10, 5, 1, 1],
           [11, 5, 1, 1]
         ])
+        .attr({ h: 48 })
         .animate('default')
         .destroyOnEnd()
     }

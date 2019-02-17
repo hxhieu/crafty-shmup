@@ -27,6 +27,7 @@ export default () => {
         .reel('rotateRight', 150, [
           [1, 0, 1, 1]
         ])
+        .attr({ z: 1000 })
         .animate('level', -1)
     }
   })

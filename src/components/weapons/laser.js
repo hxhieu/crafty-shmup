@@ -101,8 +101,9 @@ function fire () {
 function spawnProjectiles () {
   const forward = this.e.getForward()
   const { x, y } = this.e.getCentrePos()
+  const { level } = specs.get(this)
   const beam = new LaserBeam({
-    x, y, forward
+    x, y, forward, level
   })
   this.e.attach(beam.e)
   console.log(beam)
