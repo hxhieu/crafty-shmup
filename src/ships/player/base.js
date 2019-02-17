@@ -1,4 +1,3 @@
-import '@/components/collider'
 import '@/components/four-way-bounded'
 import '@/components/move-rotate'
 import '@/components/structure'
@@ -12,7 +11,6 @@ import { WeaponMulti } from '@/components/weapons'
 
 export class PlayerBase {
   constructor (speed) {
-    const size = 32
     const components =
       `Collider,\
       ${CollisionProfiles.PLAYER},\
@@ -23,8 +21,9 @@ export class PlayerBase {
       PlayerCollision,\
       PlayerController,\
       Looter`
+    const size = 32
     this.e = Crafty.e(components)
-      .attr({ w: size, h: size, x: (screenSize.w - size) / 2, y: screenSize.h - size })
+      .attr({ x: (screenSize.w - size) / 2, y: screenSize.h - size })
       .fourwayBounded(speed, screenSize)
       .collision([8, 8, 8, 24, 24, 24, 24, 8])
       .setStructure(1, 0, { explode: 'Sprite_ExplosionEnemyHost', sound: 'ExplosionSmall01' })

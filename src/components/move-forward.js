@@ -1,4 +1,3 @@
-import '@/components/two-dee-ext'
 // Local vars
 
 // Component definition

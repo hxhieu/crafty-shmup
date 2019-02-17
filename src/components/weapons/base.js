@@ -1,5 +1,3 @@
-import '@/components/two-dee-ext'
-import '@/components/collider'
 import throttle from 'lodash.throttle'
 
 // Local vars
@@ -9,7 +7,7 @@ const throttleFire = new WeakMap()
 
 export class WeaponBase {
   constructor () {
-    this.e = Crafty.e('2DExt, Collider')
+    this.e = Crafty.e('Collider')
     this.specs = {}
     this.setLevel(1)
   }

@@ -1,4 +1,3 @@
-import '@/components/collider'
 import { Events } from '@/constants'
 
 // Local vars

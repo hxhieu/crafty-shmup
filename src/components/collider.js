@@ -1,11 +1,9 @@
-import './two-dee-ext'
 import { Events } from '@/constants'
 
 const showHitBox = new WeakMap()
 const hitbox = new WeakMap()
 
 Crafty.c('Collider', {
-  // Umm required Color for Canvas?...
   required: '2DExt, Collision',
 
   events: {
@@ -16,7 +14,6 @@ Crafty.c('Collider', {
   },
 
   init: function () {
-    this.origin('center')
     // this.trigger(Events.TOGGLE_HITBOX, true)
   },
 

@@ -1,7 +1,6 @@
 import '@/components/move-forward'
 import '@/components/self-destroy'
 import '@/components/projectile'
-import '@/components/two-dee-ext'
 
 class ProjectileBase {
   constructor ({ x, y, forward }) {

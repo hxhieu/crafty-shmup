@@ -1,4 +1,3 @@
-import '@/components/collider'
 import '@/components/structure'
 import '@/components/death-sequence'
 import { CollisionProfiles } from '@/constants'

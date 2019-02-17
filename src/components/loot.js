@@ -1,5 +1,4 @@
 import '@/components/kill-z'
-import '@/components/two-dee-ext'
 import { CollisionProfiles, Events } from '@/constants'
 
 // Local vars

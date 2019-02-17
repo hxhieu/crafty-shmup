@@ -12,12 +12,7 @@ Crafty.c('FourwayBounded', {
   },
 
   fourwayBounded: function (speed, rect) {
-    bound.set(this, {
-      left: 0,
-      top: 0,
-      right: rect.w - this.w,
-      bottom: rect.h - this.h
-    })
+    bound.set(this, rect)
     this.fourway(speed, { normalize: true })
     return this
   }
@@ -26,7 +21,14 @@ Crafty.c('FourwayBounded', {
 // Helpers
 
 function EnterFrame () {
-  const rect = bound.get(this)
+  let rect = bound.get(this)
+  const { w, h } = this
+  rect = {
+    left: 0,
+    top: 0,
+    right: rect.w - w,
+    bottom: rect.h - h
+  }
   if (this.x <= rect.left) {
     this.x = 0
   }

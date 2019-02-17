@@ -1,5 +1,3 @@
-import './two-dee-ext'
-
 // Local vars
 
 const lastX = new WeakMap()

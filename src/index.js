@@ -1,5 +1,10 @@
 import '../libs/crafty'
 import './utils/maths'
+
+// Super common components
+import '@/components/two-dee-ext'
+import '@/components/collider'
+
 import { screenSize } from './device'
 import { assets, generateSharedSprites } from './assets-loader'
 import { GuiManager } from '@/gui'

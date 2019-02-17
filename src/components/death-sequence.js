@@ -1,5 +1,3 @@
-import '@/components/collider'
-
 const sequences = new WeakMap()
 
 // Component definition

@@ -1,4 +1,3 @@
-import '@/components/two-dee-ext'
 import { screenSize } from '@/device'
 
 Crafty.c('TimedScroller', {

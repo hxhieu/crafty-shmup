@@ -1,4 +1,3 @@
-import './two-dee-ext'
 
 // Local vars
 
