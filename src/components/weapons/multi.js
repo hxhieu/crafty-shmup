@@ -1,5 +1,5 @@
 import throttle from 'lodash.throttle'
-import { MultiProjectile } from '@/projectiles'
+import { MultiProjectile } from './projectiles'
 
 // Local vars
 const fireTimer = new WeakMap()

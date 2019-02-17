@@ -1,6 +1,7 @@
 import '@/components/collider'
 import '@/components/four-way-bounded'
 import '@/components/move-rotate'
+import '@/components/structure'
 import '@/components/looter'
 import '@/components/solid-hit'
 import './collision-check'

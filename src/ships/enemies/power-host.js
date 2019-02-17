@@ -12,7 +12,7 @@ export class EnemyPowerHost extends EnemyBase {
     this._entity
       .addComponent('MoveForward, KillZ, LootTable, RandomStart')
       .collision([8, 8, 8, 24, 24, 24, 24, 8])
-      .setStructure(4, 0, { explode: 'Sprite_ExplosionEnemyHost', sound: 'ExplosionSmall01' })
+      .setStructure(2, 0, { explode: 'Sprite_ExplosionEnemyHost', sound: 'ExplosionSmall01' })
       .setRandomStart({ top: -32, left: 32, right: screenSize.w, bottom: -32 })
       .setLootTable([
         { Class: ObjectPowerUp, chance: 100 }

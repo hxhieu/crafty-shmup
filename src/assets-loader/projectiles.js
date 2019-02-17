@@ -27,4 +27,33 @@ export default () => {
         .animate('default', -1)
     }
   })
+
+  Crafty.c('Sprite_ProjectileLaser1', {
+    init: function () {
+      this.requires('Canvas, SpriteAnimationExt, ProjectileLaser1Sprite')
+        .reel('default', 250, [
+          [3, 5, 1, 1],
+          [4, 5, 1, 1],
+          [5, 5, 1, 1],
+          [6, 5, 1, 1]
+        ])
+        .attr({ w: 8 })
+        .animate('default')
+        .destroyOnEnd()
+    }
+  })
+
+  Crafty.c('Sprite_ProjectileLaser2', {
+    init: function () {
+      this.requires('Canvas, SpriteAnimationExt, ProjectileLaser2Sprite')
+        .reel('default', 250, [
+          [8, 5, 1, 1],
+          [9, 5, 1, 1],
+          [10, 5, 1, 1],
+          [11, 5, 1, 1]
+        ])
+        .animate('default')
+        .destroyOnEnd()
+    }
+  })
 }
