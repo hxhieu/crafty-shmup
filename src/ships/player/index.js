@@ -1,3 +1,3 @@
-export { PlayerRedFighter } from './red-fighter'
-export { PlayerGreenFighter } from './green-fighter'
-export { PlayerYellowFighter } from './yellow-fighter'
+export { createPlayerRedFighter } from './red-fighter'
+export { createPlayerGreenFighter } from './green-fighter'
+export { createPlayerYellowFighter } from './yellow-fighter'

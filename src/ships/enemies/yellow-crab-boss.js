@@ -1,9 +1,7 @@
-import { BossBase } from './base'
+import { createEnemyBossBase } from './base'
 
-export class YellowCrabBoss extends BossBase {
-  constructor () {
-    super('Sprite_EnemyBoss01')
-    this.e.setStructure(4, 0, 'Sprite_ExplosionBossYellowCrab')
-    this.e.setHitbox([16, 16, 16, 48, 48, 48, 48, 16])
-  }
+export const createYellowCrabBoss = () => {
+  return createEnemyBossBase('Sprite_EnemyBoss01')
+    .setStructure(4, 0, 'Sprite_ExplosionBossYellowCrab')
+    .setHitbox([16, 16, 16, 48, 48, 48, 48, 16])
 }

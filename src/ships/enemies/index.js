@@ -1,3 +1,3 @@
-export { YellowCrabBoss } from './yellow-crab-boss'
-export { BlueSucklingBoss } from './blue-suckling-boss'
-export { EnemyPowerHost } from './power-host'
+export { createYellowCrabBoss } from './yellow-crab-boss'
+export { createBlueSucklingBoss } from './blue-suckling-boss'
+export { createEnemyPowerHost } from './power-host'

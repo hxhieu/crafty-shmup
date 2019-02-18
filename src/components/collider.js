@@ -35,6 +35,7 @@ Crafty.c('Collider', {
       w: bounds[4] - bounds[0],
       h: bounds[3] - bounds[1]
     })
+    return this
   },
 
   getHitbox: function () {

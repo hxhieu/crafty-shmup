@@ -1,8 +1,6 @@
-import { PlayerBase } from './base'
+import { createPlayerBase } from './base'
 
-export class PlayerGreenFighter extends PlayerBase {
-  constructor (speed) {
-    super(speed)
-    this.e.addComponent('Sprite_PlayerGreen')
-  }
+export const createPlayerGreenFighter = speed => {
+  return createPlayerBase(speed)
+    .addComponent('Sprite_PlayerGreen')
 }
