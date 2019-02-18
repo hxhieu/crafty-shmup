@@ -30,12 +30,6 @@ Crafty.c('Loot', {
     return this
   },
 
-  setLootParent (parent) {
-    const { x, y } = parent.getCentrePos()
-    this.attr({ x: x + this.w / 2, y: y + this.h / 2 })
-    return this
-  },
-
   events: {
     Remove: function () {
       clearInterval(timer.get(this))

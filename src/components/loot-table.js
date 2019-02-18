@@ -27,13 +27,13 @@ function getLoot () {
   })
 
   // Crude...just return one of the possiblities
-  return possibilities[Crafty.math.randomInt(0, possibilities.length - 1)].Class
+  return possibilities[Crafty.math.randomInt(0, possibilities.length - 1)].create
 }
 
 function spawnLoot () {
-  const LootClass = getLoot.call(this)
-  if (LootClass) {
-    const loot = new LootClass()
-    loot.setParent(this)
+  const createLoot = getLoot.call(this)
+  const { x, y } = this.getCentrePos()
+  if (createLoot) {
+    createLoot().attr({ ox: x, oy: y })
   }
 }

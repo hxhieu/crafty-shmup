@@ -16,16 +16,14 @@ Crafty.c('PlayerController', {
       currentWeapon.get(this).stopFire()
     },
     [Events.LOOT_ACQUIRED]: function () {
-      currentWeapon.get(this).levelUp()
+      currentWeapon.get(this).setWeaponLevelUp()
     }
   },
-  setWeapon: function (weapon) {
+  useWeapon: function (weapon) {
     // Attach
     const { x, y } = this.getCentrePos()
-    if (weapon.e) {
-      weapon.e.attr({ x, y })
-      this.attach(weapon.e)
-    }
+    weapon.attr({ x, y })
+    this.attach(weapon)
     currentWeapon.set(this, weapon)
     return this
   }

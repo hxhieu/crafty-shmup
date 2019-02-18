@@ -1,11 +1,8 @@
-import { PlayerBase } from './base'
-// import { WeaponLaser } from '@/components/weapons/laser'
+import { createPlayerBase } from './base'
+// import { createWeaponLaser } from '@/weapons'
 
-export class PlayerRedFighter extends PlayerBase {
-  constructor (speed) {
-    super(speed)
-    this.e.addComponent('Sprite_PlayerRed')
-    // const weapon = new WeaponLaser()
-    // this.e.setWeapon(weapon)
-  }
+export const createPlayerRedFighter = speed => {
+  return createPlayerBase(speed)
+    .addComponent('Sprite_PlayerRed')
+    // .useWeapon(createWeaponLaser())
 }

@@ -7,6 +7,7 @@ Crafty.c('DeathSequence', {
 
   setDeathSequence (seqs) {
     sequences.set(this, seqs)
+    return this
   },
 
   useDefaultBossDeathSequence () {
@@ -18,6 +19,7 @@ Crafty.c('DeathSequence', {
       { effect: 'Sprite_ExplosionSmall01Slomo', timeline: 1200, size: 16 },
       { effect: 'Sprite_ExplosionSmall01Slomo', timeline: 900, size: 16 }
     ])
+    return this
   },
 
   activateDeathSequence () {

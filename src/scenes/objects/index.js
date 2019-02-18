@@ -1,1 +1,1 @@
-export { ObjectPowerUp } from './power-up'
+export { createPowerUp } from './power-up'
