@@ -1,5 +1,6 @@
 import { keypad } from '@/device'
-import { Events } from '@/constants'
+import '@/gui/powerup-panel'
+import { Events, Loots } from '@/constants'
 
 // Local vars
 const currentWeapon = new WeakMap()
@@ -7,7 +8,7 @@ const currentWeapon = new WeakMap()
 // Component definition
 
 Crafty.c('PlayerController', {
-  // required: 'XXX',
+  // required: 'PowerUpPanel',
 
   events: {
     KeyDown,
@@ -15,10 +16,17 @@ Crafty.c('PlayerController', {
     Remove: function () {
       currentWeapon.get(this).stopFire()
     },
-    [Events.LOOT_ACQUIRED]: function () {
-      currentWeapon.get(this).setWeaponLevelUp()
+    [Events.LOOT_ACQUIRED]: function (loot) {
+      if (loot.id === Loots.POWER_UP) {
+        this.powerUpPanel.nextSlot()
+      }
     }
   },
+
+  init: function () {
+    this.powerUpPanel = Crafty.e('PowerUpPanel')
+  },
+
   useWeapon: function (weapon) {
     // Attach
     const { x, y } = this.getCentrePos()
@@ -42,6 +50,12 @@ function KeyDown (e) {
     case keypad.X: {
       weapon.stopFire()
       weapon.startFire()
+      break
+    }
+    case keypad.A:
+    case keypad.B: {
+      weapon.setWeaponLevelUp()
+      this.powerUpPanel.powerUp()
       break
     }
   }

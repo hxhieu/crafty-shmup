@@ -1,22 +1,20 @@
 import { keypad } from '@/device'
-import '@/gui/main-menu'
+import './main-menu'
+import './powerup-panel'
 
 const mainMenu = new WeakMap()
+const instance = new WeakMap()
 
 export class GuiManager {
   static init () {
     Crafty.createLayer('UILayer', 'DOM', { scaleResponse: 0, xResponse: 0, yResponse: 0, z: 1000 })
-    Crafty.e().bind('KeyUp', keyUp)
+    instance.set(this, Crafty.e()
+      .bind('KeyUp', keyUp)
+    )
+  }
 
-    // FPS
-    // Crafty.e('UILayer, 2D, Text')
-    //   .attr({ x: screenSize.w - 30, w: screenSize.w })
-    //   .textColor('#ffffff')
-    //   .textFont({ size: '8px' })
-    //   .text('FPS: ')
-    //   .bind('EnterFrame', function () {
-    //     this.text(`FPS: ${Crafty.timer.FPS()}`)
-    //   })
+  static instance () {
+    return instance.get(this)
   }
 }
 
