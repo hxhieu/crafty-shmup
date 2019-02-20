@@ -1,3 +1,5 @@
+import { Events } from '@/constants'
+
 const forward = new WeakMap()
 
 // Component definition
@@ -19,8 +21,13 @@ Crafty.c('2DExt', {
     target = target.normalize()
     this.rotation = forward.get(this).angleBetween(target).toDeg()
     forward.set(this, target)
+    this.trigger(Events.DIRECTION_CHANGED)
 
     return this
+  },
+
+  lookRotation: function (deg) {
+    this.lookDirection(forward.rotateDeg(deg))
   },
 
   getForward: function () {

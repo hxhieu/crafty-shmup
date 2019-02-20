@@ -3,7 +3,14 @@ import '@/gui/powerup-panel'
 import { Events, Loots } from '@/constants'
 
 // Local vars
-const currentWeapon = new WeakMap()
+const equipments = new WeakMap()
+const equipIndex = {
+  SPEED: 0,
+  MISSILE: 1,
+  WEAPON: 2,
+  MULTIPLE: 3,
+  SHIELD: 4
+}
 
 // Component definition
 
@@ -14,7 +21,7 @@ Crafty.c('PlayerController', {
     KeyDown,
     KeyUp,
     Remove: function () {
-      currentWeapon.get(this).stopFire()
+      stopFire.call(this)
     },
     [Events.LOOT_ACQUIRED]: function (loot) {
       if (loot.id === Loots.POWER_UP) {
@@ -32,7 +39,9 @@ Crafty.c('PlayerController', {
     const { x, y } = this.getCentrePos()
     weapon.attr({ x, y })
     this.attach(weapon)
-    currentWeapon.set(this, weapon)
+    const equips = equipments.get(this) || []
+    equips[equipIndex.WEAPON] = weapon
+    equipments.set(this, equips)
     return this
   }
 })
@@ -40,37 +49,74 @@ Crafty.c('PlayerController', {
 // Helpers
 
 function KeyDown (e) {
-  const weapon = currentWeapon.get(this)
   switch (e.key) {
     case keypad.Y: {
-      weapon.stopFire()
-      weapon.startFire()
+      stopFire.call(this)
+      startFire.call(this)
       break
     }
     case keypad.X: {
-      weapon.stopFire()
-      weapon.startFire()
+      stopFire.call(this)
+      startFire.call(this)
       break
     }
     case keypad.A:
     case keypad.B: {
-      weapon.setWeaponLevelUp()
-      this.powerUpPanel.powerUp()
+      powerUp.call(this)
       break
     }
   }
 }
 
 function KeyUp (e) {
-  const weapon = currentWeapon.get(this)
   switch (e.key) {
     case keypad.Y: {
-      weapon.stopFire()
+      stopFire.call(this)
       break
     }
     case keypad.X: {
-      weapon.stopFire()
+      stopFire.call(this)
       break
     }
   }
+}
+
+function stopFire () {
+  equipments.get(this)
+    .filter(x => x.has('Weapon'))
+    .forEach(x => x.stopFire())
+}
+
+function startFire () {
+  equipments.get(this)
+    .filter(x => x.has('Weapon'))
+    .forEach(x => x.startFire())
+}
+
+function powerUp () {
+  const { activeIndex } = this.powerUpPanel
+  switch (activeIndex) {
+    case equipIndex.SPEED:
+    {
+      break
+    }
+    case equipIndex.MISSILE:
+    {
+      break
+    }
+    case equipIndex.WEAPON:
+    {
+      equipments.get(this)[activeIndex].setWeaponLevelUp()
+      break
+    }
+    case equipIndex.MULTIPLE:
+    {
+      break
+    }
+    case equipIndex.SHIELD:
+    {
+      break
+    }
+  }
+  this.powerUpPanel.powerUp()
 }

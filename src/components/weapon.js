@@ -55,7 +55,7 @@ function normaliseLevel (level, max = 5) {
 }
 
 function changeLevel (delta) {
-  const nextLevel = normaliseLevel(currentLevel.get(this) || 0 + delta)
+  const nextLevel = normaliseLevel((currentLevel.get(this) || 0) + delta)
   currentLevel.set(this, nextLevel)
   const spec = specs.get(this)[nextLevel - 1]
   const { rateOfFire } = spec

@@ -26,7 +26,7 @@ Crafty.c('PowerUpPanel', {
       .textColor(inactiveText)
 
     this.powers[2] = Crafty.e('UIPowerUpSlot')
-      .text('MAIN')
+      .text('WEAPON')
       .attr({ x: slotWidth * 2 })
       .textColor(inactiveText)
 
@@ -64,14 +64,16 @@ Crafty.c('PowerUpPanel', {
     if (this.activeIndex < 0) {
       return
     }
-    const canPowerUp = this.powers[this.activeIndex].up()
-    if (canPowerUp) {
-    // Clear the UI
-      this.activeIndex = -1
-      this.powers.forEach(x => {
-        x.textColor(inactiveText)
-      })
+    const currentSlot = this.powers[this.activeIndex]
+    if (!currentSlot.canPowerUp()) {
+      return
     }
+    currentSlot.up()
+    // Clear the UI
+    this.activeIndex = -1
+    this.powers.forEach(x => {
+      x.textColor(inactiveText)
+    })
     return this
   }
 })

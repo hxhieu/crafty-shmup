@@ -4,7 +4,7 @@ import '@/components/projectile'
 
 const createProjectileBase = ({ x, y, forward }) => {
   return Crafty.e(`SelfDestroy, MoveForward, Projectile`)
-    .attr({ x, y })
+    .attr({ ox: x, oy: y })
     .lookDirection(forward)
 }
 

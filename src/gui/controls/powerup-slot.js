@@ -15,19 +15,22 @@ Crafty.c('UIPowerUpSlot', {
         size: '6px'
       })
       .textColor('#666')
+
+    currentLevel.set(this, 1)
+  },
+
+  canPowerUp: function () {
+    return currentLevel.get(this) < maxLevel
   },
 
   up: function () {
-    let lvl = currentLevel.get(this) || 0
-
-    if (lvl > maxLevel) {
-      return false
+    let lvl = currentLevel.get(this)
+    if (lvl >= maxLevel) {
+      return
     }
 
     lvl++
     this.text(`${this.text().split('-')[0]}-${lvl >= maxLevel ? 'MAX' : lvl}`)
     currentLevel.set(this, lvl)
-
-    return true
   }
 })

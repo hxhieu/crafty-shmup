@@ -28,6 +28,8 @@ Crafty.load(assets, () => {
     screenSize.h,
     document.getElementById('game')
   ).background('#000')
+  Crafty.timer.FPS(60)
+  Crafty.timer.steptype('variable')
 
   GuiManager.init()
   PhysicsManager.init()

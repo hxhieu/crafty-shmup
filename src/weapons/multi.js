@@ -2,7 +2,11 @@ import { createWeaponBase } from './base'
 import { createMultiProjectile } from './projectiles'
 
 const data = [
-  { power: 1, wave: 1, rateOfFire: 3 }
+  { level: 1, power: 1, wave: 1, way: 3, rateOfFire: 5 },
+  { level: 2, power: 1, wave: 1, way: 5, rateOfFire: 5 },
+  { level: 3, power: 1, wave: 1, way: 7, rateOfFire: 5 },
+  { level: 4, power: 1, wave: 1, way: 7, rateOfFire: 5 },
+  { level: 5, power: 2, wave: 1, way: 7, rateOfFire: 5 }
 ]
 
 export const createWeaponMulti = () => {
@@ -13,65 +17,35 @@ export const createWeaponMulti = () => {
 function spawnFn (spec) {
   const forward = this.getForward()
   const { x, y } = this.getCentrePos()
-  const { way, level, power } = spec
+  const { level, power } = spec
+  const { way } = spec
+
+  spawnProjectile.call(this, { forward, x, y, level, power })
+  spawnProjectile.call(this, { forward: forward.rotateDeg(-30), x, y, level, power })
+  spawnProjectile.call(this, { forward: forward.rotateDeg(30), x, y, level, power })
+
+  if (way >= 5) {
+    spawnProjectile.call(this, { forward: forward.rotateDeg(-60), x, y, level, power })
+    spawnProjectile.call(this, { forward: forward.rotateDeg(60), x, y, level, power })
+  }
+
+  if (way >= 7) {
+    spawnProjectile.call(this, { forward: forward.rotateDeg(-90), x, y, level, power })
+    spawnProjectile.call(this, { forward: forward.rotateDeg(90), x, y, level, power })
+  }
+}
+
+function spawnProjectile ({ forward, x, y, level, power }) {
   const profile = this._parent.collisionProfile
   const size = 16
-
-  createMultiProjectile({
-    x: x - size / 2,
-    y: y - size,
+  x -= size / 2
+  y -= size / 2
+  return createMultiProjectile({
+    x,
+    y,
     forward,
     profile,
     level,
     power
   })
-
-  if (way >= 3) {
-    // new MultiProjectile({
-    //   x: x - 16,
-    //   y: y,
-    //   forward: new Crafty.math.Vector2D(-1, -1),
-    //   profile,
-    //   level,
-    //   power
-    // })
-    // new MultiProjectile({
-    //   x,
-    //   y: y - 8,
-    //   forward: new Crafty.math.Vector2D(1, -1),
-    //   profile,
-    //   level,
-    //   power
-    // })
-  }
-
-  // if (way >= 5) {
-  //   new MultiProjectile({
-  //     x: x - 16,
-  //     y: y + 8,
-  //     forward: new Crafty.math.Vector2D(-1, 0),
-  //     profile,
-  //     level,
-  //     power
-  //   })
-  //   new MultiProjectile({
-  //     x,
-  //     y: y - 8,
-  //     forward: new Crafty.math.Vector2D(1, 0),
-  //     profile,
-  //     level,
-  //     power
-  //   })
-  // }
-
-  // if (way >= 6) {
-  //   new MultiProjectile({
-  //     x: x + 8,
-  //     y: y,
-  //     forward: new Crafty.math.Vector2D(0, 1),
-  //     profile,
-  //     level,
-  //     power
-  //   })
-  // }
 }
