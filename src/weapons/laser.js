@@ -2,7 +2,11 @@ import { createWeaponBase } from './base'
 import { createLaserBeam } from './projectiles'
 
 const data = [
-  { power: 1, rateOfFire: 2 }
+  { level: 1, power: 1, width: 4, rateOfFire: 1 },
+  { level: 2, power: 2, width: 5, rateOfFire: 1 },
+  { level: 3, power: 3, width: 6, rateOfFire: 2 },
+  { level: 4, power: 4, width: 12, rateOfFire: 2 },
+  { level: 5, power: 5, width: 16, rateOfFire: 2 }
 ]
 
 export const createWeaponLaser = () => {
@@ -13,10 +17,9 @@ export const createWeaponLaser = () => {
 function spawnFn (spec) {
   const forward = this.getForward()
   const { x, y } = this.getCentrePos()
-  const { level } = spec
-  const beam = createLaserBeam({
-    x, y, forward, level
-  })
+  const profile = this._parent.collisionProfile
+  const props = Object.assign(spec, { x, y, forward })
+  const beam = createLaserBeam(profile, props)
   this.attach(beam)
 
   return this

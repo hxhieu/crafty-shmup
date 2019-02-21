@@ -7,6 +7,7 @@ const currentArmour = new WeakMap()
 const maxShield = new WeakMap()
 const currentShield = new WeakMap()
 const deadEffect = new WeakMap()
+const isDestroying = new WeakMap()
 
 // Component definition
 
@@ -50,6 +51,12 @@ function setStructure (armour, shield, effect) {
 }
 
 async function takeDamage (amount) {
+  if (isDestroying.get(this)) {
+    return
+  }
+
+  this.tweenFlash()
+
   let shield = currentShield.get(this)
   shield -= amount
   currentShield.set(this, shield)
@@ -60,6 +67,7 @@ async function takeDamage (amount) {
     armour += shield
     currentShield.set(this, 0)
     if (armour <= 0) {
+      isDestroying.set(this, true)
       await triggerDestroy.call(this)
       return this
     }
@@ -69,7 +77,6 @@ async function takeDamage (amount) {
   }
 
   // If we got this far then we survived!
-  this.tweenFlash()
   this.trigger(Events.STRUCTURE_HIT, amount)
 
   return this

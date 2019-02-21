@@ -2,13 +2,12 @@ const fx = new WeakMap()
 const pow = new WeakMap()
 
 Crafty.c('Projectile', {
-  required: 'Collider',
 
   events: {
     HitOn
   },
 
-  setProjectile: function (profile, power, effects) {
+  setProps: function (profile, power, effects) {
     const { sound, volume } = effects
     if (sound && !Crafty.audio.isPlaying(sound)) {
       Crafty.audio.play(sound, 1, volume || 1)

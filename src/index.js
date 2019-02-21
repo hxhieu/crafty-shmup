@@ -50,10 +50,14 @@ function hello () {
 
   createPlayerRedFighter(80)
 
-  const boss1 = createYellowCrabBoss()
-  boss1.attr({
-    x: Crafty.math.randomInt(0, screenSize.w),
-    y: Crafty.math.randomInt(0, screenSize.h - 200)
+  createYellowCrabBoss().attr({
+    x: 100,
+    y: 20
+  })
+
+  createYellowCrabBoss().attr({
+    x: 100,
+    y: 50
   })
   // const boss2 = new BlueSucklingBoss()
   // boss2.e.attr({

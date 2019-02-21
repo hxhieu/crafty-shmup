@@ -4,6 +4,8 @@ import buildProjectiles from './projectiles'
 import buildExplosions from './explosions'
 import buildObjects from './objects'
 
+import { Events } from '@/constants'
+
 const assets = {
   sprites: {
     // Player
@@ -83,7 +85,8 @@ const assets = {
     PowerUp01: ['SFX_Powerup_01.wav'],
     ExplosionSmall01: ['atari_boom.wav'],
     GunShoot01: ['shoot_01.wav'],
-    Loop01: ['CH-AY-NA.wav']
+    Loop01: ['CH-AY-NA.wav'],
+    Laser01: ['retro_laser_01.wav']
   }
 }
 
@@ -103,6 +106,7 @@ const generateSharedSprites = () => {
 
     destroyOnEnd: function () {
       this.bind('AnimationEnd', function () {
+        this.trigger(Events.SPRITE_DESTROYED)
         this.destroy()
       })
       return this

@@ -37,7 +37,7 @@ export default () => {
           [5, 5, 1, 1],
           [6, 5, 1, 1]
         ])
-        .attr({ w: 8, h: 48 })
+        .attr({ h: 48 })
         .animate('default')
         .destroyOnEnd()
     }
@@ -46,7 +46,7 @@ export default () => {
   Crafty.c('Sprite_ProjectileLaser2', {
     init: function () {
       this.requires('Canvas, SpriteAnimationExt, ProjectileLaser2Sprite')
-        .reel('default', 250, [
+        .reel('default', 350, [
           [8, 5, 1, 1],
           [9, 5, 1, 1],
           [10, 5, 1, 1],
