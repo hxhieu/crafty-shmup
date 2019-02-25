@@ -2,11 +2,11 @@ import { createWeaponBase } from './base'
 import { createMultiProjectile } from './projectiles'
 
 const data = [
-  { level: 1, power: 1, wave: 1, way: 3, rateOfFire: 5 },
-  { level: 2, power: 1, wave: 1, way: 5, rateOfFire: 5 },
-  { level: 3, power: 1, wave: 1, way: 7, rateOfFire: 5 },
-  { level: 4, power: 1, wave: 1, way: 7, rateOfFire: 5 },
-  { level: 5, power: 2, wave: 1, way: 7, rateOfFire: 5 }
+  { level: 1, power: 1, wave: 1, way: 3, rateOfFire: 2 },
+  { level: 2, power: 1, wave: 1, way: 5, rateOfFire: 2 },
+  { level: 3, power: 1, wave: 1, way: 7, rateOfFire: 2 },
+  { level: 4, power: 1, wave: 1, way: 7, rateOfFire: 3 },
+  { level: 5, power: 2, wave: 1, way: 7, rateOfFire: 3 }
 ]
 
 export const createWeaponMulti = () => {

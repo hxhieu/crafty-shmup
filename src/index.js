@@ -9,11 +9,11 @@ import { screenSize } from './device'
 import { assets, generateSharedSprites } from './assets-loader'
 import { GuiManager } from '@/gui'
 import { PhysicsManager } from '@/physics'
-import { createPlayerRedFighter } from '@/ships/player'
+import { createPlayerYellowFighter } from '@/ships/player'
 import { ParallaxSpaceScene } from './scenes'
 import { GenericSpawner } from '@/spawners'
 import { createPowerHostSwarm } from '@/ships/enemies'
-import { createYellowCrabBoss } from './ships/enemies/yellow-crab-boss'
+// import { createYellowCrabBoss } from './ships/enemies/yellow-crab-boss'
 
 Crafty.paths({
   images: 'assets/images/',
@@ -45,20 +45,20 @@ function hello () {
   /* eslint-disable no-new */
   new ParallaxSpaceScene()
 
-  const powerHostSpawner = new GenericSpawner(createPowerHostSwarm, 2000, 6000)
+  const powerHostSpawner = new GenericSpawner(createPowerHostSwarm, 2000, 3000)
   powerHostSpawner.start()
 
-  createPlayerRedFighter(80)
+  createPlayerYellowFighter(80)
 
-  createYellowCrabBoss().attr({
-    x: 100,
-    y: 20
-  })
+  // createYellowCrabBoss().attr({
+  //   x: 100,
+  //   y: 20
+  // })
 
-  createYellowCrabBoss().attr({
-    x: 100,
-    y: 50
-  })
+  // createYellowCrabBoss().attr({
+  //   x: 100,
+  //   y: 50
+  // })
   // const boss2 = new BlueSucklingBoss()
   // boss2.e.attr({
   //   x: Crafty.math.randomInt(0, screenSize.w),

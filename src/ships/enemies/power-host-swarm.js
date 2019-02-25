@@ -8,14 +8,14 @@ import { createPowerUp } from '@/scenes/objects'
 export const createPowerHostSwarm = (size = 5) => {
   const { w } = screenSize
   const startX = Crafty.math.randomNumber(32, w - 32)
-  const startY = 0
+  const startY = -16
   let count = 0
   for (let i = 0; i < size; i++) {
     setTimeout(() => {
       createEnemyPowerHost()
         .addComponent('MoveZigZag, LootTable')
         .attr({ x: startX, y: startY })
-        .moveZigZag(3000, 1000, 30)
+        .moveZigZag(1500, 3000, 30)
         .bind(Events.STRUCTURE_DESTROYED, function () {
           count--
           if (count <= 0) {
