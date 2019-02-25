@@ -12,7 +12,7 @@ import { PhysicsManager } from '@/physics'
 import { createPlayerRedFighter } from '@/ships/player'
 import { ParallaxSpaceScene } from './scenes'
 import { GenericSpawner } from '@/spawners'
-import { createEnemyPowerHost } from '@/ships/enemies'
+import { createPowerHostSwarm } from '@/ships/enemies'
 import { createYellowCrabBoss } from './ships/enemies/yellow-crab-boss'
 
 Crafty.paths({
@@ -45,7 +45,7 @@ function hello () {
   /* eslint-disable no-new */
   new ParallaxSpaceScene()
 
-  const powerHostSpawner = new GenericSpawner(createEnemyPowerHost, 2000, 6000)
+  const powerHostSpawner = new GenericSpawner(createPowerHostSwarm, 2000, 6000)
   powerHostSpawner.start()
 
   createPlayerRedFighter(80)

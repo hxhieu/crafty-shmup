@@ -24,11 +24,7 @@ function spawnLoop () {
     return
   }
   const { spawn, lowInterval, highInterval } = this.options
-  const e = spawn()
-  if (e.setPosition) {
-    e.setPosition({ x: 240, y: 40 })
-  }
-  this.spawns.push(e)
+  this.spawns.push(spawn())
   const rand = Crafty.math.randomInt(lowInterval, highInterval)
   setTimeout(() => {
     spawnLoop.call(this)

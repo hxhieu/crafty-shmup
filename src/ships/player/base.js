@@ -24,7 +24,7 @@ export const createPlayerBase = speed => {
   return Crafty.e(components)
     .attr({ x: (screenSize.w - size) / 2, y: screenSize.h - size })
     .fourwayBounded(speed, screenSize)
-    .setHitbox([8, 8, 8, 24, 24, 24, 24, 8])
+    .setHitbox([12, 12, 12, 20, 20, 20, 20, 12])
     .setStructure(1, 0, { explode: 'Sprite_ExplosionEnemyHost', sound: 'ExplosionSmall01' })
     .useWeapon(createWeaponMulti())
 }

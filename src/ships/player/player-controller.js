@@ -106,6 +106,7 @@ function powerUp () {
     }
     case equipIndex.WEAPON:
     {
+      stopFire.call(this)
       equipments.get(this)[activeIndex].setWeaponLevelUp()
       break
     }

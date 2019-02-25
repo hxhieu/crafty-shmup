@@ -100,7 +100,7 @@ const generateSharedSprites = () => {
     },
 
     safeAnimate: function (reel, loop) {
-      if (!this.isPlaying(reel)) this.animate(reel, loop)
+      if (this.getReel(reel) && !this.isPlaying(reel)) this.animate(reel, loop)
       return this
     },
 
