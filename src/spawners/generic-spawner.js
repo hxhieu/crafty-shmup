@@ -5,7 +5,6 @@ export class GenericSpawner {
     lowInterval = lowInterval || 1000
     highInterval = highInterval || lowInterval
     this.options = { spawn, lowInterval, highInterval }
-    this.spawns = []
   }
 
   start () {
@@ -24,7 +23,7 @@ function spawnLoop () {
     return
   }
   const { spawn, lowInterval, highInterval } = this.options
-  this.spawns.push(spawn())
+  spawn()
   const rand = Crafty.math.randomInt(lowInterval, highInterval)
   setTimeout(() => {
     spawnLoop.call(this)

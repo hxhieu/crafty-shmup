@@ -7,13 +7,27 @@ export default () => {
 
   Crafty.c('Sprite_ProjectileMulti1', {
     init: function () {
-      this.requires('Canvas, ProjectileMulti1Sprite')
+      this.requires('Canvas, SpriteAnimationExt, ProjectileMulti1Sprite')
+        .reel('default', 250, [
+          [3, 1, 1, 1],
+          [4, 1, 1, 1],
+          [5, 1, 1, 1],
+          [6, 1, 1, 1]
+        ])
+        .animate('default', -1)
     }
   })
 
   Crafty.c('Sprite_ProjectileMulti2', {
     init: function () {
-      this.requires('Canvas, ProjectileMulti2Sprite')
+      this.requires('Canvas, SpriteAnimationExt, ProjectileMulti2Sprite')
+        .reel('default', 250, [
+          [8, 1, 1, 1],
+          [9, 1, 1, 1],
+          [10, 1, 1, 1],
+          [11, 1, 1, 1]
+        ])
+        .animate('default', -1)
     }
   })
 
@@ -55,6 +69,17 @@ export default () => {
         .attr({ h: 48 })
         .animate('default')
         .destroyOnEnd()
+    }
+  })
+
+  Crafty.c('Sprite_ProjectileGreenAcid', {
+    init: function () {
+      this.requires('Canvas, SpriteAnimationExt, ProjectileGreenAcidSprite')
+        .reel('default', 250, [
+          [3, 0, 1, 1],
+          [3, 8, 1, 1]
+        ])
+        .animate('default', -1)
     }
   })
 }

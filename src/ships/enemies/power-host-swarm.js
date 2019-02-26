@@ -24,6 +24,6 @@ export const createPowerHostSwarm = (size = 5) => {
           }
         })
       count++
-    }, i * 500)
+    }, i * 400)
   }
 }

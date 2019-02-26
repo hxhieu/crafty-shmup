@@ -41,6 +41,27 @@ export default () => {
           [12, 3, 1, 1],
           [13, 3, 1, 1]
         ])
+        .attr({ w: 24, h: 24 })
+        .animate('level', -1)
+    }
+  })
+
+  Crafty.c('Sprite_EnemyFly', {
+    init: function () {
+      this.requires('Canvas, SpriteAnimationExt, EnemyFlySprite')
+        .reel('level', 500, [
+          [0, 1, 1, 1],
+          [1, 1, 1, 1],
+          [2, 1, 1, 1],
+          [3, 1, 1, 1]
+        ])
+        .reel('shooting', 250, [
+          [0, 1, 1, 1],
+          [1, 1, 1, 1],
+          [2, 1, 1, 1],
+          [3, 1, 1, 1]
+        ])
+        .attr({ w: 40, h: 40 })
         .animate('level', -1)
     }
   })

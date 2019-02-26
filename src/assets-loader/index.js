@@ -23,8 +23,8 @@ const assets = {
       tileh: 16,
       map: {
         ProjectileVulcan1Sprite: [3, 0, 1, 1],
-        ProjectileMulti1Sprite: [3, 2, 1, 1],
-        ProjectileMulti2Sprite: [8, 2, 1, 1],
+        ProjectileMulti1Sprite: [3, 1, 1, 1],
+        ProjectileMulti2Sprite: [8, 1, 1, 1],
         ProjectileLaser1Sprite: [3, 5, 1, 1],
         ProjectileLaser2Sprite: [3, 8, 1, 1]
       }
@@ -46,7 +46,16 @@ const assets = {
       tileh: 32,
       map: {
         EnemyPowerHostSprite: [10, 3, 1, 1],
-        ExplosionEnemyPowerHostSprite: [10, 2, 1, 1]
+        ExplosionEnemyPowerHostSprite: [10, 2, 1, 1],
+        EnemyFlySprite: [0, 1, 1, 1],
+        ExplosionEnemyFlySprite: [0, 0, 1, 1]
+      }
+    },
+    'Enemies_Projectile.png': {
+      tile: 16,
+      tileh: 16,
+      map: {
+        ProjectileGreenAcidSprite: [3, 0, 1, 1]
       }
     },
 
