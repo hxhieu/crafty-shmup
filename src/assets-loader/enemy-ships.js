@@ -52,8 +52,8 @@ export default () => {
   Crafty.c('Sprite_EnemyFly', {
     init: function () {
       this.requires('Canvas, SpriteAnimationExt, EnemyFlySprite')
-        .attr({ w: 40, h: 40 })
-        .origin(20, 20)
+        .attr({ w: 48, h: 48 })
+        .origin(24, 24)
         .reel('level', 500, [
           [0, 1, 1, 1],
           [1, 1, 1, 1],
