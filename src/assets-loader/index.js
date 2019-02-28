@@ -55,7 +55,7 @@ const assets = {
       tile: 16,
       tileh: 16,
       map: {
-        ProjectileGreenAcidSprite: [3, 0, 1, 1]
+        ProjectileGreenAcidSprite: [3, 8, 1, 1]
       }
     },
 
@@ -103,10 +103,6 @@ const generateSharedSprites = () => {
   // Some helpers
   Crafty.c('SpriteAnimationExt', {
     required: '2D, SpriteAnimation',
-
-    init: function () {
-      this.origin('center')
-    },
 
     safeAnimate: function (reel, loop) {
       if (this.getReel(reel) && !this.isPlaying(reel)) this.animate(reel, loop)

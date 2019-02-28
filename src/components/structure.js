@@ -92,8 +92,8 @@ async function triggerDestroy () {
 
   const { explode, sound, volume } = deadEffect.get(this)
   if (explode) {
-    const { x, y } = this
-    Crafty.e(explode).attr({ x, y })
+    const { ox, oy } = this
+    Crafty.e(explode).attr({ ox, oy })
   }
   if (sound) {
     Crafty.audio.play(sound, 1, volume || 1)

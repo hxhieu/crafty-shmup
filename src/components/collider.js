@@ -17,14 +17,6 @@ Crafty.c('Collider', {
     // this.trigger(Events.TOGGLE_HITBOX, true)
   },
 
-  getCentrePos: function () {
-    const { ox, oy } = this
-    return new Crafty.math.Vector2D(
-      ox,
-      oy
-    )
-  },
-
   outOfScreen: function () {
     return !this.within(Crafty.viewport.rect())
   },

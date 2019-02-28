@@ -28,13 +28,15 @@ Crafty.c('Weapon', {
     return changeLevel.call(this, -1)
   },
 
-  startFire: function () {
+  startFire: function (continuos = true) {
     this.stopFire()
     throttleFire.get(this)()
-    const { rateOfFire } = currentSpec.get(this)
-    fireTimer.set(this, setInterval(() => {
-      fire.call(this)
-    }, 1000 / rateOfFire))
+    if (continuos) {
+      const { rateOfFire } = currentSpec.get(this)
+      fireTimer.set(this, setInterval(() => {
+        fire.call(this)
+      }, 1000 / rateOfFire))
+    }
     return this
   },
 

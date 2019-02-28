@@ -1,7 +1,10 @@
+import '@/components/self-destroy'
+
 const fx = new WeakMap()
 const pow = new WeakMap()
 
 Crafty.c('Projectile', {
+  required: 'SelfDestroy',
 
   events: {
     HitOn
@@ -22,11 +25,8 @@ Crafty.c('Projectile', {
 function HitOn (hitData) {
   const { impact } = fx.get(this)
   if (impact) {
-    Crafty.e(impact)
-      .attr({
-        x: this.x,
-        y: this.y
-      })
+    const { ox, oy } = this
+    Crafty.e(impact).attr({ ox, oy })
   }
 
   this.destroy()

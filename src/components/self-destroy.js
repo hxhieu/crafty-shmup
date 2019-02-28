@@ -6,13 +6,13 @@ Crafty.c('SelfDestroy', {
   required: 'Collider',
 
   events: {
-    EnterFrame
+    ExitFrame
   }
 })
 
 // Helpers
 
-function EnterFrame () {
+function ExitFrame () {
   if (this.outOfScreen()) {
     this.destroy()
   }

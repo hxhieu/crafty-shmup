@@ -36,8 +36,8 @@ Crafty.c('PlayerController', {
 
   useWeapon: function (weapon) {
     // Attach
-    const { x, y } = this.getCentrePos()
-    weapon.attr({ x, y })
+    const { ox, oy } = this
+    weapon.attr({ ox, oy })
     this.attach(weapon)
     const equips = equipments.get(this) || []
     equips[equipIndex.WEAPON] = weapon

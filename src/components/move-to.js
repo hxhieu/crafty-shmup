@@ -25,6 +25,14 @@ Crafty.c('MoveTo', {
   moveTo: function (options) {
     specs.set(this, options)
     return this
+  },
+
+  setMoveSpeed: function (speed) {
+    let options = specs.get(this)
+    options = Object.assign(options, {
+      speed
+    })
+    specs.set(this, options)
   }
 })
 
@@ -64,6 +72,10 @@ function MoveEnded () {
 
 function EnterFrame ({ dt }) {
   const { x, y, speed } = specs.get(this)
+
+  if (speed <= 0) {
+    return
+  }
 
   var dx = x - this.x
 

@@ -16,9 +16,9 @@ export const createWeaponLaser = () => {
 
 function spawnFn (spec) {
   const forward = this.getForward()
-  const { x, y } = this.getCentrePos()
+  const { ox, oy } = this
   const profile = this._parent.collisionProfile
-  const props = Object.assign(spec, { x, y, forward })
+  const props = Object.assign(spec, { x: ox, y: oy, forward })
   const beam = createLaserBeam(profile, props)
   this.attach(beam)
 

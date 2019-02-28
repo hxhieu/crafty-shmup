@@ -6,5 +6,5 @@ export const createGreenAcidProjectile = specs => {
     .addComponent(`Sprite_ProjectileGreenAcid`)
     .setProps(profile, power, { impact: 'Sprite_ExplosionSmall01' })
     .setHitbox([4, 4, 4, 12, 12, 12, 12, 4])
-    .moveForward(50)
+    .moveForward(40)
 }

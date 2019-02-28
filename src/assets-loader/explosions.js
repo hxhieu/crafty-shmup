@@ -2,7 +2,7 @@ export default () => {
   Crafty.c('Sprite_ExplosionSmall01', {
     init: function () {
       this.requires('Canvas, SpriteAnimationExt, ExplosionSmall01Sprite')
-        .origin(16, 16)
+        .origin(8, 8)
         .reel('default', 250, [
           [8, 0, 1, 1],
           [9, 0, 1, 1],
@@ -18,7 +18,7 @@ export default () => {
   Crafty.c('Sprite_ExplosionSmall01Slomo', {
     init: function () {
       this.requires('Canvas, SpriteAnimationExt, ExplosionSmall01Sprite')
-        .origin(16, 16)
+        .origin(8, 8)
         .reel('default', 1000, [
           [8, 0, 1, 1],
           [9, 0, 1, 1],

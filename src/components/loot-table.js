@@ -7,7 +7,7 @@ const lootTable = new WeakMap()
 // Component definition
 
 Crafty.c('LootTable', {
-  required: 'Collider',
+  required: '2DExt',
 
   events: {
     [Events.STRUCTURE_DESTROYED]: spawnLoot
@@ -35,8 +35,8 @@ function getLoot () {
 
 function spawnLoot () {
   const createLoot = getLoot.call(this)
-  const { x, y } = this.getCentrePos()
+  const { ox, oy } = this
   if (createLoot) {
-    createLoot().attr({ ox: x, oy: y })
+    createLoot().attr({ ox, oy })
   }
 }

@@ -7,12 +7,6 @@ const forward = new WeakMap()
 Crafty.c('2DExt', {
   required: '2D',
 
-  events: {
-    NewEntity: function () {
-      this.origin('center')
-    }
-  },
-
   init: function () {
     forward.set(this, new Crafty.math.Vector2D(0, -1))
   },

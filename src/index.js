@@ -47,7 +47,7 @@ function hello () {
   /* eslint-disable no-new */
   new ParallaxSpaceScene()
 
-  const powerHostSpawner = new GenericSpawner(createPowerHostSwarm, 1000, 2000)
+  const powerHostSpawner = new GenericSpawner(createPowerHostSwarm, 6000, 8000)
   powerHostSpawner.start()
 
   const flySpawner = new GenericSpawner(createEnemyFly, 2000, 3000)
