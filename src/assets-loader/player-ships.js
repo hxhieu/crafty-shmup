@@ -17,6 +17,7 @@ export default () => {
   Crafty.c('Sprite_PlayerRed', {
     init: function () {
       this.requires('Canvas, SpriteAnimationExt, PlayerRedSprite')
+        .origin(16, 16)
         .reel('level', 150, [
           [4, 0, 1, 1],
           [5, 0, 1, 1]
@@ -35,6 +36,7 @@ export default () => {
   Crafty.c('Sprite_PlayerGreen', {
     init: function () {
       this.requires('Canvas, SpriteAnimationExt, PlayerGreenSprite')
+        .origin(16, 16)
         .reel('level', 150, [
           [4, 1, 1, 1],
           [5, 1, 1, 1]
@@ -52,6 +54,7 @@ export default () => {
   Crafty.c('Sprite_PlayerYellow', {
     init: function () {
       this.requires('Canvas, SpriteAnimationExt, PlayerYellowSprite')
+        .origin(16, 16)
         .reel('level', 150, [
           [4, 2, 1, 1],
           [5, 2, 1, 1]
