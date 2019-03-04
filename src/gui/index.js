@@ -1,6 +1,8 @@
 import { keypad } from '@/device'
+import './controls/label'
 import './main-menu'
 import './powerup-panel'
+import './debug-info'
 
 const mainMenu = new WeakMap()
 const instance = new WeakMap()
@@ -11,6 +13,8 @@ export class GuiManager {
     instance.set(this, Crafty.e()
       .bind('KeyUp', keyUp)
     )
+
+    Crafty.e('DebugInfo')
   }
 
   static instance () {
