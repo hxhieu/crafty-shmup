@@ -1,10 +1,10 @@
-import '@/components/self-destroy'
+import '@/components/kill-z'
 
 const fx = new WeakMap()
 const pow = new WeakMap()
 
 Crafty.c('Projectile', {
-  required: 'SelfDestroy',
+  required: 'Collider, KillZ',
 
   events: {
     HitOn

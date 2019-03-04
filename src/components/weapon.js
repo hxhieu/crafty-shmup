@@ -2,7 +2,6 @@ import throttle from 'lodash.throttle'
 
 // Local vars
 const specs = new WeakMap()
-const fireTimer = new WeakMap()
 const currentLevel = new WeakMap()
 const throttleFire = new WeakMap()
 const spawnFn = new WeakMap()
@@ -11,7 +10,7 @@ const currentSpec = new WeakMap()
 // Component definition
 
 Crafty.c('Weapon', {
-  // required: 'XXX',
+  required: 'Delay',
 
   setWeaponData: function (data, fn) {
     specs.set(this, data)
@@ -33,15 +32,13 @@ Crafty.c('Weapon', {
     throttleFire.get(this)()
     if (continuos) {
       const { rateOfFire } = currentSpec.get(this)
-      fireTimer.set(this, setInterval(() => {
-        fire.call(this)
-      }, 1000 / rateOfFire))
+      this.delay(fire, 1000 / rateOfFire, -1)
     }
     return this
   },
 
   stopFire: function () {
-    clearInterval(fireTimer.get(this))
+    this.cancelDelay(fire)
     return this
   },
 

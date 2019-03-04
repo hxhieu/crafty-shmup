@@ -4,16 +4,15 @@ import { CollisionProfiles, Events } from '@/constants'
 // Local vars
 const checkInterval = 250
 const data = new WeakMap()
-const timer = new WeakMap()
 
 // Component definition
 
 Crafty.c('Loot', {
-  required: `2DExt, ${CollisionProfiles.LOOT}, KillZ`,
+  required: `2DExt, ${CollisionProfiles.LOOT}, KillZ, Delay`,
 
   setLootData (loot) {
     data.set(this, loot)
-    timer.set(this, setInterval(() => {
+    this.delay(() => {
       const hits = Crafty('Looter').get()
       for (let i = 0; i < hits.length; i++) {
         const other = hits[i]
@@ -26,13 +25,7 @@ Crafty.c('Loot', {
           this.destroy()
         }
       }
-    }, checkInterval))
+    }, checkInterval, -1)
     return this
-  },
-
-  events: {
-    Remove: function () {
-      clearInterval(timer.get(this))
-    }
   }
 })

@@ -6,10 +6,11 @@ import { createWeaponGeneric } from '@/weapons'
 import { createGreenAcidProjectile as createProjectile } from '@/weapons/projectiles'
 
 const MOVE_SPEED = 20
+const FIRE_INTERVAL = 3000
 
 export const createEnemyFly = () => {
   const e = createEnemyBase('Sprite_EnemyFly')
-    .addComponent('RandomStart, MoveZigZag')
+    .addComponent('RandomStart, MoveZigZag, Delay')
     .setHitbox([14, 14, 14, 26, 26, 26, 26, 14])
     .setStructure(4, 0, { explode: 'Sprite_ExplosionEnemyFly' })
     .setRandomStart({ top: -64, bottom: -16 })
@@ -22,15 +23,15 @@ export const createEnemyFly = () => {
     .attr({ ox, oy })
   e.attach(w)
 
-  setInterval(() => {
+  e.delay(() => {
     e.safeAnimate('shooting', -1)
     e.setMoveSpeed(0)
-    setTimeout(() => {
+    e.delay(() => {
       e.safeAnimate('level', -1)
       w.startFire(false)
       e.setMoveSpeed(MOVE_SPEED)
     }, 1000)
-  }, 4000)
+  }, FIRE_INTERVAL, -1)
 
   return e
 }

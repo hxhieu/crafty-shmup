@@ -6,7 +6,7 @@ import '@/components/beam'
 import { Events } from '@/constants'
 
 const createProjectileBase = ({ forward }) => {
-  return Crafty.e(`SelfDestroy, MoveForward, Projectile`)
+  return Crafty.e(`MoveForward, Projectile`)
     .lookDirection(forward)
 }
 
