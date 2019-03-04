@@ -70,7 +70,7 @@ function fire () {
   const fn = spawnFn.get(this)
   fn.call(this, spec)
   for (let i = 1; i < wave; i++) {
-    setTimeout(() => {
+    this.delay(() => {
       fn.call(this, spec)
     }, i * 100)
   }

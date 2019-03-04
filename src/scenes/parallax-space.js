@@ -8,9 +8,8 @@ export class ParallaxSpaceScene {
     Crafty.createLayer('BGLayer', 'DOM', { scaleResponse: 0, xResponse: 0, yResponse: 0, z: 0 })
     Crafty.audio.play('Loop01', -1, 0.5)
 
-    // Crafty.background('url(assets/images/Parallax_Space_BG.png)')
+    Crafty.background('url(assets/images/Parallax_Space_BG.png)')
     this.farPlanets = Crafty.e('2DExt, BGLayer, ParallaxSpaceFarPlanetSprite, TimedScroller')
-    // // this.ringPlanets = Crafty.e('2DExt, Canvas, SpriteAnimationExt, ParallaxSpaceRingPlanetSprite')
     this.bigPlanet = Crafty.e('2DExt, BGLayer, ParallaxSpaceBigPlanetSprite, TimedScroller')
 
     this.bigPlanet
@@ -23,6 +22,8 @@ export class ParallaxSpaceScene {
       speed: 0.007
     })
 
+    this.timer = Crafty.e('Delay')
+
     this.buildStarField()
     this.buildStarField()
     this.starsGenerator()
@@ -30,7 +31,7 @@ export class ParallaxSpaceScene {
 
   starsGenerator () {
     const rand = Crafty.math.randomInt(400, 10000)
-    setTimeout(() => {
+    this.timer.delay(() => {
       this.buildStarField()
       this.starsGenerator()
     }, rand)

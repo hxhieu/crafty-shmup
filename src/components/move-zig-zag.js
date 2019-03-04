@@ -9,7 +9,7 @@ const specs = new WeakMap()
 // Component definition
 
 Crafty.c('MoveZigZag', {
-  required: 'MoveTo',
+  required: 'MoveTo, Delay',
 
   events: {
     [Events.MOVE_ZIG_ZAG_X]: moveX,
@@ -32,7 +32,7 @@ function moveX () {
   const { w } = screenSize
   const nextX = this.x < w / 4 ? w - this.w : 0
   this.moveTo({ x: nextX, y: this.y, speed: speed })
-  setTimeout(() => {
+  this.delay(() => {
     this.trigger(Events.MOVE_ZIG_ZAG_Y)
   }, turnX)
 }
@@ -40,7 +40,7 @@ function moveX () {
 function moveY () {
   const { turnY, speed } = specs.get(this)
   this.moveTo({ x: this.x, y: screenSize.h, speed: speed })
-  setTimeout(() => {
+  this.delay(() => {
     this.trigger(Events.MOVE_ZIG_ZAG_X)
   }, turnY)
 }
