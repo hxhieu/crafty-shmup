@@ -1,3 +1,4 @@
+import '@/components/sound-clip'
 import { screenSize } from '@/device'
 import uniqWith from 'lodash.uniqwith'
 
@@ -10,7 +11,7 @@ const tickInterval = 100
 // Component definition
 
 Crafty.c('Beam', {
-  required: '2DExt',
+  required: '2DExt, SoundClip',
 
   events: {
     EnterFrame
@@ -38,11 +39,9 @@ function EnterFrame ({ dt }) {
 
 function rayHit ({ profile, specs, effects }) {
   const { power, width } = specs
-  const { sound, volume, impact } = effects
+  const { impact } = effects
   const { ox, oy: _y } = this
-  if (sound && !Crafty.audio.isPlaying(sound)) {
-    Crafty.audio.play(sound, 1, volume || 1)
-  }
+  this.playSoundClip(effects)
 
   let hits = []
 

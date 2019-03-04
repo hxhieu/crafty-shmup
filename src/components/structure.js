@@ -1,4 +1,5 @@
 import '@/components/tween-ext'
+import '@/components/sound-clip'
 import { Events } from '@/constants'
 
 // Local vars
@@ -12,7 +13,7 @@ const isDestroying = new WeakMap()
 // Component definition
 
 Crafty.c('Structure', {
-  required: 'TweenExt, Color',
+  required: 'TweenExt, Color, SoundClip',
 
   events: {
     [Events.TRIGGER_DESTROY]: triggerDestroy
@@ -90,14 +91,13 @@ async function triggerDestroy () {
     await this.activateDeathSequence()
   }
 
-  const { explode, sound, volume } = deadEffect.get(this)
+  const effects = deadEffect.get(this)
+  const { explode } = effects
   if (explode) {
     const { ox, oy } = this
     Crafty.e(explode).attr({ ox, oy })
   }
-  if (sound) {
-    Crafty.audio.play(sound, 1, volume || 1)
-  }
+  this.playSoundClip(effects)
 
   // Neccessary post destroy events
   this.trigger(Events.STRUCTURE_DESTROYED)

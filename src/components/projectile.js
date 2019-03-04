@@ -1,20 +1,18 @@
-import '@/components/kill-z'
+import '@/components/self-destroy'
+import '@/components/sound-clip'
 
 const fx = new WeakMap()
 const pow = new WeakMap()
 
 Crafty.c('Projectile', {
-  required: 'Collider, KillZ',
+  required: 'Collider, SelfDestroy, SoundClip',
 
   events: {
     HitOn
   },
 
   setProps: function (profile, power, effects) {
-    const { sound, volume } = effects
-    if (sound && !Crafty.audio.isPlaying(sound)) {
-      Crafty.audio.play(sound, 1, volume || 1)
-    }
+    this.playSoundClip(effects)
     fx.set(this, effects)
     pow.set(this, power)
     this.addComponent(profile)

@@ -3,7 +3,8 @@
 // Component definition
 
 Crafty.c('SelfDestroy', {
-  required: 'Collider',
+  required: 'Collider, Delay',
+  destroying: false,
 
   events: {
     ExitFrame
@@ -13,7 +14,15 @@ Crafty.c('SelfDestroy', {
 // Helpers
 
 function ExitFrame () {
-  if (this.outOfScreen()) {
-    this.destroy()
+  if (!this.destroying && this.outOfScreen()) {
+    this.destroying = true
+    // Give it some window before actually destroy
+    this.delay(() => {
+      if (this.outOfScreen()) {
+        this.destroy()
+      } else {
+        this.destroying = false
+      }
+    }, 1000)
   }
 }
