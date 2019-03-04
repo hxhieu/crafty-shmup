@@ -50,7 +50,7 @@ function hello () {
   const powerHostSpawner = new GenericSpawner(createPowerHostSwarm, 6000, 8000)
   powerHostSpawner.start()
 
-  const flySpawner = new GenericSpawner(createEnemyFly, 2000, 3000)
+  const flySpawner = new GenericSpawner(createEnemyFly, 5000, 5000)
   flySpawner.start()
 
   createPlayerGreenFighter(80)

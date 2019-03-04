@@ -4,6 +4,7 @@ import '@/components/weapon'
 import { createEnemyBase } from './base'
 import { createWeaponGeneric } from '@/weapons'
 import { createGreenAcidProjectile as createProjectile } from '@/weapons/projectiles'
+import { getPlayerInstance } from '@/ships/player'
 
 const MOVE_SPEED = 20
 const FIRE_INTERVAL = 3000
@@ -20,6 +21,7 @@ export const createEnemyFly = () => {
 
   const w = createWeaponGeneric({ createProjectile, power: 1, rateOfFire: 0.5 })
     .lookDirection(e.getForward())
+    .setWeaponTracking(getPlayerInstance)
     .attr({ ox, oy })
   e.attach(w)
 

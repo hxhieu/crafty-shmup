@@ -1,3 +1,4 @@
+import '@/components/look-at'
 import throttle from 'lodash.throttle'
 
 // Local vars
@@ -10,12 +11,17 @@ const currentSpec = new WeakMap()
 // Component definition
 
 Crafty.c('Weapon', {
-  required: 'Delay',
+  required: 'Delay, LookAt',
 
   setWeaponData: function (data, fn) {
     specs.set(this, data)
     spawnFn.set(this, fn)
     changeLevel.call(this, 1) // Start as level 1
+    return this
+  },
+
+  setWeaponTracking: function (getTarget) {
+    this.setLookAtTarget(getTarget, this.getForward())
     return this
   },
 
