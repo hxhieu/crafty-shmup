@@ -1,11 +1,7 @@
-import '@/components/snake-follow'
-// Local vars
+import '@/components/multiple'
+import { CollisionProfiles } from '@/constants'
 
-// Component definition
-
-Crafty.c('Multiple', {
-  required: 'Sprite_PlayerGreen, Velocity, SnakeFollow',
-  init: function () {
-    this.alpha = 0.5
-  }
-})
+export const createPlayerMultiple = (sprite, weaponTemplate) => {
+  return Crafty.e(`${sprite}, ${CollisionProfiles.PLAYER}, Multiple`)
+    .useWeapon(weaponTemplate)
+}

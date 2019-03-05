@@ -28,7 +28,8 @@ function ExitFrame () {
     const { x, y } = target
     queue.enqueue({ x, y })
 
-    if (queue.getSize() >= 20) {
+    // TODO: Hard code steps
+    if (queue.getSize() >= 10) {
       const { x: nextX, y: nextY } = queue.dequeue()
       this.x = nextX
       this.y = nextY

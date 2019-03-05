@@ -1,8 +1,7 @@
-import './multiple'
-
 import { keypad } from '@/device'
 import '@/gui/powerup-panel'
 import { Events, Loots } from '@/constants'
+import { createPlayerMultiple } from './multiple'
 
 // Local vars
 const equipments = new WeakMap()
@@ -14,10 +13,13 @@ const equipIndex = {
   SHIELD: 4
 }
 
+const weaponTemplate = new WeakMap()
+const playerSprie = new WeakMap()
+const multiples = new WeakMap()
+
 // Component definition
 
 Crafty.c('PlayerController', {
-  // required: 'PowerUpPanel',
 
   events: {
     KeyDown,
@@ -29,30 +31,23 @@ Crafty.c('PlayerController', {
       if (loot.id === Loots.POWER_UP) {
         this.powerUpPanel.nextSlot()
       }
+    },
+    [Events.PLAYER_SPRITE_SET]: function (sprite) {
+      playerSprie.set(this, sprite)
     }
   },
 
   init: function () {
-    const { x, y } = this
+    // const { x, y } = this
     this.powerUpPanel = Crafty.e('PowerUpPanel')
-
-    const multiple1 = Crafty.e('Multiple').attr({ x, y })
-    multiple1.setSnakeFollowHead(this)
-
-    const multiple2 = Crafty.e('Multiple')// .attr({ x: 10, y: 10 })
-    multiple2.setSnakeFollowHead(multiple1)
-
-    const multiple3 = Crafty.e('Multiple')// .attr({ x: 10, y: 10 })
-    multiple3.setSnakeFollowHead(multiple2)
-
-    const multiple4 = Crafty.e('Multiple')// .attr({ x: 10, y: 10 })
-    multiple4.setSnakeFollowHead(multiple3)
+    multiples.set(this, [])
   },
 
-  useWeapon: function (weapon) {
+  useWeapon: function (template) {
+    weaponTemplate.set(this, template)
     // Attach
     const { ox, oy } = this
-    weapon.attr({ ox, oy })
+    const weapon = template().attr({ ox, oy })
     this.attach(weapon)
     const equips = equipments.get(this) || []
     equips[equipIndex.WEAPON] = weapon
@@ -100,11 +95,17 @@ function stopFire () {
   equipments.get(this)
     .filter(x => x.has('Weapon'))
     .forEach(x => x.stopFire())
+
+  multiples.get(this)
+    .forEach(x => x.stopFire())
 }
 
 function startFire () {
   equipments.get(this)
     .filter(x => x.has('Weapon'))
+    .forEach(x => x.startFire())
+
+  multiples.get(this)
     .forEach(x => x.startFire())
 }
 
@@ -123,10 +124,13 @@ function powerUp () {
     {
       stopFire.call(this)
       equipments.get(this)[activeIndex].setWeaponLevelUp()
+      multiples.get(this)
+        .forEach(x => x.levelUp())
       break
     }
     case equipIndex.MULTIPLE:
     {
+      spawnMultiple.call(this)
       break
     }
     case equipIndex.SHIELD:
@@ -135,4 +139,28 @@ function powerUp () {
     }
   }
   this.powerUpPanel.powerUp()
+}
+
+function spawnMultiple () {
+  const mul = multiples.get(this)
+  const multiple = createPlayerMultiple(playerSprie.get(this), weaponTemplate.get(this))
+
+  // Starting pos and head
+  if (mul.length === 0) {
+    const { x, y } = this
+    multiple.attr({ x, y }).setSnakeFollowHead(this)
+  } else {
+    const lastMul = mul[mul.length - 1]
+    const { x, y } = lastMul
+    multiple.attr({ x, y }).setSnakeFollowHead(lastMul)
+  }
+
+  // Levels catch up
+  const currentWeapLvl = equipments.get(this)[equipIndex.WEAPON].getLevel()
+  for (let i = 1; i < currentWeapLvl; i++) {
+    multiple.levelUp()
+  }
+
+  mul.push(multiple)
+  multiples.set(this, mul)
 }

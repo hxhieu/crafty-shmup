@@ -9,9 +9,9 @@ import { screenSize } from './device'
 import { assets, generateSharedSprites } from './assets-loader'
 import { GuiManager } from '@/gui'
 import { PhysicsManager } from '@/physics'
-// import { createPlayerRedFighter } from '@/ships/player'
+import { createPlayerFighterRed } from '@/ships/player'
 // import { createPlayerYellowFighter } from '@/ships/player'
-import { createPlayerGreenFighter } from '@/ships/player'
+// import { createPlayerFighterGreen } from '@/ships/player'
 import { ParallaxSpaceScene } from './scenes'
 import { GenericSpawner } from '@/spawners'
 import { createPowerHostSwarm, createEnemyFly } from '@/ships/enemies'
@@ -47,13 +47,13 @@ function hello () {
   /* eslint-disable no-new */
   new ParallaxSpaceScene()
 
-  const powerHostSpawner = new GenericSpawner(createPowerHostSwarm, 6000, 8000)
-  powerHostSpawner.stop()
+  const powerHostSpawner = new GenericSpawner(createPowerHostSwarm, 2000, 2000)
+  powerHostSpawner.start()
 
   const flySpawner = new GenericSpawner(createEnemyFly, 5000, 5000)
   flySpawner.stop()
 
-  createPlayerGreenFighter(80)
+  createPlayerFighterRed(80)
 
   createYellowCrabBoss().attr({
     x: 100,

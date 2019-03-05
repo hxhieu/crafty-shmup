@@ -1,5 +1,5 @@
-export { createPlayerRedFighter } from './red-fighter'
-export { createPlayerGreenFighter } from './green-fighter'
-export { createPlayerYellowFighter } from './yellow-fighter'
+export { createPlayerFighterRed } from './fighter-red'
+export { createPlayerFighterGreen } from './fighter-green'
+export { createPlayerFighterYellow } from './fighter-yellow'
 
 export const getPlayerInstance = () => Crafty('PlayerController').get()[0]
