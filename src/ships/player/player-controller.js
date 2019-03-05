@@ -1,3 +1,5 @@
+import './multiple'
+
 import { keypad } from '@/device'
 import '@/gui/powerup-panel'
 import { Events, Loots } from '@/constants'
@@ -31,7 +33,20 @@ Crafty.c('PlayerController', {
   },
 
   init: function () {
+    const { x, y } = this
     this.powerUpPanel = Crafty.e('PowerUpPanel')
+
+    const multiple1 = Crafty.e('Multiple').attr({ x, y })
+    multiple1.setSnakeFollowHead(this)
+
+    const multiple2 = Crafty.e('Multiple')// .attr({ x: 10, y: 10 })
+    multiple2.setSnakeFollowHead(multiple1)
+
+    const multiple3 = Crafty.e('Multiple')// .attr({ x: 10, y: 10 })
+    multiple3.setSnakeFollowHead(multiple2)
+
+    const multiple4 = Crafty.e('Multiple')// .attr({ x: 10, y: 10 })
+    multiple4.setSnakeFollowHead(multiple3)
   },
 
   useWeapon: function (weapon) {

@@ -48,10 +48,10 @@ function hello () {
   new ParallaxSpaceScene()
 
   const powerHostSpawner = new GenericSpawner(createPowerHostSwarm, 6000, 8000)
-  powerHostSpawner.start()
+  powerHostSpawner.stop()
 
   const flySpawner = new GenericSpawner(createEnemyFly, 5000, 5000)
-  flySpawner.start()
+  flySpawner.stop()
 
   createPlayerGreenFighter(80)
 
