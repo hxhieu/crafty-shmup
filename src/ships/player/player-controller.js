@@ -1,17 +1,13 @@
-import { keypad } from '@/device'
+import '@/components/four-way-bounded'
+
+import { keypad, screenSize } from '@/device'
 import '@/gui/powerup-panel'
-import { Events, Loots } from '@/constants'
+import { Events, Loots, PlayerEquipments } from '@/constants'
 import { createPlayerMultiple } from './multiple'
 
 // Local vars
-const equipments = new WeakMap()
-const equipIndex = {
-  SPEED: 0,
-  MISSILE: 1,
-  WEAPON: 2,
-  MULTIPLE: 3,
-  SHIELD: 4
-}
+const weapons = new WeakMap()
+const BASE_SPEED = 40
 
 const weaponTemplate = new WeakMap()
 const playerSprie = new WeakMap()
@@ -20,12 +16,15 @@ const multiples = new WeakMap()
 // Component definition
 
 Crafty.c('PlayerController', {
+  required: 'FourwayBounded',
 
   events: {
     KeyDown,
     KeyUp,
     Remove: function () {
       stopFire.call(this)
+      multiples.get(this)
+        .forEach(x => x.destroy())
     },
     [Events.LOOT_ACQUIRED]: function (loot) {
       if (loot.id === Loots.POWER_UP) {
@@ -40,6 +39,7 @@ Crafty.c('PlayerController', {
   init: function () {
     // const { x, y } = this
     this.powerUpPanel = Crafty.e('PowerUpPanel')
+    this.fourwayBounded(BASE_SPEED, screenSize)
     multiples.set(this, [])
   },
 
@@ -49,9 +49,9 @@ Crafty.c('PlayerController', {
     const { ox, oy } = this
     const weapon = template().attr({ ox, oy })
     this.attach(weapon)
-    const equips = equipments.get(this) || []
-    equips[equipIndex.WEAPON] = weapon
-    equipments.set(this, equips)
+    const equips = weapons.get(this) || []
+    equips[PlayerEquipments.WEAPON] = weapon
+    weapons.set(this, equips)
     return this
   }
 })
@@ -92,7 +92,7 @@ function KeyUp (e) {
 }
 
 function stopFire () {
-  equipments.get(this)
+  weapons.get(this)
     .filter(x => x.has('Weapon'))
     .forEach(x => x.stopFire())
 
@@ -101,7 +101,7 @@ function stopFire () {
 }
 
 function startFire () {
-  equipments.get(this)
+  weapons.get(this)
     .filter(x => x.has('Weapon'))
     .forEach(x => x.startFire())
 
@@ -111,37 +111,49 @@ function startFire () {
 
 function powerUp () {
   const { activeIndex } = this.powerUpPanel
+  const canPowerUp = this.powerUpPanel.powerUp()
+  if (!canPowerUp) {
+    return
+  }
   switch (activeIndex) {
-    case equipIndex.SPEED:
+    case PlayerEquipments.SPEED:
     {
+      speedUp.call(this)
       break
     }
-    case equipIndex.MISSILE:
+    case PlayerEquipments.MISSILE:
+    case PlayerEquipments.WEAPON:
     {
+      weaponUp.call(this, activeIndex)
       break
     }
-    case equipIndex.WEAPON:
+    case PlayerEquipments.MULTIPLE:
     {
-      stopFire.call(this)
-      equipments.get(this)[activeIndex].setWeaponLevelUp()
-      multiples.get(this)
-        .forEach(x => x.levelUp())
+      multipleUp.call(this)
       break
     }
-    case equipIndex.MULTIPLE:
-    {
-      spawnMultiple.call(this)
-      break
-    }
-    case equipIndex.SHIELD:
+    case PlayerEquipments.SHIELD:
     {
       break
     }
   }
-  this.powerUpPanel.powerUp()
 }
 
-function spawnMultiple () {
+function speedUp () {
+  const currentSpeedLevel = this.powerUpPanel.getSlotLevel(PlayerEquipments.SPEED)
+
+  this.fourwayBounded(BASE_SPEED * (currentSpeedLevel + 1), screenSize)
+}
+
+function weaponUp (activeIndex) {
+  stopFire.call(this)
+  weapons.get(this)[activeIndex].setWeaponLevelUp()
+  multiples.get(this)
+    .forEach(x => x.levelUp())
+}
+
+function multipleUp () {
+  stopFire.call(this)
   const mul = multiples.get(this)
   const multiple = createPlayerMultiple(playerSprie.get(this), weaponTemplate.get(this))
 
@@ -156,7 +168,7 @@ function spawnMultiple () {
   }
 
   // Levels catch up
-  const currentWeapLvl = equipments.get(this)[equipIndex.WEAPON].getLevel()
+  const currentWeapLvl = weapons.get(this)[PlayerEquipments.WEAPON].getLevel()
   for (let i = 1; i < currentWeapLvl; i++) {
     multiple.levelUp()
   }

@@ -8,7 +8,7 @@ export class ParallaxSpaceScene {
     Crafty.createLayer('BGLayer', 'DOM', { scaleResponse: 0, xResponse: 0, yResponse: 0, z: 0 })
     Crafty.audio.play('Loop01', -1, 0.5)
 
-    Crafty.background('url(assets/images/Parallax_Space_BG.png)')
+    // Crafty.background('url(assets/images/Parallax_Space_BG.png)')
     this.farPlanets = Crafty.e('2DExt, BGLayer, ParallaxSpaceFarPlanetSprite, TimedScroller')
     this.bigPlanet = Crafty.e('2DExt, BGLayer, ParallaxSpaceBigPlanetSprite, TimedScroller')
 

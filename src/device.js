@@ -17,7 +17,10 @@ const keypad = {
   SELECT: Crafty.keys.SPACE
 }
 
+const isLowSpec = navigator.userAgent.indexOf('arm') >= 0
+
 export {
   screenSize,
-  keypad
+  keypad,
+  isLowSpec
 }

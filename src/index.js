@@ -9,9 +9,9 @@ import { screenSize } from './device'
 import { assets, generateSharedSprites } from './assets-loader'
 import { GuiManager } from '@/gui'
 import { PhysicsManager } from '@/physics'
-import { createPlayerFighterRed } from '@/ships/player'
+// import { createPlayerFighterRed } from '@/ships/player'
 // import { createPlayerYellowFighter } from '@/ships/player'
-// import { createPlayerFighterGreen } from '@/ships/player'
+import { createPlayerFighterGreen } from '@/ships/player'
 import { ParallaxSpaceScene } from './scenes'
 import { GenericSpawner } from '@/spawners'
 import { createPowerHostSwarm, createEnemyFly } from '@/ships/enemies'
@@ -53,7 +53,7 @@ function hello () {
   const flySpawner = new GenericSpawner(createEnemyFly, 5000, 5000)
   flySpawner.stop()
 
-  createPlayerFighterRed(80)
+  createPlayerFighterGreen()
 
   createYellowCrabBoss().attr({
     x: 100,

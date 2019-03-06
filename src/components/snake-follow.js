@@ -1,8 +1,10 @@
 import '@/components/keypad'
 import { Queue } from '@/utils/queue'
+import { isLowSpec } from '@/device'
 
 const headPoints = new WeakMap()
 const head = new WeakMap()
+const followDistance = isLowSpec ? 5 : 10
 
 Crafty.c('SnakeFollow', {
   required: 'Keypad',
@@ -11,7 +13,7 @@ Crafty.c('SnakeFollow', {
     ExitFrame
   },
 
-  setSnakeFollowHead: function (obj, step = 50, distance = 10) {
+  setSnakeFollowHead: function (obj) {
     if (obj && obj.has('Velocity')) {
       head.set(this, obj)
       headPoints.set(this, new Queue())
@@ -29,7 +31,7 @@ function ExitFrame () {
     queue.enqueue({ x, y })
 
     // TODO: Hard code steps
-    if (queue.getSize() >= 10) {
+    if (queue.getSize() >= followDistance) {
       const { x: nextX, y: nextY } = queue.dequeue()
       this.x = nextX
       this.y = nextY

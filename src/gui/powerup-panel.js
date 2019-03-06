@@ -1,5 +1,6 @@
 import './controls/powerup-slot'
 import { screenSize } from '@/device'
+import { PlayerEquipments } from '@/constants'
 
 // Local vars
 
@@ -16,26 +17,27 @@ Crafty.c('PowerUpPanel', {
 
   init: function () {
     const slotWidth = 63
-    this.powers[0] = Crafty.e('UIPowerUpSlot')
+    this.powers[PlayerEquipments.SPEED] = Crafty.e('UIPowerUpSlot')
       .text('SPEED')
       .textColor(inactiveText)
 
-    this.powers[1] = Crafty.e('UIPowerUpSlot')
+    this.powers[PlayerEquipments.MISSILE] = Crafty.e('UIPowerUpSlot')
       .text('MISSILE')
       .attr({ x: slotWidth })
       .textColor(inactiveText)
 
-    this.powers[2] = Crafty.e('UIPowerUpSlot')
+    this.powers[PlayerEquipments.WEAPON] = Crafty.e('UIPowerUpSlot')
       .text('WEAPON')
       .attr({ x: slotWidth * 2 })
       .textColor(inactiveText)
 
-    this.powers[3] = Crafty.e('UIPowerUpSlot')
+    this.powers[PlayerEquipments.MULTIPLE] = Crafty.e('UIPowerUpSlot')
       .text('MULTIPLE')
       .attr({ x: slotWidth * 3 })
       .textColor(inactiveText)
+      .setMaxLevel(3)
 
-    this.powers[4] = Crafty.e('UIPowerUpSlot')
+    this.powers[PlayerEquipments.SHIELD] = Crafty.e('UIPowerUpSlot')
       .text('SHIELD')
       .attr({ x: slotWidth * 4 })
       .textColor(inactiveText)
@@ -62,11 +64,11 @@ Crafty.c('PowerUpPanel', {
 
   powerUp: function () {
     if (this.activeIndex < 0) {
-      return
+      return false
     }
     const currentSlot = this.powers[this.activeIndex]
     if (!currentSlot.canPowerUp()) {
-      return
+      return false
     }
     currentSlot.up()
     // Clear the UI
@@ -74,6 +76,10 @@ Crafty.c('PowerUpPanel', {
     this.powers.forEach(x => {
       x.textColor(inactiveText)
     })
-    return this
+    return true
+  },
+
+  getSlotLevel: function (slotIndex) {
+    return this.powers[slotIndex].getLevel()
   }
 })

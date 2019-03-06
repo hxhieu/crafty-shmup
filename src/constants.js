@@ -5,6 +5,14 @@ const CollisionProfiles = {
   LOOT: 'CollisionProfileLoot'
 }
 
+const PlayerEquipments = {
+  SPEED: 0,
+  MISSILE: 1,
+  WEAPON: 2,
+  MULTIPLE: 3,
+  SHIELD: 4
+}
+
 const Events = {
   STRUCTURE_HIT: 'STRUCTURE_HIT',
   STRUCTURE_DESTROYED: 'STRUCTURE_DESTROYED',
@@ -29,5 +37,6 @@ const Loots = {
 export {
   CollisionProfiles,
   Events,
-  Loots
+  Loots,
+  PlayerEquipments
 }

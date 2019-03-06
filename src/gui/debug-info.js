@@ -1,3 +1,5 @@
+// import { screenSize } from '@/device'
+
 // Local vars
 
 // Component definition
@@ -13,5 +15,11 @@ Crafty.c('DebugInfo', {
     this.delay(() => {
       this.lblColliderCount.text(`Colliders: ${Crafty('Collider').length}`)
     }, 1000, -1)
+
+    // this.attach(
+    //   Crafty.e('UILabel')
+    //     .text(`UA: ${navigator.userAgent}`)
+    //     .attr({ y: 9, w: screenSize.w })
+    // )
   }
 })
