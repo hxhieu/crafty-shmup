@@ -8,6 +8,10 @@ Number.prototype.toRad = function () {
   return this * (Math.PI / 180)
 }
 
+Number.prototype.toHex = function(){
+  return Math.floor(this).toString(16)
+}
+
 Crafty.math.Vector2D.prototype.rotateDeg = function(deg){
   const { x, y } = this
   const rad = deg.toRad()

@@ -13,7 +13,7 @@ Crafty.c('DebugInfo', {
     this.attach(this.lblColliderCount)
 
     this.delay(() => {
-      this.lblColliderCount.text(`Colliders: ${Crafty('Collider').length}`)
+      this.lblColliderCount.text(`Objects: ${Crafty('*').length}`)
     }, 1000, -1)
 
     // this.attach(

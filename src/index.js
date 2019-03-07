@@ -33,6 +33,10 @@ Crafty.load(assets, () => {
   Crafty.timer.FPS(60)
   Crafty.timer.steptype('variable')
 
+  Crafty.createLayer('BGLayer', 'DOM', { scaleResponse: 0, xResponse: 0, yResponse: 0, z: 0 })
+  Crafty.createLayer('BGStardust', 'Canvas', { scaleResponse: 0, xResponse: 0, yResponse: 0, z: 0 })
+  Crafty.createLayer('UILayer', 'DOM', { scaleResponse: 0, xResponse: 0, yResponse: 0, z: 1000 })
+
   GuiManager.init()
   PhysicsManager.init()
 

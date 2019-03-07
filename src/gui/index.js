@@ -9,7 +9,6 @@ const instance = new WeakMap()
 
 export class GuiManager {
   static init () {
-    Crafty.createLayer('UILayer', 'DOM', { scaleResponse: 0, xResponse: 0, yResponse: 0, z: 1000 })
     instance.set(this, Crafty.e()
       .bind('KeyUp', keyUp)
     )

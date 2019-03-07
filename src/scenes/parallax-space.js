@@ -1,12 +1,11 @@
 import '@/components/timed-scroller'
 import '@/components/self-destroy'
-import { screenSize } from '../device'
+import './objects/stardust'
 
 // Helpers
 export class ParallaxSpaceScene {
   constructor () {
-    Crafty.createLayer('BGLayer', 'DOM', { scaleResponse: 0, xResponse: 0, yResponse: 0, z: 0 })
-    Crafty.audio.play('Loop01', -1, 0.5)
+    // Crafty.audio.play('Loop01', -1, 0.5)
 
     // Crafty.background('url(assets/images/Parallax_Space_BG.png)')
     this.farPlanets = Crafty.e('2DExt, BGLayer, ParallaxSpaceFarPlanetSprite, TimedScroller')
@@ -15,7 +14,7 @@ export class ParallaxSpaceScene {
     this.bigPlanet
       .attr({ x: 120, y: -40, w: 96 * 1.5, h: 96 * 1.5 })
       .setTimedScroll({
-        speed: 0.01
+        speed: 0.02
       })
 
     this.farPlanets.setTimedScroll({
@@ -23,32 +22,25 @@ export class ParallaxSpaceScene {
     })
 
     this.timer = Crafty.e('Delay')
-
-    this.buildStarField()
-    this.buildStarField()
-    this.starsGenerator()
+    this.slowStardust()
+    this.fastStardust()
   }
 
-  starsGenerator () {
-    const rand = Crafty.math.randomInt(400, 10000)
+  slowStardust () {
+    // TODO: Optimisation - lower the stardust rate when too many objects
+    const rand = Crafty.math.randomInt(400, 1000)
     this.timer.delay(() => {
-      this.buildStarField()
-      this.starsGenerator()
+      Crafty.e('Stardust').setStardustSpeed(10, 40)
+      this.slowStardust()
     }, rand)
   }
 
-  buildStarField () {
-    const type = Crafty.math.randomInt(1, 2)
-    const stars = Crafty.e(`2DExt, BGLayer, ParallaxSpaceStars${type}Sprite, TimedScroller`)
-    const x = Crafty.math.randomInt(0, screenSize.w)
-    const y = Crafty.math.randomInt(-150, -50)
-    const rotation = Crafty.math.randomInt(0, 360)
-    const alpha = Crafty.math.randomNumber(0.6, 1)
-    const speed = Crafty.math.randomNumber(0.1, 0.4)
-
-    stars
-      .origin('center')
-      .attr({ x, y, alpha, rotation })
-      .setTimedScroll({ speed })
+  fastStardust () {
+    // TODO: Optimisation - lower the stardust rate when too many objects
+    const rand = Crafty.math.randomInt(400, 600)
+    this.timer.delay(() => {
+      Crafty.e('Stardust').setStardustSpeed(100, 400)
+      this.fastStardust()
+    }, rand)
   }
 }
