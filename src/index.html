@@ -1,11 +1,14 @@
 <html>
+
 <head>
   <style>
-    @font-face{
+    @font-face {
       font-family: '8bit';
-      src: url("assets/fonts/retro_computer_personal_use.ttf")
+      src: url("assets/fonts/HeartbitXX.ttf")
     }
-    body, #container{
+
+    body,
+    #container {
       font-family: '8bit';
       overflow: hidden;
       margin: 0;
@@ -13,18 +16,199 @@
       background: #fff;
     }
 
-    .UIPowerUpSlot{
+    .show {
+      display: block;
+    }
+
+    .hide {
+      display: none;
+    }
+
+    #container {
+      width: 320px;
+      height: 240px;
+      margin: 0 auto
+    }
+
+    #title {
+      text-align: center;
+      outline: none;
+      color: #fff;
+      background: #000;
+      height: 100%;
+      padding: 0 20px;
+    }
+
+    #title h1 {
+      font-size: 60px;
+      margin: 0;
+      padding: 20px 0 10px 0;
+    }
+
+    #title .buttons {
+      font-size: 16px;
+    }
+
+    #title .buttons button {
+      outline: none;
+      font-size: 20px;
+      margin: 10px auto;
+      display: block;
+      background: transparent;
+      color: #fff;
+      font-family: '8bit';
+      border: solid 1px #fff;
+      border-radius: 2px;
+      padding: 2px 10px 4px 10px;
+    }
+
+    #title button.focused {
+      color: #000;
+      background: #fff;
+    }
+
+    #title .buttons label {
+      text-align: center;
+    }
+
+    .UIPowerUpSlot {
       text-align: center !important;
       width: 64px !important;
       background: #000 !important;
-      padding: 1px 0;
     }
   </style>
 </head>
+
 <body>
   <div id="container">
+    <div id="title" tabindex="0">
+      <h1>Crafty Shmup!</h1>
+      <div class="buttons">
+        <label id="lbl-normal" class="show">Let's start!</label>
+        <label id="lbl-godmode" class="hide">Your ship has TONS of hit points but you earn no scores!</label>
+        <label id="lbl-exit" class="hide" class="hide">See you soon!</label>
+        <button id="btn-normal" class="focused">NORMAL</button>
+        <button id="btn-godmode">GOD-MODE</button>
+        <button id="btn-exit">EXIT</button>
+      </div>
+    </div>
     <div id="game"></div>
   </div>
   <script src="<%= htmlWebpackPlugin.files.chunks.main.entry %>"></script>
+  <script>
+    window.exitGame = function () {
+      Crafty.stop(true)
+      nw.App.closeAllWindows()
+    }
+
+    var startUI = function () {
+      var focusIndex = 0
+
+      var btnNormal = document.getElementById('btn-normal')
+      var btnGodmode = document.getElementById('btn-godmode')
+      var btnExit = document.getElementById('btn-exit')
+
+      var lblNormal = document.getElementById('lbl-normal')
+      var lblGodmode = document.getElementById('lbl-godmode')
+      var lblExit = document.getElementById('lbl-exit')
+
+      var title = document.getElementById('title')
+
+      var startGame = function (godmode) {
+        document.getElementById('container').removeChild(title)
+        window.startGame(godmode)
+      }
+
+      var toggleVisibility = function (ele, show) {
+        ele.classList.remove('show')
+        ele.classList.remove('hide')
+        ele.classList.add(show ? 'show' : 'hide')
+      }
+
+      var buttonFocus = function (btn, focused) {
+        btn.classList.remove('focused')
+        if (focused) {
+          btn.classList.add('focused')
+        }
+      }
+
+      title.addEventListener('keydown', function (e) {
+        switch (e.keyCode) {
+          case 27: {
+            window.exitGame()
+          }
+          case 38: {
+            focusIndex--;
+            if (focusIndex < 0) focusIndex = 0
+            break
+          }
+          case 40: {
+            focusIndex++;
+            if (focusIndex > 2) focusIndex = 2
+            break
+          }
+        }
+
+        switch (focusIndex) {
+          case 0: {
+            buttonFocus(btnNormal, true)
+            buttonFocus(btnGodmode, false)
+            buttonFocus(btnExit, false)
+
+            toggleVisibility(lblNormal, true)
+            toggleVisibility(lblGodmode, false)
+            toggleVisibility(lblExit, false)
+            break
+          }
+          case 1: {
+            buttonFocus(btnNormal, false)
+            buttonFocus(btnGodmode, true)
+            buttonFocus(btnExit, false)
+
+            toggleVisibility(lblNormal, false)
+            toggleVisibility(lblGodmode, true)
+            toggleVisibility(lblExit, false)
+            break
+          }
+          case 2: {
+            buttonFocus(btnNormal, false)
+            buttonFocus(btnGodmode, false)
+            buttonFocus(btnExit, true)
+
+            toggleVisibility(lblNormal, false)
+            toggleVisibility(lblGodmode, false)
+            toggleVisibility(lblExit, true)
+            break
+          }
+        }
+
+        // Enter press
+        if (e.keyCode === 13) {
+          switch (focusIndex) {
+            case 0: {
+              startGame()
+              break
+            }
+            case 1: {
+              startGame(true)
+              break
+            }
+            case 2: {
+              window.exitGame()
+              break
+            }
+          }
+        }
+      })
+
+      title.focus()
+
+    };
+
+    startUI()
+
+    //window.startGame()
+  </script>
 </body>
+
 </html>

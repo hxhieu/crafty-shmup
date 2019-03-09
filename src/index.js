@@ -22,30 +22,32 @@ Crafty.paths({
   audio: 'assets/audio/'
 })
 
-Crafty.load(assets, () => {
-  console.log('Assets loaded!')
-  generateSharedSprites()
-  Crafty.init(
-    screenSize.w,
-    screenSize.h,
-    document.getElementById('game')
-  ).background('#000')
-  Crafty.timer.FPS(60)
-  Crafty.timer.steptype('variable')
+window.startGame = () => {
+  Crafty.load(assets, () => {
+    console.log('Assets loaded!')
+    generateSharedSprites()
+    Crafty.init(
+      screenSize.w,
+      screenSize.h,
+      document.getElementById('game')
+    ).background('#000')
+    Crafty.timer.FPS(60)
+    Crafty.timer.steptype('variable')
 
-  Crafty.createLayer('BGLayer', 'DOM', { scaleResponse: 0, xResponse: 0, yResponse: 0, z: 0 })
-  Crafty.createLayer('BGStardust', 'Canvas', { scaleResponse: 0, xResponse: 0, yResponse: 0, z: 0 })
-  Crafty.createLayer('UILayer', 'DOM', { scaleResponse: 0, xResponse: 0, yResponse: 0, z: 1000 })
+    Crafty.createLayer('BGLayer', 'DOM', { scaleResponse: 0, xResponse: 0, yResponse: 0, z: 0 })
+    Crafty.createLayer('BGStardust', 'Canvas', { scaleResponse: 0, xResponse: 0, yResponse: 0, z: 0 })
+    Crafty.createLayer('UILayer', 'DOM', { scaleResponse: 0, xResponse: 0, yResponse: 0, z: 1000 })
 
-  GuiManager.init()
-  PhysicsManager.init()
+    GuiManager.init()
+    PhysicsManager.init()
 
-  hello()
-}, progress => {
-  console.log(progress)
-}, err => {
-  console.error(err)
-})
+    hello()
+  }, progress => {
+    console.log(progress)
+  }, err => {
+    console.error(err)
+  })
+}
 
 function hello () {
   /* eslint-disable no-new */

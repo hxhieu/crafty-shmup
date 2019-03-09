@@ -13,7 +13,7 @@ Crafty.c('UIPowerUpSlot', {
     this
       .textFont({
         family: '8bit',
-        size: '6px'
+        size: '12px'
       })
       .textColor('#666')
 

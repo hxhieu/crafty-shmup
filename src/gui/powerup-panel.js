@@ -47,7 +47,7 @@ Crafty.c('PowerUpPanel', {
       this.attach(x)
     })
 
-    this.attr({ x: 1, y: screenSize.h - 10, w: 100, h: 8 })
+    this.attr({ x: 1, y: screenSize.h - 10, w: 100, h: 10 })
   },
 
   nextSlot: function () {

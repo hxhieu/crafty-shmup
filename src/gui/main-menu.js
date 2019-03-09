@@ -32,8 +32,7 @@ Crafty.c('MainMenu', {
 function keyUp (e) {
   switch (e.key) {
     case keypad.START: {
-      Crafty.stop(true)
-      nw.App.closeAllWindows()
+      window.exitGame()
       break
     }
     case keypad.SELECT: {
