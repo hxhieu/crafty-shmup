@@ -10,6 +10,7 @@ const instance = new WeakMap()
 export class GuiManager {
   static init () {
     instance.set(this, Crafty.e()
+      .setName('__GUIManager')
       .bind('KeyUp', keyUp)
     )
 

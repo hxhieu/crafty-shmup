@@ -3,7 +3,7 @@ export class GenericSpawner {
     lowInterval = lowInterval || 1000
     highInterval = highInterval || lowInterval
     this.options = { spawn, lowInterval, highInterval }
-    this.timer = Crafty.e('Delay')
+    this.timer = Crafty.e('Delay').setName('__GenericSpawner_Timer')
     this.active = false
   }
 

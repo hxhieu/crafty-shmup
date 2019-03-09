@@ -9,6 +9,7 @@ Crafty.c('UIPowerUpSlot', {
   required: 'UILayer, Text',
 
   init: function () {
+    this.setName('GUI_PowerUp_Slot')
     this
       .textFont({
         family: '8bit',

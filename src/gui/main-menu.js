@@ -15,6 +15,7 @@ Crafty.c('MainMenu', {
   },
 
   init: function () {
+    this.setName('GUI_Main_Menu')
     this.attr({ x: 100, y: 100, w: 100, h: 20 })
       .text('Press Start to exit, Select to reset')
       .textColor('#FFFFFF')
@@ -39,5 +40,4 @@ function keyUp (e) {
       window.location.reload()
     }
   }
-  console.log(e.key)
 }

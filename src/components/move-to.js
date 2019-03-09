@@ -83,8 +83,6 @@ function EnterFrame ({ dt }) {
 
   var delta = Math.sqrt(dx * dx + dy * dy)
 
-  // console.log(delta)
-
   // Don't move with such tiny changed
   if (Math.abs(delta) < 0.05) {
     stopMove.call(this)

@@ -16,6 +16,7 @@ export const createPowerHostSwarm = (size = 3) => {
   const startY = -16
   let count = size
   const timer = Crafty.e('Delay')
+
   for (let i = 0; i < size; i++) {
     timer.delay(() => {
       createEnemyPowerHost()
@@ -27,9 +28,11 @@ export const createPowerHostSwarm = (size = 3) => {
           if (count <= 0) {
             const { ox, oy } = this
             createPowerUp().attr({ ox, oy })
-            timer.destroy()
           }
         })
+      if (i >= size - 1) {
+        timer.destroy()
+      }
     }, i * SPAWN_GAP)
   }
 }

@@ -13,6 +13,7 @@ Crafty.c('Stardust', {
     Draw
   },
   init: function () {
+    this.setName('Stardust')
     this.setRandomStart({
       top: 0,
       bottom: 0
@@ -24,6 +25,7 @@ Crafty.c('Stardust', {
   setStardustSpeed: function (min, max) {
     this.speed = Crafty.math.randomNumber(min, max)
     this.moveForward(this.speed)
+    return this
   }
 })
 

@@ -16,6 +16,7 @@ Crafty.c('PowerUpPanel', {
   activeIndex: -1,
 
   init: function () {
+    this.setName('GUI_PoweUp_Panel')
     const slotWidth = 63
     this.powers[PlayerEquipments.SPEED] = Crafty.e('UIPowerUpSlot')
       .text('SPEED')

@@ -8,8 +8,8 @@ export class ParallaxSpaceScene {
     // Crafty.audio.play('Loop01', -1, 0.5)
 
     // Crafty.background('url(assets/images/Parallax_Space_BG.png)')
-    this.farPlanets = Crafty.e('2DExt, BGLayer, ParallaxSpaceFarPlanetSprite, TimedScroller')
-    this.bigPlanet = Crafty.e('2DExt, BGLayer, ParallaxSpaceBigPlanetSprite, TimedScroller')
+    this.farPlanets = Crafty.e('2DExt, BGLayer, ParallaxSpaceFarPlanetSprite, TimedScroller').setName('BG_Far_Planet')
+    this.bigPlanet = Crafty.e('2DExt, BGLayer, ParallaxSpaceBigPlanetSprite, TimedScroller').setName('BG_Big_Planet')
 
     this.bigPlanet
       .attr({ x: 120, y: -40, w: 96 * 1.5, h: 96 * 1.5 })
@@ -21,7 +21,7 @@ export class ParallaxSpaceScene {
       speed: 0.007
     })
 
-    this.timer = Crafty.e('Delay')
+    this.timer = Crafty.e('Delay').setName('__StardustTimer')
     this.slowStardust()
     this.fastStardust()
   }

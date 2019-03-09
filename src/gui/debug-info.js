@@ -9,11 +9,12 @@ Crafty.c('DebugInfo', {
   lblColliderCount: null,
 
   init: function () {
+    this.setName('GUI_Debug')
     this.lblColliderCount = Crafty.e('UILabel').text('Colliders: ')
     this.attach(this.lblColliderCount)
 
     this.delay(() => {
-      this.lblColliderCount.text(`Objects: ${Crafty('*').length}`)
+      this.lblColliderCount.text(`Objects: ${Crafty('Delay').length}`)
     }, 1000, -1)
 
     // this.attach(
