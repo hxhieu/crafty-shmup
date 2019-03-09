@@ -4,8 +4,8 @@ import { Events } from '@/constants'
 
 const SPRITE = 'Sprite_PlayerYellow'
 
-export const createPlayerFighterYellow = speed => {
-  return createPlayerBase(speed)
+export const createPlayerFighterYellow = initHp => {
+  return createPlayerBase(initHp)
     .addComponent(SPRITE)
     .trigger(Events.PLAYER_SPRITE_SET, SPRITE)
     .useWeapon(createWeaponMulti)

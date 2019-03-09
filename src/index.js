@@ -22,10 +22,10 @@ Crafty.paths({
   audio: 'assets/audio/'
 })
 
-window.startGame = () => {
+window.startGame = function (progress, godmode) {
   Crafty.load(assets, () => {
-    console.log('Assets loaded!')
     generateSharedSprites()
+
     Crafty.init(
       screenSize.w,
       screenSize.h,
@@ -41,15 +41,11 @@ window.startGame = () => {
     GuiManager.init()
     PhysicsManager.init()
 
-    hello()
-  }, progress => {
-    console.log(progress)
-  }, err => {
-    console.error(err)
-  })
+    hello(godmode)
+  }, progress)
 }
 
-function hello () {
+function hello (godmode) {
   /* eslint-disable no-new */
   new ParallaxSpaceScene()
 
@@ -59,7 +55,7 @@ function hello () {
   const flySpawner = new GenericSpawner(createEnemyFly, 5000, 5000)
   flySpawner.stop()
 
-  createPlayerFighterGreen()
+  createPlayerFighterGreen(godmode ? Number.MAX_SAFE_INTEGER : 1)
 
   createYellowCrabBoss().attr({
     x: 100,

@@ -71,6 +71,27 @@
       text-align: center;
     }
 
+    #loader {
+      color: #fff;
+      background: #000;
+      padding: 90px 0;
+      font-size: 20px;
+      height: 100%;
+    }
+
+    #loader .loading {
+      width: 260px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    #loader .loading #loader-bar {
+      width: 0%;
+      background: #fff;
+      height: 16px;
+      margin-top: 10px;
+    }
+
     .UIPowerUpSlot {
       text-align: center !important;
       width: 64px !important;
@@ -92,7 +113,13 @@
         <button id="btn-exit">EXIT</button>
       </div>
     </div>
-    <div id="game"></div>
+    <div id="loader" class="hide">
+      <div class="loading">
+        <label id="loader-asset">LOADING...</label>
+        <div id="loader-bar"></div>
+      </div>
+    </div>
+    <div id="game" class="hide"></div>
   </div>
   <script src="<%= htmlWebpackPlugin.files.chunks.main.entry %>"></script>
   <script>
@@ -114,11 +141,6 @@
 
       var title = document.getElementById('title')
 
-      var startGame = function (godmode) {
-        document.getElementById('container').removeChild(title)
-        window.startGame(godmode)
-      }
-
       var toggleVisibility = function (ele, show) {
         ele.classList.remove('show')
         ele.classList.remove('hide')
@@ -130,6 +152,25 @@
         if (focused) {
           btn.classList.add('focused')
         }
+      }
+
+      var startGame = function (godmode) {
+        document.getElementById('container').removeChild(title)
+        toggleVisibility(document.getElementById('loader'), true)
+
+        window.startGame(
+          function (progress) {
+            var filename = progress.src.substring(progress.src.lastIndexOf('/') + 1).toLowerCase();
+            document.getElementById('loader-asset').innerText = filename + ' [OK]'
+            document.getElementById('loader-bar').style.width = progress.percent + '%'
+
+            if (progress.percent === 100) {
+              document.getElementById('container').removeChild(document.getElementById('loader'))
+              toggleVisibility(document.getElementById('game'), true)
+            }
+          },
+          godmode
+        )
       }
 
       title.addEventListener('keydown', function (e) {
@@ -202,12 +243,9 @@
       })
 
       title.focus()
-
     };
 
     startUI()
-
-    //window.startGame()
   </script>
 </body>
 

@@ -7,9 +7,9 @@ import './player-controller'
 import { screenSize } from '@/device'
 import { CollisionProfiles } from '@/constants'
 
-export const createPlayerBase = () => {
+export const createPlayerBase = initHp => {
   const components =
-      `Collider,\
+    `Collider,\
       ${CollisionProfiles.PLAYER},\
       MoveRotate,\
       Structure,\
@@ -21,5 +21,5 @@ export const createPlayerBase = () => {
   return Crafty.e(components)
     .attr({ x: (screenSize.w - size) / 2, y: screenSize.h - size })
     .setHitbox([12, 12, 12, 20, 20, 20, 20, 12])
-    .setStructure(1, 0, { explode: 'Sprite_ExplosionEnemyHost', sound: 'ExplosionSmall01' })
+    .setStructure(initHp, 0, { explode: 'Sprite_ExplosionEnemyHost', sound: 'ExplosionSmall01' })
 }
