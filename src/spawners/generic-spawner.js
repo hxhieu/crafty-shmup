@@ -1,36 +1,31 @@
-const active = new WeakMap()
-
 export class GenericSpawner {
   constructor (spawn, lowInterval, highInterval) {
     lowInterval = lowInterval || 1000
     highInterval = highInterval || lowInterval
     this.options = { spawn, lowInterval, highInterval }
-    this.spawns = []
+    this.timer = Crafty.e('Delay')
+    this.active = false
   }
 
   start () {
-    active.set(this, true)
+    this.active = true
     spawnLoop.call(this)
   }
 
   stop () {
-    active.set(this, false)
+    this.active = false
   }
 }
 
 function spawnLoop () {
-  const isActive = active.get(this)
-  if (!isActive) {
+  if (!this.active) {
     return
   }
+
   const { spawn, lowInterval, highInterval } = this.options
-  const e = spawn()
-  if (e.setPosition) {
-    e.setPosition({ x: 240, y: 40 })
-  }
-  this.spawns.push(e)
+  spawn()
   const rand = Crafty.math.randomInt(lowInterval, highInterval)
-  setTimeout(() => {
-    spawnLoop.call(this)
-  }, rand)
+
+  // Recursive calls here
+  this.timer.delay(() => spawnLoop.call(this), rand)
 }

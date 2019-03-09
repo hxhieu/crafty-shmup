@@ -3,7 +3,7 @@ const sequences = new WeakMap()
 // Component definition
 
 Crafty.c('DeathSequence', {
-  required: 'Collider',
+  required: 'Collider, Delay',
 
   setDeathSequence (seqs) {
     sequences.set(this, seqs)
@@ -28,14 +28,14 @@ Crafty.c('DeathSequence', {
       let seqCount = 0
       seqs.forEach(seq => {
         const { effect, timeline, pos, size } = seq
-        const { x, y } = this.getCentrePos()
+        const { ox, oy } = this
         const { w, h } = this.getHitbox()
         const finalPos = pos ||
           {
-            x: Crafty.math.randomInt(x - size / 2 - w / 2, x - size / 2 + w / 2),
-            y: Crafty.math.randomInt(y - size / 2 - h / 2, y - size / 2 + h / 2)
+            x: Crafty.math.randomInt(ox - size / 2 - w / 2, ox - size / 2 + w / 2),
+            y: Crafty.math.randomInt(oy - size / 2 - h / 2, oy - size / 2 + h / 2)
           }
-        setTimeout(() => {
+        this.delay(() => {
           Crafty.e(effect).attr({ x: finalPos.x, y: finalPos.y })
           seqCount++
           if (seqCount === seqs.length) {

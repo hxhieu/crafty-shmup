@@ -9,10 +9,12 @@ import { screenSize } from './device'
 import { assets, generateSharedSprites } from './assets-loader'
 import { GuiManager } from '@/gui'
 import { PhysicsManager } from '@/physics'
-import { createPlayerRedFighter } from '@/ships/player'
+// import { createPlayerFighterRed } from '@/ships/player'
+// import { createPlayerYellowFighter } from '@/ships/player'
+import { createPlayerFighterGreen } from '@/ships/player'
 import { ParallaxSpaceScene } from './scenes'
 import { GenericSpawner } from '@/spawners'
-import { createEnemyPowerHost } from '@/ships/enemies'
+import { createPowerHostSwarm, createEnemyFly } from '@/ships/enemies'
 import { createYellowCrabBoss } from './ships/enemies/yellow-crab-boss'
 
 Crafty.paths({
@@ -28,6 +30,12 @@ Crafty.load(assets, () => {
     screenSize.h,
     document.getElementById('game')
   ).background('#000')
+  Crafty.timer.FPS(60)
+  Crafty.timer.steptype('variable')
+
+  Crafty.createLayer('BGLayer', 'DOM', { scaleResponse: 0, xResponse: 0, yResponse: 0, z: 0 })
+  Crafty.createLayer('BGStardust', 'Canvas', { scaleResponse: 0, xResponse: 0, yResponse: 0, z: 0 })
+  Crafty.createLayer('UILayer', 'DOM', { scaleResponse: 0, xResponse: 0, yResponse: 0, z: 1000 })
 
   GuiManager.init()
   PhysicsManager.init()
@@ -43,16 +51,23 @@ function hello () {
   /* eslint-disable no-new */
   new ParallaxSpaceScene()
 
-  const powerHostSpawner = new GenericSpawner(createEnemyPowerHost, 2000, 6000)
+  const powerHostSpawner = new GenericSpawner(createPowerHostSwarm, 2000, 2000)
   powerHostSpawner.start()
 
-  createPlayerRedFighter(80)
+  const flySpawner = new GenericSpawner(createEnemyFly, 5000, 5000)
+  flySpawner.stop()
 
-  const boss1 = createYellowCrabBoss()
-  boss1.attr({
-    x: Crafty.math.randomInt(0, screenSize.w),
-    y: Crafty.math.randomInt(0, screenSize.h - 200)
+  createPlayerFighterGreen()
+
+  createYellowCrabBoss().attr({
+    x: 100,
+    y: 20
   })
+
+  // createYellowCrabBoss().attr({
+  //   x: 100,
+  //   y: 50
+  // })
   // const boss2 = new BlueSucklingBoss()
   // boss2.e.attr({
   //   x: Crafty.math.randomInt(0, screenSize.w),

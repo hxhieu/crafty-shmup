@@ -12,6 +12,6 @@ Crafty.c('Looter', {
 // Helpers
 
 function lootAcquired (loot) {
-  console.log(loot)
+  // TODO: Not sure what needs to be done here
   return this
 }

@@ -1,8 +1,8 @@
+import '@/components/look-at'
 import throttle from 'lodash.throttle'
 
 // Local vars
 const specs = new WeakMap()
-const fireTimer = new WeakMap()
 const currentLevel = new WeakMap()
 const throttleFire = new WeakMap()
 const spawnFn = new WeakMap()
@@ -11,12 +11,17 @@ const currentSpec = new WeakMap()
 // Component definition
 
 Crafty.c('Weapon', {
-  // required: 'XXX',
+  required: 'Delay, LookAt',
 
   setWeaponData: function (data, fn) {
     specs.set(this, data)
     spawnFn.set(this, fn)
     changeLevel.call(this, 1) // Start as level 1
+    return this
+  },
+
+  setWeaponTracking: function (getTarget) {
+    this.setLookAtTarget(getTarget, this.getForward())
     return this
   },
 
@@ -28,18 +33,18 @@ Crafty.c('Weapon', {
     return changeLevel.call(this, -1)
   },
 
-  startFire: function () {
+  startFire: function (continuos = true) {
     this.stopFire()
     throttleFire.get(this)()
-    const { rateOfFire } = currentSpec.get(this)
-    fireTimer.set(this, setInterval(() => {
-      fire.call(this)
-    }, 1000 / rateOfFire))
+    if (continuos) {
+      const { rateOfFire } = currentSpec.get(this)
+      this.delay(fire, 1000 / rateOfFire, -1)
+    }
     return this
   },
 
   stopFire: function () {
-    clearInterval(fireTimer.get(this))
+    this.cancelDelay(fire)
     return this
   },
 
@@ -55,7 +60,7 @@ function normaliseLevel (level, max = 5) {
 }
 
 function changeLevel (delta) {
-  const nextLevel = normaliseLevel(currentLevel.get(this) || 0 + delta)
+  const nextLevel = normaliseLevel((currentLevel.get(this) || 0) + delta)
   currentLevel.set(this, nextLevel)
   const spec = specs.get(this)[nextLevel - 1]
   const { rateOfFire } = spec
@@ -71,7 +76,7 @@ function fire () {
   const fn = spawnFn.get(this)
   fn.call(this, spec)
   for (let i = 1; i < wave; i++) {
-    setTimeout(() => {
+    this.delay(() => {
       fn.call(this, spec)
     }, i * 100)
   }

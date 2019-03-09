@@ -5,11 +5,19 @@
 Crafty.c('MoveForward', {
   required: '2DExt, Motion',
 
-  moveForward: function (speed) {
-    const forward = this.getForward()
-    const velocity = this.velocity()
-    velocity.x = forward.x * speed
-    velocity.y = forward.y * speed
+  events: {
+    EnterFrame
+  },
+
+  moveForward: function (spd) {
+    this.speed = spd
     return this
   }
 })
+
+function EnterFrame ({ dt }) {
+  const delta = dt / 1000
+  const forward = this.getForward()
+  this.x += delta * this.speed * forward.x
+  this.y += delta * this.speed * forward.y
+}

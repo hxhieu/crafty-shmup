@@ -4,6 +4,8 @@ import buildProjectiles from './projectiles'
 import buildExplosions from './explosions'
 import buildObjects from './objects'
 
+import { Events } from '@/constants'
+
 const assets = {
   sprites: {
     // Player
@@ -21,8 +23,8 @@ const assets = {
       tileh: 16,
       map: {
         ProjectileVulcan1Sprite: [3, 0, 1, 1],
-        ProjectileMulti1Sprite: [3, 2, 1, 1],
-        ProjectileMulti2Sprite: [8, 2, 1, 1],
+        ProjectileMulti1Sprite: [3, 1, 1, 1],
+        ProjectileMulti2Sprite: [8, 1, 1, 1],
         ProjectileLaser1Sprite: [3, 5, 1, 1],
         ProjectileLaser2Sprite: [3, 8, 1, 1]
       }
@@ -44,7 +46,16 @@ const assets = {
       tileh: 32,
       map: {
         EnemyPowerHostSprite: [10, 3, 1, 1],
-        ExplosionEnemyPowerHostSprite: [10, 2, 1, 1]
+        ExplosionEnemyPowerHostSprite: [10, 2, 1, 1],
+        EnemyFlySprite: [0, 1, 1, 1],
+        ExplosionEnemyFlySprite: [0, 0, 1, 1]
+      }
+    },
+    'Enemies_Projectile.png': {
+      tile: 16,
+      tileh: 16,
+      map: {
+        ProjectileGreenAcidSprite: [3, 8, 1, 1]
       }
     },
 
@@ -83,7 +94,8 @@ const assets = {
     PowerUp01: ['SFX_Powerup_01.wav'],
     ExplosionSmall01: ['atari_boom.wav'],
     GunShoot01: ['shoot_01.wav'],
-    Loop01: ['CH-AY-NA.wav']
+    Loop01: ['CH-AY-NA.wav'],
+    Laser01: ['retro_laser_01.wav']
   }
 }
 
@@ -92,17 +104,14 @@ const generateSharedSprites = () => {
   Crafty.c('SpriteAnimationExt', {
     required: '2D, SpriteAnimation',
 
-    init: function () {
-      this.origin('center')
-    },
-
     safeAnimate: function (reel, loop) {
-      if (!this.isPlaying(reel)) this.animate(reel, loop)
+      if (this.getReel(reel) && !this.isPlaying(reel)) this.animate(reel, loop)
       return this
     },
 
     destroyOnEnd: function () {
       this.bind('AnimationEnd', function () {
+        this.trigger(Events.SPRITE_DESTROYED)
         this.destroy()
       })
       return this

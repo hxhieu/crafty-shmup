@@ -1,4 +1,5 @@
 import '@/components/tween-ext'
+import '@/components/sound-clip'
 import { Events } from '@/constants'
 
 // Local vars
@@ -7,11 +8,12 @@ const currentArmour = new WeakMap()
 const maxShield = new WeakMap()
 const currentShield = new WeakMap()
 const deadEffect = new WeakMap()
+const isDestroying = new WeakMap()
 
 // Component definition
 
 Crafty.c('Structure', {
-  required: 'TweenExt, Color',
+  required: 'TweenExt, Color, SoundClip',
 
   events: {
     [Events.TRIGGER_DESTROY]: triggerDestroy
@@ -50,6 +52,12 @@ function setStructure (armour, shield, effect) {
 }
 
 async function takeDamage (amount) {
+  if (isDestroying.get(this)) {
+    return
+  }
+
+  this.tweenFlash()
+
   let shield = currentShield.get(this)
   shield -= amount
   currentShield.set(this, shield)
@@ -60,6 +68,7 @@ async function takeDamage (amount) {
     armour += shield
     currentShield.set(this, 0)
     if (armour <= 0) {
+      isDestroying.set(this, true)
       await triggerDestroy.call(this)
       return this
     }
@@ -69,7 +78,6 @@ async function takeDamage (amount) {
   }
 
   // If we got this far then we survived!
-  this.tweenFlash()
   this.trigger(Events.STRUCTURE_HIT, amount)
 
   return this
@@ -83,14 +91,13 @@ async function triggerDestroy () {
     await this.activateDeathSequence()
   }
 
-  const { explode, sound, volume } = deadEffect.get(this)
+  const effects = deadEffect.get(this)
+  const { explode } = effects
   if (explode) {
-    const { x, y } = this
-    Crafty.e(explode).attr({ x, y })
+    const { ox, oy } = this
+    Crafty.e(explode).attr({ ox, oy })
   }
-  if (sound) {
-    Crafty.audio.play(sound, 1, volume || 1)
-  }
+  this.playSoundClip(effects)
 
   // Neccessary post destroy events
   this.trigger(Events.STRUCTURE_DESTROYED)

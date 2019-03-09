@@ -1,18 +1,19 @@
+import '@/components/self-destroy'
+import '@/components/sound-clip'
+import { CollisionProfiles } from '@/constants'
+
 const fx = new WeakMap()
 const pow = new WeakMap()
 
 Crafty.c('Projectile', {
-  required: 'Collider',
+  required: 'Collider, SelfDestroy, SoundClip',
 
   events: {
     HitOn
   },
 
-  setProjectile: function (profile, power, effects) {
-    const { sound, volume } = effects
-    if (sound && !Crafty.audio.isPlaying(sound)) {
-      Crafty.audio.play(sound, 1, volume || 1)
-    }
+  setProps: function (profile, power, effects) {
+    this.playSoundClip(effects)
     fx.set(this, effects)
     pow.set(this, power)
     this.addComponent(profile)
@@ -21,19 +22,20 @@ Crafty.c('Projectile', {
 })
 
 function HitOn (hitData) {
-  const { impact } = fx.get(this)
-  if (impact) {
-    Crafty.e(impact)
-      .attr({
-        x: this.x,
-        y: this.y
-      })
+  const other = hitData.length && hitData[0].obj
+  if (!other) {
+    return
   }
 
-  this.destroy()
+  if (other.has('Structure') || other.collisionProfile === CollisionProfiles.SOLID) {
+    const { impact } = fx.get(this)
+    if (impact) {
+      const { ox, oy } = this
+      Crafty.e(impact).attr({ ox, oy })
+    }
 
-  if (hitData && hitData.length > 0) {
-    var other = hitData[0].obj
+    this.destroy()
+
     if (other.has('Structure')) {
       other.takeDamage(pow.get(this))
     }

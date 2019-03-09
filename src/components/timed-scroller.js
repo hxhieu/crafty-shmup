@@ -5,7 +5,7 @@ Crafty.c('TimedScroller', {
   _speed: 0,
 
   events: {
-    EnterFrame
+    ExitFrame
   },
 
   setTimedScroll: function (opts) {
@@ -15,7 +15,7 @@ Crafty.c('TimedScroller', {
   }
 })
 
-function EnterFrame () {
+function ExitFrame () {
   if (this._speed <= 0) {
     return
   }

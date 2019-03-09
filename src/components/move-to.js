@@ -1,13 +1,9 @@
+import { Events } from '@/constants'
 
 // Local vars
 
-let moveSpeed = 2
-let target
-let oldDirection = {
-  x: 0,
-  y: 0
-}
-let animated
+const specs = new WeakMap()
+const oldDirection = new WeakMap()
 
 // Component definition
 
@@ -16,73 +12,86 @@ Crafty.c('MoveTo', {
 
   events: {
     EnterFrame,
-    NewDirection,
-    MoveEnded
+    [Events.MOVE_TO_DIRECTION]: NewDirection,
+    [Events.MOVE_TO_ENDED]: MoveEnded
   },
   init: function () {
-    target = {
+    specs.set(this, {
       x: this.x,
       y: this.y
-    }
+    })
   },
 
-  moveTo: function (x, y, speed, animate = true) {
-    moveSpeed = speed || moveSpeed
-    animated = animate
-
-    target = {
-      x: x,
-      y: y
-    }
+  moveTo: function (options) {
+    specs.set(this, options)
     return this
+  },
+
+  setMoveSpeed: function (speed) {
+    let options = specs.get(this)
+    options = Object.assign(options, {
+      speed
+    })
+    specs.set(this, options)
   }
 })
 
 // Helpers
 
 function stopMove () {
-  target = undefined
+  let options = specs.get(this)
+  options = Object.assign(options, {
+    x: this.x,
+    y: this.y
+  })
+  specs.set(this, options)
   if (this) {
-    this.trigger('MoveEnded')
+    this.trigger(Events.MOVE_TO_ENDED)
   }
 }
 
 function NewDirection (dir) {
-  if (animated) {
+  const { animate } = specs.get(this)
+  if (animate) {
     if (dir.x > 0) {
-      this.flip('X').animate('rotate', -1)
+      this.safeAnimate('rotateLeft', -1)
     } else if (dir.x < 0) {
-      this.unflip('X').animate('rotate', -1)
+      this.safeAnimate('rotateRight', -1)
     } else {
-      this.animate('level', -1)
+      this.safeAnimate('level', -1)
     }
   }
 }
 
 function MoveEnded () {
-  if (animated) {
-    this.animate('level', -1)
+  const { animate } = specs.get(this)
+  if (animate) {
+    this.safeAnimate('level', -1)
   }
 }
 
-function EnterFrame () {
-  if (!target) return
+function EnterFrame ({ dt }) {
+  const { x, y, speed } = specs.get(this)
 
-  var dx = target.x - this.x
+  if (speed <= 0) {
+    return
+  }
 
-  var dy = target.y - this.y
+  var dx = x - this.x
 
-  var oldX = this.x
-
-  var oldY = this.y
+  var dy = y - this.y
 
   var delta = Math.sqrt(dx * dx + dy * dy)
 
+  // console.log(delta)
+
   // Don't move with such tiny changed
   if (Math.abs(delta) < 0.05) {
-    stopMove()
+    stopMove.call(this)
     return
   }
+
+  const moveSpeed = speed * (dt / 1000)
 
   var movX = (dx * moveSpeed) / delta
 
@@ -90,32 +99,27 @@ function EnterFrame () {
 
   // Reached destination
   if (Math.abs(dx) < Math.abs(movX) && Math.abs(dy) < Math.abs(movY)) {
-    stopMove()
+    stopMove.call(this)
     return
   }
 
   // Triggered when direction changes - either because of a mouse click, or something external
   if (Math.abs(movX - oldDirection.x) > 0.1 || Math.abs(movY - oldDirection.y) > 0.1) {
-    this.trigger('NewDirection', {
+    this.trigger(Events.MOVE_TO_DIRECTION, {
       x: movX,
       y: movY
     })
   }
 
-  oldDirection = {
+  oldDirection.set(this, {
     x: movX,
     y: movY
-  }
-
-  // Moved triggered twice to allow for better collision logic (like moving along diagonal walls)
-  this.x += movX
-  this.trigger('Moved', {
-    x: oldX,
-    y: this.y
   })
+
+  this.x += movX
   this.y += movY
-  this.trigger('Moved', {
+  this.trigger(Events.MOVE_TO_MOVED, {
     x: this.x,
-    y: oldY
+    y: this.y
   })
 }

@@ -16,7 +16,8 @@
   },
   "dependencies": {
     "craftyjs": "^0.9.0",
-    "lodash.throttle": "^4.1.1"
+    "lodash.throttle": "^4.1.1",
+    "lodash.uniqwith": "^4.5.0"
   },
   "devDependencies": {
     "babel-core": "^6.26.3",
@@ -45,8 +46,8 @@
     "bin:build-arm": "build --tasks linux-x64 --mirror http://localhost:5000/ .",
     "bin:start": "run --x64 --mirror https://dl.nwjs.io/ .",
     "build": "webpack --env prod --mode production",
-    "deploy": "yarn build && scp -r ./dist/* 192.168.0.27:/home/cpi/games/schmup",
-    "dev": "webpack-dev-server --env dev --mode none",
+    "deploy": "yarn build && scp -r ./dist/* 192.168.0.27:/home/cpi/games/crafty-shmup",
+    "serve": "webpack-dev-server --env dev --mode none",
     "lint": "eslint ./src/**/*.js"
   }
 }
