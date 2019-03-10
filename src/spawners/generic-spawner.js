@@ -1,8 +1,8 @@
 export class GenericSpawner {
-  constructor (spawn, lowInterval, highInterval) {
+  constructor (spawn, lowInterval, highInterval, createArgs) {
     lowInterval = lowInterval || 1000
     highInterval = highInterval || lowInterval
-    this.options = { spawn, lowInterval, highInterval }
+    this.options = { spawn, lowInterval, highInterval, createArgs }
     this.timer = Crafty.e('Delay').setName('__GenericSpawner_Timer')
     this.active = false
   }
@@ -22,8 +22,8 @@ function spawnLoop () {
     return
   }
 
-  const { spawn, lowInterval, highInterval } = this.options
-  spawn()
+  const { spawn, lowInterval, highInterval, createArgs } = this.options
+  spawn(createArgs)
   const rand = Crafty.math.randomInt(lowInterval, highInterval)
 
   // Recursive calls here

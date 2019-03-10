@@ -48,14 +48,17 @@ const assets = {
         EnemyPowerHostSprite: [10, 3, 1, 1],
         ExplosionEnemyPowerHostSprite: [10, 2, 1, 1],
         EnemyFlySprite: [0, 1, 1, 1],
-        ExplosionEnemyFlySprite: [0, 0, 1, 1]
+        ExplosionEnemyFlySprite: [0, 0, 1, 1],
+        EnemySpitterSprite: [0, 3, 1, 1],
+        ExplosionEnemySpitterSprite: [0, 2, 1, 1]
       }
     },
     'Enemies_Projectile.png': {
       tile: 16,
       tileh: 16,
       map: {
-        ProjectileGreenAcidSprite: [3, 8, 1, 1]
+        ProjectileGreenAcidSprite: [3, 8, 1, 1],
+        ProjectileSpitterBileSprite: [3, 1, 1, 1]
       }
     },
 

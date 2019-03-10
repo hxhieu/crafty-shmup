@@ -94,4 +94,20 @@ export default () => {
         .destroyOnEnd()
     }
   })
+
+  Crafty.c('Sprite_ExplosionEnemySpitter', {
+    init: function () {
+      this.requires('Canvas, SpriteAnimationExt, ExplosionEnemySpitterSprite')
+        .origin(16, 16)
+        .reel('default', 250, [
+          [0, 2, 1, 1],
+          [1, 2, 1, 1],
+          [2, 2, 1, 1],
+          [3, 2, 1, 1],
+          [4, 2, 1, 1]
+        ])
+        .animate('default')
+        .destroyOnEnd()
+    }
+  })
 }

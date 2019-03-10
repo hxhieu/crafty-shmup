@@ -78,7 +78,6 @@ function EnterFrame ({ dt }) {
   }
 
   var dx = x - this.x
-
   var dy = y - this.y
 
   var delta = Math.sqrt(dx * dx + dy * dy)

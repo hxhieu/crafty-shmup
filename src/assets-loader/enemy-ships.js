@@ -70,4 +70,20 @@ export default () => {
         .animate('level', -1)
     }
   })
+
+  Crafty.c('Sprite_EnemySpitter', {
+    init: function () {
+      this.requires('Canvas, SpriteAnimationExt, EnemySpitterSprite')
+        .attr({ w: 32, h: 32 })
+        .origin(16, 16)
+        .reel('level', 250, [
+          [0, 3, 1, 1],
+          [1, 3, 1, 1],
+          [2, 3, 1, 1],
+          [3, 3, 1, 1]
+        ])
+
+        .animate('level', -1)
+    }
+  })
 }

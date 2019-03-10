@@ -15,7 +15,7 @@ import { createPlayerFighterRed } from '@/ships/player'
 // import { createPlayerFighterGreen } from '@/ships/player'
 import { ParallaxSpaceScene } from './scenes'
 import { GenericSpawner } from '@/spawners'
-import { createPowerHostSwarm, createEnemyFly } from '@/ships/enemies'
+import { createPowerHostSwarm, createEnemyFly, createEnemySpitter } from '@/ships/enemies'
 // import { createYellowCrabBoss } from './ships/enemies/yellow-crab-boss'
 
 Crafty.paths({
@@ -70,8 +70,11 @@ function hello (godmode) {
   const powerHostSpawner = new GenericSpawner(createPowerHostSwarm, 2000, 2000)
   powerHostSpawner.start()
 
-  const flySpawner = new GenericSpawner(createEnemyFly, 5000, 5000)
+  const flySpawner = new GenericSpawner(createEnemyFly, 15000, 20000)
   flySpawner.start()
+
+  const spitterSpawner = new GenericSpawner(createEnemySpitter, 1000, 2000, { moveX: 20, moveY: 120 })
+  spitterSpawner.start()
 
   createPlayerFighterRed(godmode ? Number.MAX_SAFE_INTEGER : 1)
 
