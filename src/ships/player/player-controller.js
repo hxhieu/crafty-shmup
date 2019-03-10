@@ -52,6 +52,11 @@ Crafty.c('PlayerController', {
     const equips = weapons.get(this) || []
     equips[PlayerEquipments.WEAPON] = weapon
     weapons.set(this, equips)
+
+    // Demo
+    // weapon.setWeaponLevelUp()
+    // weapon.setWeaponLevelUp()
+    // weapon.startFire()
     return this
   }
 })

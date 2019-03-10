@@ -16,7 +16,7 @@ import { createPlayerFighterRed } from '@/ships/player'
 import { ParallaxSpaceScene } from './scenes'
 import { GenericSpawner } from '@/spawners'
 import { createPowerHostSwarm, createEnemyFly } from '@/ships/enemies'
-import { createYellowCrabBoss } from './ships/enemies/yellow-crab-boss'
+// import { createYellowCrabBoss } from './ships/enemies/yellow-crab-boss'
 
 Crafty.paths({
   images: 'assets/images/',
@@ -71,14 +71,14 @@ function hello (godmode) {
   powerHostSpawner.start()
 
   const flySpawner = new GenericSpawner(createEnemyFly, 5000, 5000)
-  flySpawner.stop()
+  flySpawner.start()
 
   createPlayerFighterRed(godmode ? Number.MAX_SAFE_INTEGER : 1)
 
-  createYellowCrabBoss().attr({
-    x: 100,
-    y: 20
-  })
+  // createYellowCrabBoss().attr({
+  //   x: 100,
+  //   y: 20
+  // })
 
   // createYellowCrabBoss().attr({
   //   x: 100,
