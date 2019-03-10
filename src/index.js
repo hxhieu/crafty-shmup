@@ -5,6 +5,7 @@ import './utils/maths'
 import '@/components/two-dee-ext'
 import '@/components/collider'
 
+import { Events } from '@/constants'
 import { screenSize } from './device'
 import { assets, generateSharedSprites } from './assets-loader'
 import { GuiManager } from '@/gui'
@@ -22,7 +23,24 @@ Crafty.paths({
   audio: 'assets/audio/'
 })
 
-window.startGame = function (progress, godmode) {
+window.gameExit = function () {
+  Crafty.stop(true)
+  nw.App.closeAllWindows()
+}
+
+window.gameResume = function () {
+  Crafty.pause()
+  Crafty.trigger(Events.GAME_PAUSED, false)
+  toggleMenu(false)
+}
+
+window.gamePause = function () {
+  Crafty.pause()
+  Crafty.trigger(Events.GAME_PAUSED, true)
+  toggleMenu(true)
+}
+
+window.gameStart = function (progress, godmode) {
   Crafty.load(assets, () => {
     generateSharedSprites()
 
@@ -71,4 +89,24 @@ function hello (godmode) {
   //   x: Crafty.math.randomInt(0, screenSize.w),
   //   y: Crafty.math.randomInt(0, screenSize.h - 100)
   // })
+}
+
+function toggleMenu (show) {
+  const menu = document.getElementById('menu')
+  const game = document.getElementById('game')
+
+  // Clean up before adding
+  menu.classList.remove('hide')
+  menu.classList.remove('show')
+  game.classList.remove('hide')
+  game.classList.remove('show')
+
+  if (show) {
+    menu.classList.add('show')
+    game.classList.add('hide')
+    menu.focus()
+  } else {
+    menu.classList.add('hide')
+    game.classList.add('show')
+  }
 }
