@@ -5,7 +5,7 @@ import './objects/stardust'
 // Helpers
 export class ParallaxSpaceScene {
   constructor () {
-    // Crafty.audio.play('Loop01', -1, 0.5)
+    Crafty.audio.play('Loop01', -1, 0.5)
 
     // Crafty.background('url(assets/images/Parallax_Space_BG.png)')
     this.farPlanets = Crafty.e('2DExt, BGLayer, ParallaxSpaceFarPlanetSprite, TimedScroller').setName('BG_Far_Planet')

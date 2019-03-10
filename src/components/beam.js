@@ -19,6 +19,7 @@ Crafty.c('Beam', {
 
   setProps: function (profile, specs, effects) {
     data.set(this, { profile, specs, effects })
+    this.playSoundClip(effects)
     return this
   }
 })
@@ -41,7 +42,6 @@ function rayHit ({ profile, specs, effects }) {
   const { power, width } = specs
   const { impact } = effects
   const { ox, oy: _y } = this
-  this.playSoundClip(effects)
 
   let hits = []
 
