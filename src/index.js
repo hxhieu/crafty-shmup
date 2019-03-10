@@ -56,7 +56,7 @@ window.gameStart = function (progress, godmode) {
     Crafty.createLayer('BGStardust', 'Canvas', { scaleResponse: 0, xResponse: 0, yResponse: 0, z: 0 })
     Crafty.createLayer('UILayer', 'DOM', { scaleResponse: 0, xResponse: 0, yResponse: 0, z: 1000 })
 
-    GuiManager.init()
+    GuiManager.init(godmode)
     PhysicsManager.init()
 
     hello(godmode)

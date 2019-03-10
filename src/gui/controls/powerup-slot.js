@@ -6,17 +6,11 @@ const maxLevel = new WeakMap()
 // Component definition
 
 Crafty.c('UIPowerUpSlot', {
-  required: 'UILayer, Text',
+  required: 'UILabel',
 
   init: function () {
     this.setName('GUI_PowerUp_Slot')
-    this
-      .textFont({
-        family: '8bit',
-        size: '12px'
-      })
-      .textColor('#666')
-
+    this.textColor('#666')
     currentLevel.set(this, 1)
     this.setMaxLevel(5)
   },
