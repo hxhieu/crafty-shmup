@@ -1,6 +1,8 @@
 import '@/components/velocity'
 import '@/components/snake-follow'
 
+import { CollisionProfiles } from '@/constants'
+
 // Local vars
 
 const weapon = new WeakMap()
@@ -12,6 +14,8 @@ Crafty.c('Multiple', {
 
   init: function () {
     this.alpha = 0.5
+    // Manually set the collision here
+    this.collisionProfile = CollisionProfiles.PLAYER
   },
 
   useWeapon: function (template) {

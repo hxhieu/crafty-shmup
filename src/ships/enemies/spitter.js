@@ -1,22 +1,22 @@
 import '@/components/weapon'
 import '@/components/move-to'
-import { screenSize } from '@/device'
+import '@/components/self-destroy'
 
 import { createEnemyBase } from './base'
 import { createWeaponGeneric } from '@/weapons'
 import { createSpitterBile as createProjectile } from '@/weapons/projectiles'
 import { getPlayerInstance } from '@/ships/player'
 
-const MOVE_SPEED = 160
+const MOVE_SPEED = 200
 
-export const createEnemySpitter = ({ moveX, moveY }) => {
+export const createEnemySpitter = ({ startX, startY, moveX, moveY }) => {
   const e = createEnemyBase('Sprite_EnemySpitter')
-    .addComponent('Delay, MoveTo')
-    .setHitbox([14, 14, 14, 26, 26, 26, 26, 14])
-    .setStructure(10, 0, { explode: 'Sprite_ExplosionEnemySpitter' })
+    .addComponent('Delay, MoveTo, SelfDestroy')
+    .setHitbox(16)
+    .setStructure(4, 0, { explode: 'Sprite_ExplosionEnemySpitter' })
     .setScorePoint(25)
 
-  e.attr({ x: (screenSize.w - e.w) / 2, y: -150 })
+  e.attr({ x: startX, startY })
     .moveTo({ x: moveX, y: moveY, speed: MOVE_SPEED })
 
   const { ox, oy } = e
@@ -27,9 +27,14 @@ export const createEnemySpitter = ({ moveX, moveY }) => {
     .attr({ ox, oy })
   e.attach(w)
 
+  // Fire after 2sec
   e.delay(() => {
     w.startFire(false)
-  }, 3000)
+    // Take off after 3sec
+    e.delay(() => {
+      e.moveTo({ x: e.x, y: -50, speed: MOVE_SPEED })
+    }, 3000)
+  }, 2000)
 
   return e
 }

@@ -10,7 +10,7 @@ Crafty.c('TweenExt', {
     TweenEnd
   },
   tweenFlash: function ({ alpha, time } = {}) {
-    alpha = alpha || 0.5
+    alpha = alpha || 0.25
     time = time || 100
     this.tween({ alpha }, time)
     isFlashing.set(this, true)

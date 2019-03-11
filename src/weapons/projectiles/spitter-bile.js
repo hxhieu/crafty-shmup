@@ -6,5 +6,5 @@ export const createSpitterBile = specs => {
     .addComponent(`Sprite_ProjectileSpitterBile`)
     .setProps(profile, power, { impact: 'Sprite_ExplosionSmall01' })
     .setHitbox(8)
-    .moveForward(50)
+    .moveForward(60)
 }

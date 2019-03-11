@@ -10,13 +10,14 @@ import { screenSize } from './device'
 import { assets, generateSharedSprites } from './assets-loader'
 import { GuiManager } from '@/gui'
 import { PhysicsManager } from '@/physics'
-import { createPlayerFighterRed } from '@/ships/player'
+// import { createPlayerFighterRed } from '@/ships/player'
 // import { createPlayerYellowFighter } from '@/ships/player'
-// import { createPlayerFighterGreen } from '@/ships/player'
+import { createPlayerFighterGreen } from '@/ships/player'
 import { ParallaxSpaceScene } from './scenes'
 import { GenericSpawner } from '@/spawners'
-import { createPowerHostSwarm, createEnemyFly, createEnemySpitter } from '@/ships/enemies'
-// import { createYellowCrabBoss } from './ships/enemies/yellow-crab-boss'
+import { createPowerHostSwarm, createEnemyFly } from '@/ships/enemies'
+import { SpitterSpawner } from './spawners'
+import { createYellowCrabBoss } from './ships/enemies/yellow-crab-boss'
 
 Crafty.paths({
   images: 'assets/images/',
@@ -71,17 +72,17 @@ function hello (godmode) {
   powerHostSpawner.start()
 
   const flySpawner = new GenericSpawner(createEnemyFly, 15000, 20000)
-  flySpawner.start()
+  flySpawner.stop()
 
-  const spitterSpawner = new GenericSpawner(createEnemySpitter, 1000, 2000, { moveX: 20, moveY: 120 })
+  const spitterSpawner = new SpitterSpawner()
   spitterSpawner.start()
 
-  createPlayerFighterRed(godmode ? Number.MAX_SAFE_INTEGER : 1)
+  createPlayerFighterGreen(godmode ? Number.MAX_SAFE_INTEGER : 1)
 
-  // createYellowCrabBoss().attr({
-  //   x: 100,
-  //   y: 20
-  // })
+  createYellowCrabBoss().attr({
+    x: 100,
+    y: 20
+  })
 
   // createYellowCrabBoss().attr({
   //   x: 100,

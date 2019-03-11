@@ -14,7 +14,7 @@ Crafty.c('Collider', {
   },
 
   init: function () {
-    this.trigger(Events.TOGGLE_HITBOX, true)
+    // this.trigger(Events.TOGGLE_HITBOX, true)
   },
 
   outOfScreen: function () {

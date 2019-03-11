@@ -21,6 +21,6 @@ export const createPlayerBase = initHp => {
     Looter`
   return Crafty.e(components)
     .attr({ w: SPRITE_SIZE, h: SPRITE_SIZE, x: (screenSize.w - SPRITE_SIZE) / 2, y: screenSize.h - SPRITE_SIZE })
-    .setHitbox(8)
+    .setHitbox(12)
     .setStructure(initHp, 0, { explode: 'Sprite_ExplosionEnemyHost', sound: 'ExplosionSmall01' })
 }
