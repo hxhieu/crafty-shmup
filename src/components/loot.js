@@ -21,8 +21,8 @@ Crafty.c('Loot', {
         if (other.has('Looter') && this.intersect(other.pos())) {
           const effects = data.get(this)
           this.playSoundClip(effects)
-          const { id, value } = data.get(this)
-          other.trigger(Events.LOOT_ACQUIRED, { id, value })
+          const { id, value, score } = data.get(this)
+          other.trigger(Events.LOOT_ACQUIRED, { id, value, score })
           this.destroy()
         }
       }

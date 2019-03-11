@@ -1,4 +1,4 @@
-import { Events } from '@/constants'
+import { Events, CollisionProfiles } from '@/constants'
 // Local vars
 
 // Component definition
@@ -11,7 +11,9 @@ Crafty.c('Looter', {
 
 // Helpers
 
-function lootAcquired (loot) {
-  // TODO: Not sure what needs to be done here
+function lootAcquired ({ id, value, score }) {
+  if (this.collisionProfile === CollisionProfiles.PLAYER) {
+    Crafty.trigger(Events.PLAYER_SCORE, score)
+  }
   return this
 }
