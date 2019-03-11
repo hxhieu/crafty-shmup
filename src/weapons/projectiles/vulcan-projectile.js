@@ -5,6 +5,6 @@ export const createVulcanProjectile = specs => {
   return createProjectileBase(specs)
     .addComponent(`Sprite_ProjectileVulcan${level >= 5 ? 2 : 1}`)
     .setProps(profile, power, { impact: 'Sprite_ExplosionSmall01', sound: 'GunShoot01' })
-    .setHitbox([4, 4, 4, 12, 12, 12, 12, 4])
+    .setHitbox(8)
     .moveForward(150)
 }

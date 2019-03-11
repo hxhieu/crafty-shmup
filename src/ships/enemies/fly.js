@@ -12,7 +12,7 @@ const FIRE_INTERVAL = 3000
 export const createEnemyFly = () => {
   const e = createEnemyBase('Sprite_EnemyFly')
     .addComponent('RandomStart, MoveZigZag, Delay')
-    .setHitbox([14, 14, 14, 26, 26, 26, 26, 14])
+    .setHitbox(16)
     .setStructure(10, 0, { explode: 'Sprite_ExplosionEnemyFly' })
     .setScorePoint(100)
     .setRandomStart({ top: -64, bottom: -16 })

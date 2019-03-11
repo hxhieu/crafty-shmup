@@ -84,8 +84,7 @@ export default () => {
   Crafty.c('Sprite_ProjectileSpitterBile', {
     init: function () {
       this.requires('Canvas, SpriteAnimationExt, ProjectileSpitterBileSprite')
-        .attr({ w: 24, h: 24 })
-        .origin(12, 12)
+        .origin(8, 8)
         .reel('default', 250, [
           [3, 1, 1, 1],
           [4, 1, 1, 1],

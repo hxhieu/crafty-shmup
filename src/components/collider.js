@@ -14,19 +14,43 @@ Crafty.c('Collider', {
   },
 
   init: function () {
-    // this.trigger(Events.TOGGLE_HITBOX, true)
+    this.trigger(Events.TOGGLE_HITBOX, true)
   },
 
   outOfScreen: function () {
     return !this.within(Crafty.viewport.rect())
   },
 
-  setHitbox: function (bounds) {
-    this.collision(bounds)
-    hitbox.set(this, {
-      w: bounds[4] - bounds[0],
-      h: bounds[3] - bounds[1]
-    })
+  setHitbox: function (w, h) {
+    const { w: spriteW, h: spriteH } = this
+    h = h || w
+    const topLeft = {
+      x: (spriteW - w) / 2,
+      y: (spriteH - h) / 2
+    }
+    const topRight = {
+      x: (spriteW + w) / 2,
+      y: (spriteH - h) / 2
+    }
+    const bottomLeft = {
+      x: (spriteW - w) / 2,
+      y: (spriteH + h) / 2
+    }
+    const bottomRight = {
+      x: (spriteW + w) / 2,
+      y: (spriteH + h) / 2
+    }
+    this.collision(
+      topLeft.x,
+      topLeft.y,
+      topRight.x,
+      topRight.y,
+      bottomRight.x,
+      bottomRight.y,
+      bottomLeft.x,
+      bottomLeft.y
+    )
+    hitbox.set(this, { w, h })
     return this
   },
 
