@@ -84,8 +84,11 @@ async function takeDamage (amount) {
 }
 
 async function triggerDestroy () {
-// Mark as death
+  // Mark as death
   this.removeComponent(this.collisionProfile)
+  if (this.has('MoveTo')) {
+    this.setMoveSpeed(0)
+  }
 
   if (this.has('DeathSequence')) {
     await this.activateDeathSequence()
