@@ -35,10 +35,10 @@ const assets = {
       tile: 64,
       tileh: 64,
       map: {
-        EnemyBoss01Sprite: [0, 0, 1, 1],
-        EnemyBoss02Sprite: [5, 0, 1, 1],
-        ExplosionBossYellowCrabSprite: [0, 1, 1, 1],
-        ExplosionBossBlueSucklingSprite: [5, 1, 1, 1]
+        EnemyBossYellowCrabSprite: [0, 1, 1, 1],
+        EnemyBossBlueSucklingSprite: [5, 1, 1, 1],
+        ExplosionBossYellowCrabSprite: [0, 0, 1, 1],
+        ExplosionBossBlueSucklingSprite: [5, 0, 1, 1]
       }
     },
     'Enemies_Unit_Regular.png': {
@@ -58,7 +58,9 @@ const assets = {
       tileh: 16,
       map: {
         ProjectileGreenAcidSprite: [3, 8, 1, 1],
-        ProjectileSpitterBileSprite: [3, 1, 1, 1]
+        ProjectileSpitterBileSprite: [3, 1, 1, 1],
+        ProjectileCrabCubSprite: [3, 4, 1, 1],
+        ExplosionAcidSplashSprite: [6, 4, 1, 1]
       }
     },
 

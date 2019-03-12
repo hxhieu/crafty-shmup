@@ -69,20 +69,17 @@ function hello (godmode) {
   new ParallaxSpaceScene()
 
   const powerHostSpawner = new GenericSpawner(createPowerHostSwarm, 2000, 2000)
-  powerHostSpawner.start()
+  powerHostSpawner.stop()
 
   const flySpawner = new GenericSpawner(createEnemyFly, 15000, 20000)
   flySpawner.stop()
 
   const spitterSpawner = new SpitterSpawner()
-  spitterSpawner.start()
+  spitterSpawner.stop()
 
   createPlayerFighterGreen(godmode ? Number.MAX_SAFE_INTEGER : 1)
 
-  createYellowCrabBoss().attr({
-    x: 100,
-    y: 20
-  })
+  createYellowCrabBoss()
 
   // createYellowCrabBoss().attr({
   //   x: 100,

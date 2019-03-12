@@ -1,6 +1,5 @@
 import '@/components/random-start'
 import '@/components/move-zig-zag'
-import '@/components/weapon'
 import { createEnemyBase } from './base'
 import { createWeaponGeneric } from '@/weapons'
 import { createGreenAcidProjectile as createProjectile } from '@/weapons/projectiles'
@@ -20,7 +19,7 @@ export const createEnemyFly = () => {
 
   const { ox, oy } = e
 
-  const w = createWeaponGeneric({ createProjectile, power: 1, rateOfFire: 0.5 })
+  const w = createWeaponGeneric({ createProjectile, power: 1 })
     .lookDirection(e.getForward())
     .setWeaponTracking(getPlayerInstance)
     .attr({ ox, oy })

@@ -110,4 +110,20 @@ export default () => {
         .destroyOnEnd()
     }
   })
+
+  Crafty.c('Sprite_ExplosionAcidSplash', {
+    init: function () {
+      this.requires('Canvas, SpriteAnimationExt, ExplosionAcidSplashSprite')
+        .origin(8, 8)
+        .reel('default', 250, [
+          [6, 4, 1, 1],
+          [7, 4, 1, 1],
+          [8, 4, 1, 1],
+          [9, 4, 1, 1],
+          [10, 4, 1, 1]
+        ])
+        .animate('default')
+        .destroyOnEnd()
+    }
+  })
 }

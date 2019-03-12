@@ -95,4 +95,18 @@ export default () => {
         .animate('default', -1)
     }
   })
+
+  Crafty.c('Sprite_ProjectileCrabCub', {
+    init: function () {
+      this.requires('Canvas, SpriteAnimationExt, ProjectileCrabCubSprite')
+        .attr({ w: 24, h: 24 })
+        .origin(12, 12)
+        .reel('default', 250, [
+          [3, 4, 1, 1],
+          [4, 4, 1, 1],
+          [5, 4, 1, 1]
+        ])
+        .animate('default', -1)
+    }
+  })
 }

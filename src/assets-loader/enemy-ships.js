@@ -1,21 +1,21 @@
 export default () => {
-  Crafty.c('Sprite_EnemyBoss01', {
+  Crafty.c('Sprite_EnemyBossYellowCrab', {
     init: function () {
-      this.requires('Canvas, SpriteAnimationExt, EnemyBoss01Sprite')
-        .origin(32, 32)
+      this.requires('Canvas, SpriteAnimationExt, EnemyBossYellowCrabSprite')
+        .attr({ w: 96, h: 96 })
+        .origin(48, 48)
         .reel('level', 750, [
-          [1, 0, 1, 1],
-          [0, 0, 1, 1],
-          [2, 0, 1, 1],
-          [3, 0, 1, 1]
+          [0, 1, 1, 1],
+          [1, 1, 1, 1],
+          [2, 1, 1, 1],
+          [3, 1, 1, 1]
         ])
-        // .reel('explode', 500, [
-        //   [0, 0.5, 1, 1],
-        //   [1, 0.5, 1, 1],
-        //   [2, 0.5, 1, 1],
-        //   [3, 0.5, 1, 1],
-        //   [4, 0.5, 1, 1]
-        // ])
+        .reel('charging', 150, [
+          [0, 1, 1, 1],
+          [1, 1, 1, 1],
+          [2, 1, 1, 1],
+          [3, 1, 1, 1]
+        ])
         .animate('level', -1)
     }
   })

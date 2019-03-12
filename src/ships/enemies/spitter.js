@@ -1,4 +1,3 @@
-import '@/components/weapon'
 import '@/components/move-to'
 import '@/components/self-destroy'
 
@@ -21,7 +20,7 @@ export const createEnemySpitter = ({ startX, startY, moveX, moveY }) => {
 
   const { ox, oy } = e
 
-  const w = createWeaponGeneric({ createProjectile, power: 1, rateOfFire: 0.5 })
+  const w = createWeaponGeneric({ createProjectile, power: 1 })
     .lookDirection(e.getForward())
     .setWeaponTracking(getPlayerInstance)
     .attr({ ox, oy })
