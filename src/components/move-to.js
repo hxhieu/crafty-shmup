@@ -73,7 +73,8 @@ function MoveEnded () {
 function EnterFrame ({ dt }) {
   const { x, y, speed } = specs.get(this)
 
-  if (speed <= 0) {
+  // No move needed
+  if (speed <= 0 || (x === this.x && y === this.y)) {
     return
   }
 
@@ -83,7 +84,7 @@ function EnterFrame ({ dt }) {
   var delta = Math.sqrt(dx * dx + dy * dy)
 
   // Don't move with such tiny changed
-  if (Math.abs(delta) < 0.05) {
+  if (Math.abs(delta) < 0.01) {
     stopMove.call(this)
     return
   }
@@ -95,7 +96,7 @@ function EnterFrame ({ dt }) {
   var movY = (dy * moveSpeed) / delta
 
   // Reached destination
-  if (Math.abs(dx) < Math.abs(movX) && Math.abs(dy) < Math.abs(movY)) {
+  if (Math.abs(dx) <= Math.abs(movX) && Math.abs(dy) <= Math.abs(movY)) {
     stopMove.call(this)
     return
   }

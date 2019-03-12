@@ -5,7 +5,7 @@ import { Events, CollisionProfiles } from '@/constants'
 // Component definition
 
 Crafty.c('PlayerCollision', {
-  required: 'Collision',
+  required: 'Collision, Structure',
 
   events: {
     HitOn
@@ -15,6 +15,11 @@ Crafty.c('PlayerCollision', {
 // Helpers
 
 function HitOn (hitData) {
+  // God-mode, ignore collision
+  if (this.getStructurePoints() >= 100) {
+    return
+  }
+
   const other = hitData[0].obj
   if (other.collisionProfile !== CollisionProfiles.ENEMY) {
     return

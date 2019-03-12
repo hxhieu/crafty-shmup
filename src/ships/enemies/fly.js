@@ -1,5 +1,6 @@
 import '@/components/random-start'
 import '@/components/move-zig-zag'
+import '@/components/kill-z'
 import { createEnemyBase } from './base'
 import { createWeaponGeneric } from '@/weapons'
 import { createGreenAcidProjectile as createProjectile } from '@/weapons/projectiles'
@@ -10,7 +11,7 @@ const FIRE_INTERVAL = 3000
 
 export const createEnemyFly = () => {
   const e = createEnemyBase('Sprite_EnemyFly')
-    .addComponent('RandomStart, MoveZigZag, Delay')
+    .addComponent('RandomStart, MoveZigZag, Delay, KillZ')
     .setHitbox(16)
     .setStructure(10, 0, { explode: 'Sprite_ExplosionEnemyFly' })
     .setScorePoint(100)

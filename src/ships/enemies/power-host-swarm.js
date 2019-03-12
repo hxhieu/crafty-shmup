@@ -20,7 +20,7 @@ export const createPowerHostSwarm = (size = 5) => {
   for (let i = 0; i < size; i++) {
     timer.delay(() => {
       createEnemyPowerHost()
-        .addComponent('MoveZigZag, LootTable')
+        .addComponent('MoveZigZag')
         .attr({ x: startX, y: startY })
         .moveZigZag(TURN_X, TURN_Y, SPEED)
         .bind(Events.STRUCTURE_DESTROYED, function () {
