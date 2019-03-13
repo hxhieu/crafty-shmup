@@ -57,6 +57,7 @@ Crafty.c('PlayerController', {
     weapon.setWeaponLevelUp()
     weapon.setWeaponLevelUp()
     weapon.setWeaponLevelUp()
+    weapon.setWeaponLevelUp()
     multipleUp.call(this)
     multipleUp.call(this)
     // weapon.startFire()

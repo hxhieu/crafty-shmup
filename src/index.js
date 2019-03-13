@@ -41,6 +41,11 @@ window.gamePause = function () {
   toggleMenu(true)
 }
 
+window.endStage = function () {
+  // TODO: Post screen
+  window.location.reload()
+}
+
 window.gameStart = function (progress, godmode, chosen) {
   Crafty.load(assets, () => {
     generateSharedSprites()
@@ -62,17 +67,31 @@ window.gameStart = function (progress, godmode, chosen) {
 
     /* eslint-disable no-new */
     const bg = new ParallaxSpaceScene()
+    let player
 
     const life = godmode ? Number.MAX_SAFE_INTEGER : 1
     switch (chosen) {
-      case 'RED': createPlayerFighterRed(life)
+      case 'RED': player = createPlayerFighterRed(life)
         break
-      case 'GREEN': createPlayerFighterGreen(life)
+      case 'GREEN': player = createPlayerFighterGreen(life)
         break
     }
 
     startSpawners()
-    spawnBoss(bg)
+    spawnBoss(bg, function () {
+      const timer = Crafty.e('Delay')
+      // Stage ends
+      timer.delay(() => {
+        player
+          // Freeze the control
+          .fourwayBounded(0, null)
+          .multiway(0)
+          // Get out of the stage
+          .addComponent('MoveTo')
+          .moveTo({ x: player.x, y: -100, speed: 200 })
+          .bind(Events.MOVE_TO_ENDED, window.endStage)
+      }, 5000)
+    })
   }, progress)
 }
 
@@ -107,8 +126,15 @@ function toggleMenu (show) {
   }
 }
 
-function spawnBoss (bg) {
+function spawnBoss (bg, callback) {
   const warning = createBossWarning()
   bg.setActive(false)
-  warning.bind('Remove', createYellowCrabBoss)
+  warning.bind('Remove', function () {
+    createYellowCrabBoss().bind('Remove', function () {
+      bg.setActive(true)
+      if (typeof (callback) === 'function') {
+        callback()
+      }
+    })
+  })
 }

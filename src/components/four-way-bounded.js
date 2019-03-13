@@ -22,6 +22,9 @@ Crafty.c('FourwayBounded', {
 
 function EnterFrame () {
   let rect = bound.get(this)
+  if (!rect) {
+    return
+  }
   const { w, h } = this
   rect = {
     left: 0,
