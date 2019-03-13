@@ -18,6 +18,7 @@ const State = {
   BERSERK: 'zerkerState'
 }
 
+const NAME = 'YELLOW_CRAB'
 const DEFAULT_SPEED = 60
 const CHARGE_DELAY = 1500
 let fsm
@@ -32,7 +33,8 @@ export const createYellowCrabBoss = () => {
   entity = createEnemyBossBase('Sprite_EnemyBossYellowCrab, MoveTo, Delay')
     .setStructure(200, 0, 'Sprite_ExplosionBossYellowCrab')
     .setHitbox(40)
-    .setAISubject('YELLOW_CRAB_BOSS')
+    .setAISubject(NAME)
+    .setBossBar(NAME)
     .bind(Events.MOVE_TO_ENDED, moveEnded)
 
   entity.x = (screenSize.w - entity.w) / 2
@@ -49,7 +51,13 @@ export const createYellowCrabBoss = () => {
       { name: 'seek', from: State.RELAX, to: State.SEEK },
       { name: 'found', from: State.SEEK, to: State.FOUND },
       { name: 'charge', from: State.FOUND, to: State.CHARGE },
-      { name: 'reset', from: [State.CHARGE, State.BERSERK], to: State.RESET }
+      { name: 'reset',
+        from: [
+          State.SEEK,
+          State.CHARGE,
+          State.BERSERK
+        ],
+        to: State.RESET }
     ],
     methods: {
       onRelax,
@@ -65,6 +73,11 @@ export const createYellowCrabBoss = () => {
   entity.moveTo({ x: entity.x, y: 30, speed: 10 })
 
   return entity
+}
+
+function isDead () {
+  const { current } = entity.getArmour()
+  return current <= 1
 }
 
 function getLifePercent () {
@@ -146,6 +159,7 @@ function onFound () {
   entity.safeAnimate('charging', -1)
   weapon.stopFire()
   entity.delay(() => {
+    if (isDead()) return
     fsm.charge()
   }, CHARGE_DELAY)
 }
@@ -185,6 +199,7 @@ function zerkCharge () {
   entity.tell('ramming the player')
   entity.safeAnimate('charging', -1)
   entity.delay(() => {
+    if (isDead()) return
     zerkChargeCount++
     const speed = DEFAULT_SPEED * 5
     const player = getPlayerInstance()
@@ -219,19 +234,28 @@ function relaxMove () {
 
 function seekMove () {
   const speed = DEFAULT_SPEED * 1.5
-  const { ox: playerX, w: playerW } = getPlayerInstance()
-  const { ox: x, y } = entity
-  // Work around for invalid transition to 'found' when 'seek' is still in progress
+  // Work around for invalid transition to 'XXX' when 'seek' is still in progress
   // TODO: Any better way?
-  const endSeek = () => {
-    if (fsm.can('found')) {
-      fsm.found()
+  const endSeek = tx => {
+    if (fsm.can(tx)) {
+      fsm[tx]()
     } else {
-      entity.delay(endSeek, 100)
+      entity.delay(() => {
+        endSeek(tx)
+      }, 100)
     }
   }
+
+  const player = getPlayerInstance()
+  if (!player) {
+    endSeek('reset')
+    return
+  }
+  const { ox: playerX, w: playerW } = player
+  const { ox: x, y } = entity
+
   if (Math.abs(playerX - x) <= playerW) {
-    endSeek()
+    endSeek('found')
   } else {
     entity.tell(`still seeking...`)
     entity.moveTo({ x: playerX - (entity.w / 2), y, speed })

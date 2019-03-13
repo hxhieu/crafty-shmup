@@ -3,6 +3,7 @@ import '@/components/death-sequence'
 import '@/components/kill-z'
 import '@/components/score'
 import '@/components/ai'
+import '@/gui/boss-bar'
 import { CollisionProfiles } from '@/constants'
 
 const createEnemyBase = sprite => {
@@ -14,7 +15,7 @@ const createEnemyBase = sprite => {
 
 const createEnemyBossBase = (sprite) => {
   return createEnemyBase(sprite)
-    .addComponent(`DeathSequence`)
+    .addComponent(`DeathSequence, BossBar`)
     .useDefaultBossDeathSequence()
 }
 

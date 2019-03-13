@@ -15,7 +15,7 @@ export class GuiManager {
     Crafty.e('DebugInfo')
 
     const scoreLabel = Crafty.e('UILabel')
-      .attr({ x: 225 })
+      .attr({ w: 100, x: 225 })
       .textColor('#666')
       .text('SCORE: _GOD-MODE_')
 

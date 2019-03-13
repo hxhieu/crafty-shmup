@@ -5,7 +5,7 @@
 Crafty.c('UILabel', {
   required: 'UILayer, 2D, Text',
   init: function () {
-    this.attr({ w: 100, h: 12 })
+    this.attr({ h: 12 })
       .text('This is a label')
       .textFont({ family: '8bit', size: '12px' })
       .textColor('#FFFFFF')

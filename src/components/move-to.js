@@ -13,7 +13,8 @@ Crafty.c('MoveTo', {
   events: {
     EnterFrame,
     [Events.MOVE_TO_DIRECTION]: NewDirection,
-    [Events.MOVE_TO_ENDED]: MoveEnded
+    [Events.MOVE_TO_ENDED]: MoveEnded,
+    [Events.STRUCTURE_DESTROYED]: stopMove
   },
   init: function () {
     specs.set(this, {

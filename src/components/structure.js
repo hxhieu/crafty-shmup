@@ -74,7 +74,6 @@ async function takeDamage (amount) {
     }
 
     currentArmour.set(this, armour)
-    return this
   }
 
   // If we got this far then we survived!
@@ -85,10 +84,8 @@ async function takeDamage (amount) {
 
 async function triggerDestroy () {
   // Mark as death
+  this.trigger(Events.STRUCTURE_DESTROYED)
   this.removeComponent(this.collisionProfile)
-  if (this.has('MoveTo')) {
-    this.setMoveSpeed(0)
-  }
 
   if (this.has('DeathSequence')) {
     await this.activateDeathSequence()
@@ -101,9 +98,6 @@ async function triggerDestroy () {
     Crafty.e(explode).attr({ ox, oy })
   }
   this.playSoundClip(effects)
-
-  // Neccessary post destroy events
-  this.trigger(Events.STRUCTURE_DESTROYED)
 
   this.destroy()
 }
