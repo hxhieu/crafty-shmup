@@ -14,18 +14,23 @@ const State = {
   SEEK: 'seekState',
   FOUND: 'foundState',
   CHARGE: 'chargeState',
-  RESET: 'resetState'
+  RESET: 'resetState',
+  BERSERK: 'zerkerState'
 }
 
 const DEFAULT_SPEED = 60
+const CHARGE_DELAY = 1500
 let fsm
 let entity
 let weapon
 let relaxRound = 0
+let relaxRoundMax = 3 // Will add random-ness
+
+let zerkChargeCount = 0
 
 export const createYellowCrabBoss = () => {
   entity = createEnemyBossBase('Sprite_EnemyBossYellowCrab, MoveTo, Delay')
-    .setStructure(1200, 0, 'Sprite_ExplosionBossYellowCrab')
+    .setStructure(200, 0, 'Sprite_ExplosionBossYellowCrab')
     .setHitbox(40)
     .setAISubject('YELLOW_CRAB_BOSS')
     .bind(Events.MOVE_TO_ENDED, moveEnded)
@@ -44,19 +49,20 @@ export const createYellowCrabBoss = () => {
   fsm = new StateMachine({
     init: State.INTRO,
     transitions: [
-      // { name: 'init', from: State.INTRO, to: State.RELAX },
       { name: 'relax', from: [State.INTRO, State.RESET], to: State.RELAX },
+      { name: 'berserk', from: State.RELAX, to: State.BERSERK },
       { name: 'seek', from: State.RELAX, to: State.SEEK },
       { name: 'found', from: State.SEEK, to: State.FOUND },
       { name: 'charge', from: State.FOUND, to: State.CHARGE },
-      { name: 'reset', from: State.CHARGE, to: State.RESET }
+      { name: 'reset', from: [State.CHARGE, State.BERSERK], to: State.RESET }
     ],
     methods: {
       onRelax,
       onSeek,
       onFound,
       onCharge,
-      onReset
+      onReset,
+      onBerserk
     }
   })
 
@@ -66,6 +72,11 @@ export const createYellowCrabBoss = () => {
   return entity
 }
 
+function getLifePercent () {
+  const { current, max } = entity.getArmour()
+  return (current / max) * 100
+}
+
 function moveEnded () {
   switch (fsm.state) {
     case State.INTRO:
@@ -73,10 +84,36 @@ function moveEnded () {
       break
     case State.RELAX:
     {
-      if (relaxRound < 3) {
+      if (relaxRound < relaxRoundMax) {
         relaxMove()
       } else {
-        fsm.seek()
+        let zerkChance = Crafty.math.randomInt(0, 30)
+        // Low life will affect zerker chance
+        const pct = getLifePercent()
+        if (pct <= 33) {
+          zerkChance *= 3
+        }
+        if (pct <= 50) {
+          zerkChance *= 2
+        }
+        if (pct > 75) {
+          zerkChance = 0
+        }
+
+        if (Crafty.math.randomInt(0, 100) <= zerkChance) {
+          fsm.berserk()
+        } else {
+          fsm.seek()
+        }
+      }
+      break
+    }
+    case State.BERSERK:
+    {
+      if (zerkChargeCount < 4) {
+        zerkCharge()
+      } else {
+        fsm.reset()
       }
       break
     }
@@ -99,7 +136,7 @@ function onFound () {
   entity.safeAnimate('charging', -1)
   entity.delay(() => {
     fsm.charge()
-  }, 1500)
+  }, CHARGE_DELAY)
 }
 
 function onCharge () {
@@ -117,7 +154,32 @@ function onReset () {
 
 function onRelax () {
   relaxRound = 0
+  // Life affects how "relax" I am
+  const pct = getLifePercent()
+  relaxRoundMax = pct >= 50 ? Crafty.math.randomInt(2, 4) : 2
   relaxMove()
+}
+
+function onBerserk () {
+  entity.tell('super mad! RAWR!!!')
+  zerkChargeCount = 0
+  zerkCharge()
+}
+
+function zerkCharge () {
+  entity.tell('ramming the player')
+  entity.safeAnimate('charging', -1)
+  entity.delay(() => {
+    zerkChargeCount++
+    const speed = DEFAULT_SPEED * 5
+    const player = getPlayerInstance()
+    if (player) {
+      const { ox: x, oy: y } = getPlayerInstance()
+      entity.moveTo({ x: x - (entity.w / 2), y: y - (entity.h / 2), speed })
+    } else {
+      fsm.reset()
+    }
+  }, CHARGE_DELAY)
 }
 
 function relaxMove () {
@@ -126,12 +188,18 @@ function relaxMove () {
   const { w } = entity
   const { w: screenW } = screenSize
   const { w: hitBoxW } = entity.getHitbox()
-  const goingRight = entity.x <= screenW / 2
-  const y = -10
+  let goingRight = entity.x <= screenW / 2
+  // First round should be total random
+  if (relaxRound === 1) {
+    goingRight = Crafty.math.randomInt(0, 100) >= 50
+  }
+  const y = Crafty.math.randomNumber(-20, 50)
   const padding = (w - hitBoxW) / 2
-  const x = goingRight ? screenW - (hitBoxW + padding) : -padding
+  const x = goingRight
+    ? Crafty.math.randomNumber(3 * (screenW / 4), screenW - (hitBoxW + padding))
+    : Crafty.math.randomNumber(-padding, screenW / 4)
   entity.moveTo({ x, y, speed })
-  entity.tell(`relaxing...round ${relaxRound}`)
+  entity.tell(`relaxing...round ${relaxRound} of ${relaxRoundMax}`)
 }
 
 function seekMove () {

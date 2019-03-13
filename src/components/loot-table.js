@@ -24,7 +24,7 @@ function getLoot () {
   if (!table) {
     return null
   }
-  const chance = Crafty.math.randomNumber(0, 100)
+  const chance = Crafty.math.randomInt(0, 100)
   const possibilities = table.filter(loot => {
     return loot.chance >= chance
   })
