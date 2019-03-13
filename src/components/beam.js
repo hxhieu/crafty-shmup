@@ -48,7 +48,13 @@ function rayHit ({ profile, specs, effects }) {
   // Ray cast all beam width
   for (let _x = ox - width / 2; _x < ox + width / 2; _x++) {
     hits = hits.concat(Crafty.raycast({ _x, _y }, this.getForward(), screenSize.h)
-      .filter(x => x.obj && x.obj.collisionProfile !== profile && x.obj.has('Structure')))
+      .filter(x =>
+        x.obj &&
+        x.obj.collisionProfile &&
+        x.obj.collisionProfile !== profile &&
+        x.obj.has('Structure')
+      )
+    )
   }
 
   // Only unique hits - by ID

@@ -5,7 +5,7 @@ import { createCrabCubProjectile as createProjectile } from '@/weapons/projectil
 import { createEnemyBossBase } from './base'
 import { getPlayerInstance } from '@/ships/player'
 import { screenSize } from '@/device'
-import { Events } from '@/constants'
+import { Events, CollisionProfiles } from '@/constants'
 import StateMachine from 'javascript-state-machine'
 
 const State = {
@@ -104,6 +104,8 @@ function moveEnded () {
   if (isDead()) return
   switch (fsm.state) {
     case State.INTRO:
+      // Start physics here
+      entity.addComponent(CollisionProfiles.ENEMY)
       fsm.relax()
       break
     case State.RELAX:

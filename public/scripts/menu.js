@@ -2,8 +2,22 @@ var Menu = function (root, close, indexChange) {
   var focusIndex = 0
   var buttons = []
 
+  var updateFocus = function () {
+    for (var i = 0; i < buttons.length; i++) {
+      buttons[i].ele.classList.remove('focused')
+      if (i === focusIndex) {
+        buttons[i].ele.classList.add('focused')
+      }
+    }
+  }
+
   var addButton = function (btn, callback) {
     buttons.push({ ele: btn, action: callback })
+  }
+
+  var setFocus = function (idx) {
+    focusIndex = idx
+    updateFocus()
   }
 
   var build = function () {
@@ -29,12 +43,7 @@ var Menu = function (root, close, indexChange) {
       }
 
       // Focus
-      for (var i = 0; i < buttons.length; i++) {
-        buttons[i].ele.classList.remove('focused')
-        if (i === focusIndex) {
-          buttons[i].ele.classList.add('focused')
-        }
-      }
+      updateFocus()
 
       // Enter press
       if (e.keyCode === 13) {
@@ -46,6 +55,7 @@ var Menu = function (root, close, indexChange) {
 
   return {
     addButton: addButton,
-    build: build
+    build: build,
+    setFocus: setFocus
   }
 }
