@@ -38,12 +38,7 @@ export const createYellowCrabBoss = () => {
   entity.x = (screenSize.w - entity.w) / 2
   entity.y = -70
 
-  const { ox, oy } = entity
-
-  weapon = createWeaponGeneric({ createProjectile, power: 3 })
-    .lookDirection(entity.getForward())
-    .attr({ ox, oy })
-  entity.attach(weapon)
+  resetWeapon()
 
   // State machine
   fsm = new StateMachine({
@@ -75,6 +70,21 @@ export const createYellowCrabBoss = () => {
 function getLifePercent () {
   const { current, max } = entity.getArmour()
   return (current / max) * 100
+}
+
+function resetWeapon () {
+  if (weapon) {
+    entity.detach(weapon)
+    weapon.destroy()
+  }
+  const power = 2
+  const rateOfFire = getLifePercent() >= 50 ? 1.25 : 1.5
+  const { ox, oy } = entity
+
+  weapon = createWeaponGeneric({ createProjectile, power, rateOfFire })
+    .lookDirection(entity.getForward())
+    .attr({ ox, oy })
+  entity.attach(weapon)
 }
 
 function moveEnded () {
@@ -134,6 +144,7 @@ function onSeek () {
 function onFound () {
   entity.tell(`locking on the player`)
   entity.safeAnimate('charging', -1)
+  weapon.stopFire()
   entity.delay(() => {
     fsm.charge()
   }, CHARGE_DELAY)
@@ -147,6 +158,8 @@ function onCharge () {
 
 function onReset () {
   entity.tell('reseting...')
+  resetWeapon()
+  weapon.startFire()
   const speed = DEFAULT_SPEED * 0.5
   entity.safeAnimate('level', -1)
   entity.moveTo({ x: entity.x, y: 10, speed })
@@ -154,6 +167,7 @@ function onReset () {
 
 function onRelax () {
   relaxRound = 0
+  weapon.startFire()
   // Life affects how "relax" I am
   const pct = getLifePercent()
   relaxRoundMax = pct >= 50 ? Crafty.math.randomInt(2, 4) : 2
@@ -163,6 +177,7 @@ function onRelax () {
 function onBerserk () {
   entity.tell('super mad! RAWR!!!')
   zerkChargeCount = 0
+  weapon.stopFire()
   zerkCharge()
 }
 
@@ -206,8 +221,17 @@ function seekMove () {
   const speed = DEFAULT_SPEED * 1.5
   const { ox: playerX, w: playerW } = getPlayerInstance()
   const { ox: x, y } = entity
+  // Work around for invalid transition to 'found' when 'seek' is still in progress
+  // TODO: Any better way?
+  const endSeek = () => {
+    if (fsm.can('found')) {
+      fsm.found()
+    } else {
+      entity.delay(endSeek, 100)
+    }
+  }
   if (Math.abs(playerX - x) <= playerW) {
-    fsm.found()
+    endSeek()
   } else {
     entity.tell(`still seeking...`)
     entity.moveTo({ x: playerX - (entity.w / 2), y, speed })
