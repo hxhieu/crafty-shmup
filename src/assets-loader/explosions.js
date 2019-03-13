@@ -19,7 +19,7 @@ export default () => {
     init: function () {
       this.requires('Canvas, SpriteAnimationExt, ExplosionSmall01Sprite')
         .origin(8, 8)
-        .reel('default', 1000, [
+        .reel('default', 1250, [
           [8, 0, 1, 1],
           [9, 0, 1, 1],
           [10, 0, 1, 1],

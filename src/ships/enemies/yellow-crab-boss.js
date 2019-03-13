@@ -31,7 +31,7 @@ let zerkChargeCount = 0
 
 export const createYellowCrabBoss = () => {
   entity = createEnemyBossBase('Sprite_EnemyBossYellowCrab, MoveTo, Delay')
-    .setStructure(200, 0, 'Sprite_ExplosionBossYellowCrab')
+    .setStructure(1000, 0, { explode: 'Sprite_ExplosionBossYellowCrab', sound: 'ExplosionSmall01', volume: 1 })
     .setHitbox(40)
     .setAISubject(NAME)
     .setBossBar(NAME)
@@ -101,6 +101,7 @@ function resetWeapon () {
 }
 
 function moveEnded () {
+  if (isDead()) return
   switch (fsm.state) {
     case State.INTRO:
       fsm.relax()

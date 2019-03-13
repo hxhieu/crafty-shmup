@@ -14,7 +14,7 @@ Crafty.c('BossBar', {
   setBossBar: function (name) {
     const { w } = screenSize
     const h = 12
-    const labelW = name.length * 4.7
+    const labelW = name.length * 5
     const bar = Crafty.e('DOM, 2D, Color').attr({ w, h, alpha: 0.5 }).color('red')
     const label = Crafty.e('UILabel')
       .attr({ w: labelW, x: (w - labelW) / 2 })
