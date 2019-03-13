@@ -14,8 +14,8 @@ Crafty.c('DeathSequence', {
 
   useDefaultBossDeathSequence () {
     const sequence = []
-    for (let i = 0; i < 30; i++) {
-      const rand = Crafty.math.randomInt(100, 500)
+    for (let i = 0; i < 25; i++) {
+      const rand = Crafty.math.randomInt(100, 300)
       sequence.push(
         { effect: 'Sprite_ExplosionSmall01Slomo', sound: 'ExplosionSmall01', timeline: i * rand, size: 16 }
       )
@@ -25,19 +25,20 @@ Crafty.c('DeathSequence', {
   },
 
   activateDeathSequence () {
+    this.safeAnimate('level', -1)
     return new Promise(resolve => {
       const seqs = sequences.get(this)
       let seqCount = 0
       seqs.forEach(seq => {
         const { effect, sound, volume, timeline, pos, size } = seq
-        const { ox, oy } = this
         const { w, h } = this.getHitbox()
-        const finalPos = pos ||
+        this.delay(() => {
+          const { ox, oy } = this
+          const finalPos = pos ||
           {
             x: Crafty.math.randomInt(ox - size / 2 - w / 2, ox - size / 2 + w / 2),
             y: Crafty.math.randomInt(oy - size / 2 - h / 2, oy - size / 2 + h / 2)
           }
-        this.delay(() => {
           Crafty.e(effect).attr({ x: finalPos.x, y: finalPos.y })
           this.playSoundClip({ sound, volume })
           seqCount++
