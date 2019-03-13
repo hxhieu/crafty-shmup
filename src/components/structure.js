@@ -64,16 +64,15 @@ async function takeDamage (amount) {
 
   // After shield mitigation
   if (shield < 0) {
+    currentShield.set(this, 0)
     let armour = currentArmour.get(this)
     armour += shield
-    currentShield.set(this, 0)
+    currentArmour.set(this, armour)
     if (armour <= 0) {
       isDestroying.set(this, true)
       await triggerDestroy.call(this)
       return this
     }
-
-    currentArmour.set(this, armour)
   }
 
   // If we got this far then we survived!

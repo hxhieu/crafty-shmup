@@ -57,10 +57,10 @@ Crafty.c('PlayerController', {
     weapon.setWeaponLevelUp()
     weapon.setWeaponLevelUp()
     weapon.setWeaponLevelUp()
-    weapon.startFire()
-    speedUp.call(this)
-    // multipleUp.call(this)
-    // this.fourwayBounded(BASE_SPEED * 10, screenSize)
+    multipleUp.call(this)
+    multipleUp.call(this)
+    // weapon.startFire()
+    this.fourwayBounded(BASE_SPEED * 2, screenSize)
     return this
   }
 })

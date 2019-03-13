@@ -31,11 +31,12 @@ let zerkChargeCount = 0
 
 export const createYellowCrabBoss = () => {
   entity = createEnemyBossBase('Sprite_EnemyBossYellowCrab, MoveTo, Delay')
-    .setStructure(1000, 0, { explode: 'Sprite_ExplosionBossYellowCrab', sound: 'ExplosionSmall01', volume: 1 })
-    .setHitbox(40)
+    .setStructure(100, 0, { explode: 'Sprite_ExplosionBossYellowCrab', sound: 'ExplosionSmall01', volume: 1 })
+    .setHitbox(28)
     .setAISubject(NAME)
     .setBossBar(NAME)
     .bind(Events.MOVE_TO_ENDED, moveEnded)
+    .bind(Events.STRUCTURE_DESTROYED, cleanUp)
 
   entity.x = (screenSize.w - entity.w) / 2
   entity.y = -70
@@ -65,7 +66,10 @@ export const createYellowCrabBoss = () => {
       onFound,
       onCharge,
       onReset,
-      onBerserk
+      onBerserk,
+      onBeforeTransition: function () {
+        return !isDead()
+      }
     }
   })
 
@@ -76,8 +80,7 @@ export const createYellowCrabBoss = () => {
 }
 
 function isDead () {
-  const { current } = entity.getArmour()
-  return current <= 1
+  return entity.getStructurePoints() <= 0
 }
 
 function getLifePercent () {
@@ -91,7 +94,7 @@ function resetWeapon () {
     weapon.destroy()
   }
   const power = 2
-  const rateOfFire = getLifePercent() >= 50 ? 1.25 : 1.5
+  const rateOfFire = getLifePercent() >= 50 ? 1.5 : 2
   const { ox, oy } = entity
 
   weapon = createWeaponGeneric({ createProjectile, power, rateOfFire })
@@ -102,6 +105,9 @@ function resetWeapon () {
 
 function moveEnded () {
   if (isDead()) return
+  // Low life will affect things
+  const pct = getLifePercent()
+
   switch (fsm.state) {
     case State.INTRO:
       // Start physics here
@@ -110,19 +116,17 @@ function moveEnded () {
       break
     case State.RELAX:
     {
-      if (relaxRound < relaxRoundMax) {
+      if ((pct <= 50 && relaxRound < 2) || (pct > 50 && relaxRound < relaxRoundMax)) {
         relaxMove()
       } else {
         let zerkChance = Crafty.math.randomInt(0, 30)
-        // Low life will affect zerker chance
-        const pct = getLifePercent()
         if (pct <= 33) {
           zerkChance *= 3
         }
         if (pct <= 50) {
           zerkChance *= 2
         }
-        if (pct > 75) {
+        if (pct > 90) {
           zerkChance = 0
         }
 
@@ -162,7 +166,6 @@ function onFound () {
   entity.safeAnimate('charging', -1)
   weapon.stopFire()
   entity.delay(() => {
-    if (isDead()) return
     fsm.charge()
   }, CHARGE_DELAY)
 }
@@ -199,10 +202,10 @@ function onBerserk () {
 }
 
 function zerkCharge () {
+  if (isDead()) return
   entity.tell('ramming the player')
   entity.safeAnimate('charging', -1)
   entity.delay(() => {
-    if (isDead()) return
     zerkChargeCount++
     const speed = DEFAULT_SPEED * 5
     const player = getPlayerInstance()
@@ -216,6 +219,7 @@ function zerkCharge () {
 }
 
 function relaxMove () {
+  if (isDead()) return
   relaxRound++
   const speed = DEFAULT_SPEED
   const { w } = entity
@@ -236,6 +240,7 @@ function relaxMove () {
 }
 
 function seekMove () {
+  if (isDead()) return
   const speed = DEFAULT_SPEED * 1.5
   // Work around for invalid transition to 'XXX' when 'seek' is still in progress
   // TODO: Any better way?
@@ -264,4 +269,9 @@ function seekMove () {
     entity.moveTo({ x: playerX - (entity.w / 2), y, speed })
     entity.delay(seekMove, 250)
   }
+}
+
+function cleanUp () {
+  weapon.stopFire()
+  weapon.destroy()
 }
