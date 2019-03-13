@@ -10,9 +10,7 @@ import { screenSize } from './device'
 import { assets, generateSharedSprites } from './assets-loader'
 import { GuiManager } from '@/gui'
 import { PhysicsManager } from '@/physics'
-// import { createPlayerFighterRed } from '@/ships/player'
-// import { createPlayerYellowFighter } from '@/ships/player'
-import { createPlayerFighterGreen } from '@/ships/player'
+import { createPlayerFighterRed, createPlayerFighterGreen } from '@/ships/player'
 import { ParallaxSpaceScene } from './scenes'
 import { GenericSpawner } from '@/spawners'
 import { createPowerHostSwarm, createEnemyFly } from '@/ships/enemies'
@@ -41,7 +39,7 @@ window.gamePause = function () {
   toggleMenu(true)
 }
 
-window.gameStart = function (progress, godmode) {
+window.gameStart = function (progress, godmode, chosen) {
   Crafty.load(assets, () => {
     generateSharedSprites()
 
@@ -60,14 +58,22 @@ window.gameStart = function (progress, godmode) {
     GuiManager.init(godmode)
     PhysicsManager.init()
 
-    hello(godmode)
+    /* eslint-disable no-new */
+    new ParallaxSpaceScene()
+
+    const life = godmode ? Number.MAX_SAFE_INTEGER : 1
+    switch (chosen) {
+      case 'RED': createPlayerFighterRed(life)
+        break
+      case 'GREEN': createPlayerFighterGreen(life)
+        break
+    }
+
+    startSpawners()
   }, progress)
 }
 
-function hello (godmode) {
-  /* eslint-disable no-new */
-  new ParallaxSpaceScene()
-
+function startSpawners () {
   const powerHostSpawner = new GenericSpawner(createPowerHostSwarm, 2000, 2000)
   powerHostSpawner.stop()
 
@@ -77,19 +83,7 @@ function hello (godmode) {
   const spitterSpawner = new SpitterSpawner()
   spitterSpawner.stop()
 
-  createPlayerFighterGreen(godmode ? Number.MAX_SAFE_INTEGER : 1)
-
   createYellowCrabBoss()
-
-  // createYellowCrabBoss().attr({
-  //   x: 100,
-  //   y: 50
-  // })
-  // const boss2 = new BlueSucklingBoss()
-  // boss2.e.attr({
-  //   x: Crafty.math.randomInt(0, screenSize.w),
-  //   y: Crafty.math.randomInt(0, screenSize.h - 100)
-  // })
 }
 
 function toggleMenu (show) {

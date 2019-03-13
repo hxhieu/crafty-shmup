@@ -21,7 +21,7 @@ var Menu = function (root, close, indexChange) {
         }
         case 40: {
           focusIndex++;
-          if (focusIndex > buttons.length) focusIndex = buttons.length
+          if (focusIndex > buttons.length - 1) focusIndex = buttons.length - 1
           if (typeof (indexChange) === 'function')
             indexChange(focusIndex)
           break

@@ -100,11 +100,8 @@
       margin: 0;
     }
 
-    .UIPowerUpSlot {
-      text-align: center !important;
-      width: 64px !important;
-      background: #000 !important;
-      height: 12px !important;
+    #chooser {
+      padding: 20px 0;
     }
 
     #cover {
@@ -123,6 +120,13 @@
 
     #cover label {
       float: right;
+    }
+
+    .UIPowerUpSlot {
+      text-align: center !important;
+      width: 64px !important;
+      background: #000 !important;
+      height: 12px !important;
     }
   </style>
 </head>
@@ -145,6 +149,20 @@
         <div id="loader-bar"></div>
       </div>
     </div>
+    <!-- <div id="cover">
+      <h1>Crafty Shmup</h1>
+      <label>by hxhieu</label>
+    </div> -->
+    <div id="chooser" class="hide screen" tabindex="0">
+      <h2>Choose your fighter</h2>
+      <div>
+        <label id="lbl-chooser" class="show">RED and the destructive power</label>
+        <button id="btn-chooser-red" class="focused">RED</button>
+        <button id="btn-chooser-green">GREEN</button>
+        <button id="btn-chooser-back">BACK</button>
+      </div>
+    </div>
+    <div id="game" class="hide"></div>
     <div id="menu" class="hide screen" tabindex="0">
       <h2>Options</h2>
       <div>
@@ -154,16 +172,16 @@
         <button id="btn-option-exit">EXIT TO TITLE</button>
       </div>
     </div>
-    <div id="game" class="hide"></div>
-    <!-- <div id="cover">
-      <h1>Crafty Shmup</h1>
-      <label>by hxhieu</label>
-    </div> -->
   </div>
   <script src="<%= htmlWebpackPlugin.files.chunks.main.entry %>"></script>
   <script src="scripts/menu.js"></script>
   <script>
     var buildUI = function () {
+      var container = document.getElementById('container')
+      var title = document.getElementById('title')
+      var chooser = document.getElementById('chooser')
+      var godMode = false
+      var chosen = 'RED'
 
       var toggleVisibility = function (ele, show) {
         ele.classList.remove('show')
@@ -171,8 +189,21 @@
         ele.classList.add(show ? 'show' : 'hide')
       }
 
-      var gameStart = function (godmode) {
-        document.getElementById('container').removeChild(title)
+      var chooserEnter = function () {
+        toggleVisibility(title, false)
+        toggleVisibility(chooser, true)
+        chooser.focus()
+      }
+
+      var chooserExit = function () {
+        toggleVisibility(title, true)
+        toggleVisibility(chooser, false)
+        title.focus()
+      }
+
+      var gameStart = function () {
+        container.removeChild(title)
+        container.removeChild(chooser)
         toggleVisibility(document.getElementById('loader'), true)
         window.gameMusic = true
         window.gameSound = true
@@ -188,12 +219,13 @@
               toggleVisibility(document.getElementById('game'), true)
             }
           },
-          godmode
+          godMode,
+          chosen
         )
       }
 
       var titleMenu = new Menu(
-        document.getElementById('title'),
+        title,
         window.gameExit,
         // Button index change
         function (idx) {
@@ -211,16 +243,43 @@
           }
         }
       )
-
       titleMenu.addButton(document.getElementById('btn-normal'), function () {
-        gameStart()
+        godMode = false
+        chooserEnter()
       })
       titleMenu.addButton(document.getElementById('btn-godmode'), function () {
-        gameStart(true)
+        godMode = true
+        chooserEnter()
       })
       titleMenu.addButton(document.getElementById('btn-exit'), window.gameExit)
-
       titleMenu.build()
+
+      var chooserMenu = new Menu(chooser, chooserExit,
+        // Button index change
+        function (idx) {
+          var desc = document.getElementById('lbl-chooser')
+          switch (idx) {
+            case 0:
+              desc.innerText = 'RED and the destructive power'
+              break
+            case 1:
+              desc.innerText = 'GREEN shreds everything in the path'
+              break
+            case 2:
+              desc.innerText = 'To TITLE screen'
+              break
+          }
+        })
+      chooserMenu.addButton(document.getElementById('btn-chooser-red'), function () {
+        chosen = 'RED'
+        gameStart()
+      })
+      chooserMenu.addButton(document.getElementById('btn-chooser-green'), function () {
+        chosen = 'GREEN'
+        gameStart()
+      })
+      chooserMenu.addButton(document.getElementById('btn-chooser-back'), chooserExit)
+      chooserMenu.build()
 
       var optionMenu = new Menu(
         document.getElementById('menu'),
