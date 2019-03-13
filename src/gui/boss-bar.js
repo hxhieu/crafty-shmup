@@ -13,19 +13,20 @@ Crafty.c('BossBar', {
 
   setBossBar: function (name) {
     const { w } = screenSize
-    const h = 12
+    const h = 2
     const labelW = name.length * 5
-    const bar = Crafty.e('DOM, 2D, Color').attr({ w, h, alpha: 0.5 }).color('red')
-    const label = Crafty.e('UILabel')
-      .attr({ w: labelW, x: (w - labelW) / 2 })
+    const bar = Crafty.e('DOM, 2D, Color, Tween').attr({ w, h, alpha: 0 }).color('red')
+    const label = Crafty.e('UILabel, Tween')
+      .attr({ w: labelW, x: (w - labelW) / 2, alpha: 0 })
       .text(name.replace(/_/g, ' '))
+
+    bar.tween({ alpha: 1 }, 5000)
+    label.tween({ alpha: 1 }, 5000)
 
     this.bind('Remove', function () {
       bar.destroy()
       label.destroy()
     })
-
-    console.log(this)
 
     this.bind(Events.STRUCTURE_HIT, function () {
       const { current, max } = this.getArmour()

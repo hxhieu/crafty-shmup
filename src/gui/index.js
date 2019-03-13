@@ -5,6 +5,8 @@ import './debug-info'
 import { keypad } from '@/device'
 import { Events } from '@/constants'
 
+export { createBossWarning } from './boss-warning'
+
 const playerScore = new WeakMap()
 
 export class GuiManager {

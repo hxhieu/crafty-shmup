@@ -13,7 +13,9 @@ Crafty.c('AI', {
   },
 
   tell: function (thinking) {
-    console.info(`${subject.get(this)} > I am ${thinking}`)
+    if (window.debug) {
+      console.info(`${subject.get(this)} > I am ${thinking}`)
+    }
     return this
   }
 })

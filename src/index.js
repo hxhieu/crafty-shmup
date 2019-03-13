@@ -8,7 +8,7 @@ import '@/components/collider'
 import { Events } from '@/constants'
 import { screenSize } from './device'
 import { assets, generateSharedSprites } from './assets-loader'
-import { GuiManager } from '@/gui'
+import { GuiManager, createBossWarning } from '@/gui'
 import { PhysicsManager } from '@/physics'
 import { createPlayerFighterRed, createPlayerFighterGreen } from '@/ships/player'
 import { ParallaxSpaceScene } from './scenes'
@@ -16,6 +16,8 @@ import { GenericSpawner } from '@/spawners'
 import { createPowerHostSwarm, createEnemyFly } from '@/ships/enemies'
 import { SpitterSpawner } from './spawners'
 import { createYellowCrabBoss } from './ships/enemies/yellow-crab-boss'
+
+window.debug = true
 
 Crafty.paths({
   images: 'assets/images/',
@@ -59,7 +61,7 @@ window.gameStart = function (progress, godmode, chosen) {
     PhysicsManager.init()
 
     /* eslint-disable no-new */
-    new ParallaxSpaceScene()
+    const bg = new ParallaxSpaceScene()
 
     const life = godmode ? Number.MAX_SAFE_INTEGER : 1
     switch (chosen) {
@@ -70,6 +72,7 @@ window.gameStart = function (progress, godmode, chosen) {
     }
 
     startSpawners()
+    spawnBoss(bg)
   }, progress)
 }
 
@@ -82,8 +85,6 @@ function startSpawners () {
 
   const spitterSpawner = new SpitterSpawner()
   spitterSpawner.stop()
-
-  createYellowCrabBoss()
 }
 
 function toggleMenu (show) {
@@ -104,4 +105,10 @@ function toggleMenu (show) {
     menu.classList.add('hide')
     game.classList.add('show')
   }
+}
+
+function spawnBoss (bg) {
+  const warning = createBossWarning()
+  bg.setActive(false)
+  warning.bind('Remove', createYellowCrabBoss)
 }
