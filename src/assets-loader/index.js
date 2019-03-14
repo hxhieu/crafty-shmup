@@ -103,6 +103,7 @@ const assets = {
     Loop01: ['CH-AY-NA.wav'],
     Laser01: ['retro_laser_01.wav'],
     BossFight01: ['boss_fight_01.wav'],
+    BossFight02: ['boss_fight_02.wav'],
     Alert01: ['alert_normal.wav']
   }
 }

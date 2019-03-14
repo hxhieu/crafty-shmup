@@ -12,7 +12,7 @@ export const createEnemySpitter = ({ startX, startY, moveX, moveY }) => {
   const e = createEnemyBase('Sprite_EnemySpitter')
     .addComponent('Delay, MoveTo, SelfDestroy')
     .setHitbox(16)
-    .setStructure(4, 0, { explode: 'Sprite_ExplosionEnemySpitter' })
+    .setStructure(20, 0, { explode: 'Sprite_ExplosionEnemySpitter' })
     .setScorePoint(25)
 
   e.attr({ x: startX, startY })

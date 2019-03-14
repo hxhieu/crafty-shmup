@@ -36,7 +36,7 @@ Crafty.c('PowerUpPanel', {
       .text('MULTIPLE')
       .attr({ x: slotWidth * 3 })
       .textColor(inactiveText)
-      .setMaxLevel(3)
+      .setMaxLevel(2)
 
     this.powers[PlayerEquipments.SHIELD] = Crafty.e('UIPowerUpSlot')
       .text('SHIELD')

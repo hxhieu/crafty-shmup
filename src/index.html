@@ -167,8 +167,8 @@
       <h2>Options</h2>
       <div>
         <button id="btn-option-resume" class="focused">RESUME GAME</button>
-        <button id="btn-option-music">TURN MUSIC OFF</button>
-        <button id="btn-option-sound">TURN SOUND OFF</button>
+        <!-- <button id="btn-option-music">TURN MUSIC OFF</button>
+        <button id="btn-option-sound">TURN SOUND OFF</button> -->
         <button id="btn-option-exit">EXIT TO TITLE</button>
       </div>
     </div>
@@ -288,16 +288,16 @@
       )
 
       optionMenu.addButton(document.getElementById('btn-option-resume'), window.gameResume)
-      optionMenu.addButton(document.getElementById('btn-option-music'), function () {
-        window.gameMusic = !window.gameMusic
-        document.getElementById('btn-option-music').innerText = 'TURN MUSIC ' + (window.gameMusic ? 'OFF' : 'ON')
-        Crafty.trigger('GLOBAL_TOGGLE_MUSIC', window.gameMusic)
-      })
-      optionMenu.addButton(document.getElementById('btn-option-sound'), function () {
-        window.gameSound = !window.gameSound
-        document.getElementById('btn-option-sound').innerText = 'TURN SOUND ' + (window.gameSound ? 'OFF' : 'ON')
-        Crafty.trigger('GLOBAL_TOGGLE_SOUND', window.gameSound)
-      })
+      // optionMenu.addButton(document.getElementById('btn-option-music'), function () {
+      //   window.gameMusic = !window.gameMusic
+      //   document.getElementById('btn-option-music').innerText = 'TURN MUSIC ' + (window.gameMusic ? 'OFF' : 'ON')
+      //   Crafty.trigger('GLOBAL_TOGGLE_MUSIC', window.gameMusic)
+      // })
+      // optionMenu.addButton(document.getElementById('btn-option-sound'), function () {
+      //   window.gameSound = !window.gameSound
+      //   document.getElementById('btn-option-sound').innerText = 'TURN SOUND ' + (window.gameSound ? 'OFF' : 'ON')
+      //   Crafty.trigger('GLOBAL_TOGGLE_SOUND', window.gameSound)
+      // })
       optionMenu.addButton(document.getElementById('btn-option-exit'), function () {
         Crafty.stop(true)
         location.reload()

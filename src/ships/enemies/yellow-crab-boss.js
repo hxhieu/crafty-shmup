@@ -31,7 +31,7 @@ let zerkChargeCount = 0
 
 export const createYellowCrabBoss = () => {
   entity = createEnemyBossBase('Sprite_EnemyBossYellowCrab, MoveTo, Delay')
-    .setStructure(100, 0, { explode: 'Sprite_ExplosionBossYellowCrab', sound: 'ExplosionSmall01', volume: 1 })
+    .setStructure(1000, 0, { explode: 'Sprite_ExplosionBossYellowCrab', sound: 'ExplosionSmall01', volume: 1 })
     .setHitbox(28)
     .setAISubject(NAME)
     .setBossBar(NAME)
@@ -207,7 +207,7 @@ function zerkCharge () {
   entity.safeAnimate('charging', -1)
   entity.delay(() => {
     zerkChargeCount++
-    const speed = DEFAULT_SPEED * 5
+    const speed = DEFAULT_SPEED * 8
     const player = getPlayerInstance()
     if (player) {
       const { ox: x, oy: y } = getPlayerInstance()

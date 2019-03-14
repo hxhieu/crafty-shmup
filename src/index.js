@@ -78,17 +78,28 @@ window.gameStart = function (progress, godmode, chosen) {
 
     const timer = Crafty.e('Delay')
 
-    const spawners = [
-      new PowerHostSpawner(),
-      new SpitterSpawner(),
-      new GenericSpawner(createEnemyFly, 15000, 20000, 'Sprite_EnemyFly')
-    ]
+    this.powerHostSpawner = new PowerHostSpawner()
+    timer.delay(() => {
+      this.powerHostSpawner.start()
+    }, 3000)
 
-    toggleSpawners(spawners, true)
+    this.spitterSpawner = new SpitterSpawner()
+    timer.delay(() => {
+      this.spitterSpawner.start()
+    }, 60000)
+
+    this.flySpawner = new GenericSpawner(createEnemyFly, 2000, 5000, 'Sprite_EnemyFly')
+    timer.delay(() => {
+      this.flySpawner.start()
+    }, 15000)
 
     // TODO: Probably better to have an event to do this
     timer.delay(() => {
-      toggleSpawners(spawners, false)
+      clearSpawners([
+        this.powerHostSpawner,
+        this.spitterSpawner,
+        this.flySpawner
+      ])
       spawnBoss(bg, function () {
         const timer = Crafty.e('Delay')
         // Stage ends
@@ -103,17 +114,13 @@ window.gameStart = function (progress, godmode, chosen) {
             .bind(Events.MOVE_TO_ENDED, window.endStage)
         }, 5000)
       })
-    }, 5000)
+    }, 240000)
   }, progress)
 }
 
-function toggleSpawners (spawners, active = true, clear = false) {
+function clearSpawners (spawners, clear = false) {
   spawners.forEach(x => {
-    if (active) {
-      x.start()
-    } else {
-      x.stop(clear)
-    }
+    x.stop(clear)
   })
 }
 

@@ -5,7 +5,7 @@ import './objects/stardust'
 const FAR_PLANET_SCROLL = 0.007
 const BIG_PLANET_SCROLL = 0.02
 const BG_MUSIC = 'Loop01'
-const BG_BOSS_MUSIC = 'BossFight01'
+const BG_BOSS_MUSIC = 'BossFight02'
 const BG_VOLUME = 0.5
 
 const isActive = new WeakMap()

@@ -1,8 +1,8 @@
 import { createSpitterSwarm } from '@/ships/enemies'
 
-const BIG_WAVE_GAP = 30000
-const SMALL_WAVE_GAP = 3000
-const SMALL_WAVE_SIZE = 3
+const BIG_WAVE_GAP = 15000
+const SMALL_WAVE_GAP = 2000
+const SMALL_WAVE_SIZE = 4
 
 export class SpitterSpawner {
   constructor () {
