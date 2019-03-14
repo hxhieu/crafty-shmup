@@ -12,7 +12,7 @@ Crafty.c('UIPowerUpSlot', {
     this.setName('GUI_PowerUp_Slot')
     this.textColor('#666')
     currentLevel.set(this, 1)
-    this.setMaxLevel(5)
+    this.setMaxLevel(4)
   },
 
   canPowerUp: function () {
@@ -28,6 +28,17 @@ Crafty.c('UIPowerUpSlot', {
 
     lvl++
     this.text(`${this.text().split('-')[0]}-${lvl >= max ? 'MAX' : lvl}`)
+    currentLevel.set(this, lvl)
+  },
+
+  down: function () {
+    let lvl = currentLevel.get(this)
+    if (lvl <= 1) {
+      return
+    }
+
+    lvl--
+    this.text(`${this.text().split('-')[0]}${lvl <= 1 ? '' : `-${lvl}`}`)
     currentLevel.set(this, lvl)
   },
 

@@ -12,8 +12,8 @@ import { GuiManager, createBossWarning } from '@/gui'
 import { PhysicsManager } from '@/physics'
 import { createPlayerFighterRed, createPlayerFighterGreen } from '@/ships/player'
 import { ParallaxSpaceScene } from './scenes'
-import { GenericSpawner } from '@/spawners'
-import { createPowerHostSwarm, createEnemyFly } from '@/ships/enemies'
+import { GenericSpawner, PowerHostSpawner } from '@/spawners'
+import { createEnemyFly } from '@/ships/enemies'
 import { SpitterSpawner } from './spawners'
 import { createYellowCrabBoss } from './ships/enemies/yellow-crab-boss'
 
@@ -96,8 +96,7 @@ window.gameStart = function (progress, godmode, chosen) {
 }
 
 function startSpawners () {
-  const powerHostSpawner = new GenericSpawner(createPowerHostSwarm, 2000, 2000)
-  powerHostSpawner.stop()
+  new PowerHostSpawner()
 
   const flySpawner = new GenericSpawner(createEnemyFly, 15000, 20000)
   flySpawner.stop()

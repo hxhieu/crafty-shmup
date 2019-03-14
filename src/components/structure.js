@@ -37,6 +37,12 @@ Crafty.c('Structure', {
     const { current: shield } = this.getShield()
     const { current: armour } = this.getArmour()
     return shield + armour
+  },
+  setShieldPoints: function (points) {
+    currentShield.set(this, points)
+    if (points > maxShield.get(this)) {
+      maxShield.set(this, points)
+    }
   }
 })
 
@@ -61,6 +67,7 @@ async function takeDamage (amount) {
   let shield = currentShield.get(this)
   shield -= amount
   currentShield.set(this, shield)
+  this.trigger(Events.STRUCTURE_SHIELD_HIT)
 
   // After shield mitigation
   if (shield < 0) {

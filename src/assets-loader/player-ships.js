@@ -68,4 +68,26 @@ export default () => {
         .animate('level', -1)
     }
   })
+
+  Crafty.c('Sprite_PlayerForceField', {
+    init: function () {
+      this.requires('Canvas, SpriteAnimationExt, MiscForceFieldSprite')
+        .origin(16, 16)
+        .reel('on', 250, [
+          [0, 0, 1, 1],
+          [1, 0, 1, 1],
+          [2, 0, 1, 1]
+        ])
+        .reel('off', 250, [
+          [5, 0, 1, 1],
+          [6, 0, 1, 1],
+          [7, 0, 1, 1],
+          [8, 0, 1, 1]
+        ])
+        .reel('flash', 250, [
+          [3, 0, 1, 1],
+          [4, 0, 1, 1]
+        ])
+    }
+  })
 }

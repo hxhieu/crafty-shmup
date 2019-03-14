@@ -23,7 +23,7 @@ Crafty.c('PowerUpPanel', {
       .textColor(inactiveText)
 
     this.powers[PlayerEquipments.MISSILE] = Crafty.e('UIPowerUpSlot')
-      .text('MISSILE')
+      .text('???')
       .attr({ x: slotWidth })
       .textColor(inactiveText)
 
@@ -82,5 +82,8 @@ Crafty.c('PowerUpPanel', {
 
   getSlotLevel: function (slotIndex) {
     return this.powers[slotIndex].getLevel()
+  },
+  setSlotLevelDown: function (slotIndex) {
+    this.powers[slotIndex].down()
   }
 })

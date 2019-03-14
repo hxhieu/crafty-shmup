@@ -37,7 +37,6 @@ Crafty.c('PlayerController', {
   },
 
   init: function () {
-    // const { x, y } = this
     this.powerUpPanel = Crafty.e('PowerUpPanel')
     this.fourwayBounded(BASE_SPEED, screenSize)
     multiples.set(this, [])
@@ -54,14 +53,14 @@ Crafty.c('PlayerController', {
     weapons.set(this, equips)
 
     // Demo
-    weapon.setWeaponLevelUp()
-    weapon.setWeaponLevelUp()
-    weapon.setWeaponLevelUp()
-    weapon.setWeaponLevelUp()
-    multipleUp.call(this)
-    multipleUp.call(this)
+    // weapon.setWeaponLevelUp()
+    // weapon.setWeaponLevelUp()
+    // weapon.setWeaponLevelUp()
+    // weapon.setWeaponLevelUp()
+    // multipleUp.call(this)
+    // multipleUp.call(this)
     // weapon.startFire()
-    this.fourwayBounded(BASE_SPEED * 2, screenSize)
+    // this.fourwayBounded(BASE_SPEED * 2, screenSize)
     return this
   }
 })
@@ -144,6 +143,7 @@ function powerUp () {
     }
     case PlayerEquipments.SHIELD:
     {
+      shieldUp.call(this)
       break
     }
   }
@@ -151,7 +151,6 @@ function powerUp () {
 
 function speedUp () {
   const currentSpeedLevel = this.powerUpPanel.getSlotLevel(PlayerEquipments.SPEED)
-
   this.fourwayBounded(BASE_SPEED * (currentSpeedLevel + 1), screenSize)
 }
 
@@ -185,4 +184,27 @@ function multipleUp () {
 
   mul.push(multiple)
   multiples.set(this, mul)
+}
+
+function shieldUp () {
+  const { ox, oy } = this
+  const { current: currentShield } = this.getShield()
+  if (currentShield <= 0) {
+    const shield = Crafty.e('Sprite_PlayerForceField').attr({ ox, oy })
+    this.attach(shield)
+    this.bind(Events.STRUCTURE_SHIELD_HIT, function () {
+      const { current: currentShield } = this.getShield()
+      if (currentShield > 0) {
+        shield.safeAnimate('flash')
+      } else {
+        shield.safeAnimate('off')
+      }
+      this.powerUpPanel.setSlotLevelDown(PlayerEquipments.SHIELD)
+    })
+
+    if (currentShield === 0) {
+      shield.safeAnimate('on')
+    }
+  }
+  this.setShieldPoints(currentShield + 1)
 }

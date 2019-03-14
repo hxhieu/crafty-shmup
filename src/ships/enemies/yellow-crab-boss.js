@@ -93,7 +93,7 @@ function resetWeapon () {
     entity.detach(weapon)
     weapon.destroy()
   }
-  const power = 2
+  const power = 1
   const rateOfFire = getLifePercent() >= 50 ? 1.5 : 2
   const { ox, oy } = entity
 

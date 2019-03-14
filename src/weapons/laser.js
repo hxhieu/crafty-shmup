@@ -4,9 +4,8 @@ import { createLaserBeam } from './projectiles'
 const data = [
   { level: 1, power: 1, width: 4, rateOfFire: 1 },
   { level: 2, power: 1.25, width: 5, rateOfFire: 1 },
-  { level: 3, power: 1.25, width: 6, rateOfFire: 1.5 },
-  { level: 4, power: 1.5, width: 12, rateOfFire: 1.5 },
-  { level: 5, power: 2, width: 16, rateOfFire: 1.5 }
+  { level: 3, power: 1.25, width: 6, rateOfFire: 1.25 },
+  { level: 4, power: 1.5, width: 12, rateOfFire: 1.5 }
 ]
 
 export const createWeaponLaser = () => {

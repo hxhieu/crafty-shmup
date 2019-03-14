@@ -76,14 +76,15 @@ const assets = {
       }
     },
 
-    // Random
-    'ships_human.png': {
+    'Misc_Shield.png': {
       tile: 32,
       tileh: 32,
       map: {
-        ShipHumanLargeSprite01: [0, 0, 2, 1.5]
+        MiscForceFieldSprite: [2, 0, 1, 1]
       }
     },
+
+    // Random
     'space_pack.png': {
       tile: 16,
       tileh: 16,

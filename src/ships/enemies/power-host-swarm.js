@@ -10,7 +10,7 @@ const TURN_X = 1500
 const TURN_Y = 3000
 const SPEED = 30
 
-export const createPowerHostSwarm = (size = 5) => {
+export const createPowerHostSwarm = (size = 3) => {
   const { w } = screenSize
   const startX = Crafty.math.randomNumber(32, w - 32)
   const startY = -16
