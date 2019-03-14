@@ -16,8 +16,11 @@ export class SpitterSpawner {
     spawnLoop.call(this)
   }
 
-  stop () {
+  stop (clear) {
     this.active = false
+    if (clear) {
+      Crafty('Sprite_EnemySpitter').get().forEach(x => x.destroy())
+    }
   }
 }
 
@@ -28,6 +31,9 @@ function spawnLoop () {
 
   // Alternate the sides
   this.timer.delay(() => {
+    if (!this.active) {
+      return
+    }
     createSpitterSwarm(this.spawnCount % 2)
     this.spawnCount++
   }, SMALL_WAVE_GAP, SMALL_WAVE_SIZE)

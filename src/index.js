@@ -66,9 +66,8 @@ window.gameStart = function (progress, godmode, chosen) {
     PhysicsManager.init()
 
     /* eslint-disable no-new */
-    const bg = new ParallaxSpaceScene()
+    const bg = new ParallaxSpaceScene(true)
     let player
-
     const life = godmode ? Number.MAX_SAFE_INTEGER : 1
     switch (chosen) {
       case 'RED': player = createPlayerFighterRed(life)
@@ -77,32 +76,45 @@ window.gameStart = function (progress, godmode, chosen) {
         break
     }
 
-    startSpawners()
-    spawnBoss(bg, function () {
-      const timer = Crafty.e('Delay')
-      // Stage ends
-      timer.delay(() => {
-        player
-          // Freeze the control
-          .fourwayBounded(0, null)
-          .multiway(0)
-          // Get out of the stage
-          .addComponent('MoveTo')
-          .moveTo({ x: player.x, y: -100, speed: 200 })
-          .bind(Events.MOVE_TO_ENDED, window.endStage)
-      }, 5000)
-    })
+    const timer = Crafty.e('Delay')
+
+    const spawners = [
+      new PowerHostSpawner(),
+      new SpitterSpawner(),
+      new GenericSpawner(createEnemyFly, 15000, 20000, 'Sprite_EnemyFly')
+    ]
+
+    toggleSpawners(spawners, true)
+
+    // TODO: Probably better to have an event to do this
+    timer.delay(() => {
+      toggleSpawners(spawners, false)
+      spawnBoss(bg, function () {
+        const timer = Crafty.e('Delay')
+        // Stage ends
+        timer.delay(() => {
+          player
+            // Freeze the control
+            .fourwayBounded(0, null)
+            .multiway(0)
+            // Get out of the stage
+            .addComponent('MoveTo')
+            .moveTo({ x: player.x, y: -100, speed: 200 })
+            .bind(Events.MOVE_TO_ENDED, window.endStage)
+        }, 5000)
+      })
+    }, 5000)
   }, progress)
 }
 
-function startSpawners () {
-  new PowerHostSpawner()
-
-  const flySpawner = new GenericSpawner(createEnemyFly, 15000, 20000)
-  flySpawner.stop()
-
-  const spitterSpawner = new SpitterSpawner()
-  spitterSpawner.stop()
+function toggleSpawners (spawners, active = true, clear = false) {
+  spawners.forEach(x => {
+    if (active) {
+      x.start()
+    } else {
+      x.stop(clear)
+    }
+  })
 }
 
 function toggleMenu (show) {
@@ -128,9 +140,13 @@ function toggleMenu (show) {
 function spawnBoss (bg, callback) {
   const warning = createBossWarning()
   bg.setActive(false)
+  bg.toggleBgMusic(false)
   warning.bind('Remove', function () {
+    bg.toggleBossMusic(true)
     createYellowCrabBoss().bind('Remove', function () {
       bg.setActive(true)
+      bg.toggleBossMusic(false)
+      bg.toggleBgMusic(true)
       if (typeof (callback) === 'function') {
         callback()
       }

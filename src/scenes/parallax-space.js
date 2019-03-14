@@ -4,13 +4,16 @@ import './objects/stardust'
 
 const FAR_PLANET_SCROLL = 0.007
 const BIG_PLANET_SCROLL = 0.02
+const BG_MUSIC = 'Loop01'
+const BG_BOSS_MUSIC = 'BossFight01'
+const BG_VOLUME = 0.5
 
 const isActive = new WeakMap()
 
 // Helpers
 export class ParallaxSpaceScene {
   constructor (active = true) {
-    Crafty.audio.play('Loop01', -1, 0.5)
+    this.toggleBgMusic(true)
 
     this.farPlanets = Crafty.e('2DExt, BGLayer, ParallaxSpaceFarPlanetSprite, TimedScroller, Tween').setName('BG_Far_Planet')
     this.bigPlanet = Crafty.e('2DExt, BGLayer, ParallaxSpaceBigPlanetSprite, TimedScroller, Tween').setName('BG_Big_Planet')
@@ -62,6 +65,22 @@ export class ParallaxSpaceScene {
       this.timer.delay(() => {
         Crafty('Stardust').get().forEach(x => x.destroy())
       }, 5000)
+    }
+  }
+
+  toggleBgMusic (active) {
+    if (active) {
+      Crafty.audio.play(BG_MUSIC, -1, BG_VOLUME)
+    } else {
+      Crafty.audio.stop(BG_MUSIC)
+    }
+  }
+
+  toggleBossMusic (active) {
+    if (active) {
+      Crafty.audio.play(BG_BOSS_MUSIC, -1, BG_VOLUME)
+    } else {
+      Crafty.audio.stop(BG_BOSS_MUSIC)
     }
   }
 }

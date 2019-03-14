@@ -6,6 +6,7 @@ import { screenSize } from '@/device'
 const OPAQUE = 0.75
 const DIMMED = 0.2
 const FLASH = 1000
+const FLASH_COUNT = 3
 
 export const createBossWarning = () => {
   let flashCount = 1
@@ -21,15 +22,17 @@ export const createBossWarning = () => {
     .textFont({ size: '30px' })
     .attr({ w, h, x: 16, y: y + 4 })
 
+  Crafty.audio.play('Alert01', -1, 0.25)
   panel.tween({ alpha: DIMMED }, FLASH)
   panel.bind('TweenEnd', function () {
     if (this.alpha === 0) {
       this.delay(() => {
         this.destroy()
+        Crafty.audio.stop('Alert01')
       }, 1000)
     }
     if (this.alpha >= OPAQUE) { flashCount++ }
-    if (flashCount < 4) {
+    if (flashCount < FLASH_COUNT) {
       this.tween({ alpha: this.alpha < OPAQUE ? OPAQUE : DIMMED }, FLASH)
     } else {
       this.tween({ alpha: 0 }, 1500)

@@ -31,7 +31,7 @@ Crafty.c('BossBar', {
     this.bind(Events.STRUCTURE_HIT, function () {
       const { current, max } = this.getArmour()
       const pct = current / max
-      bar.w = (pct > 0.01 ? pct : 0) * w
+      bar.w = (current > 0 ? pct : 0) * w
     })
 
     return this

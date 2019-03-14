@@ -11,7 +11,7 @@ Crafty.c('KillZ', {
 // Helpers
 
 function EnterFrame () {
-  if (this.y > screenSize.h) {
+  if (this.y > screenSize.h - 16) {
     this.destroy()
   }
 }

@@ -101,7 +101,9 @@ const assets = {
     ExplosionSmall01: ['atari_boom.wav'],
     GunShoot01: ['shoot_01.wav'],
     Loop01: ['CH-AY-NA.wav'],
-    Laser01: ['retro_laser_01.wav']
+    Laser01: ['retro_laser_01.wav'],
+    BossFight01: ['boss_fight_01.wav'],
+    Alert01: ['alert_normal.wav']
   }
 }
 

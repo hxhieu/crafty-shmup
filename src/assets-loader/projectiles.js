@@ -101,7 +101,7 @@ export default () => {
       this.requires('Canvas, SpriteAnimationExt, ProjectileCrabCubSprite')
         .attr({ w: 24, h: 24 })
         .origin(12, 12)
-        .reel('default', 250, [
+        .reel('default', 200, [
           [3, 4, 1, 1],
           [4, 4, 1, 1],
           [5, 4, 1, 1]

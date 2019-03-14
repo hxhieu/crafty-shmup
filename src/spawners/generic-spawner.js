@@ -1,8 +1,8 @@
 export class GenericSpawner {
-  constructor (spawn, lowInterval, highInterval, count) {
+  constructor (spawn, lowInterval, highInterval, sprite, count) {
     lowInterval = lowInterval || 1000
     highInterval = highInterval || lowInterval
-    this.options = { spawn, lowInterval, highInterval, count }
+    this.options = { spawn, lowInterval, highInterval, count, sprite }
     this.timer = Crafty.e('Delay').setName('__GenericSpawner_Timer')
     this.active = false
     this.currentCount = 0
@@ -14,8 +14,11 @@ export class GenericSpawner {
     spawnLoop.call(this)
   }
 
-  stop () {
+  stop (clear) {
     this.active = false
+    if (clear) {
+      Crafty(this.options.sprite).get().forEach(x => x.destroy())
+    }
   }
 }
 
