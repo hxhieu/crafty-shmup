@@ -8,7 +8,7 @@ const PER_WAVE = 60
 export class PowerHostSpawner {
   constructor () {
     this.timer = Crafty.e('Delay')
-    this.spawner = new GenericSpawner(createPowerHostSwarm, 20000, 20000, null, PER_WAVE)
+    this.spawner = new GenericSpawner(createPowerHostSwarm, 10000, 15000, null, PER_WAVE)
     // Delay the very first wave
     this.timer.delay(() => {
       this.spawner.start()

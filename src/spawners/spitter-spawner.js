@@ -1,4 +1,5 @@
 import { createSpitterSwarm } from '@/ships/enemies'
+import { getPlayerInstance } from '@/ships/player'
 
 const BIG_WAVE_GAP = 15000
 const SMALL_WAVE_GAP = 2000
@@ -29,6 +30,13 @@ function spawnLoop () {
     return
   }
 
+  const player = getPlayerInstance()
+  const playerPower = player ? player.getPowerLevel() : 1
+  let spawnRate = 1 - (playerPower * 2 / 100)
+  if (spawnRate <= 0.5) {
+    spawnRate = 0.5
+  }
+
   // Alternate the sides
   this.timer.delay(() => {
     if (!this.active) {
@@ -39,5 +47,5 @@ function spawnLoop () {
   }, SMALL_WAVE_GAP, SMALL_WAVE_SIZE)
 
   // Recursive calls here
-  this.timer.delay(() => spawnLoop.call(this), BIG_WAVE_GAP)
+  this.timer.delay(() => spawnLoop.call(this), BIG_WAVE_GAP * spawnRate)
 }

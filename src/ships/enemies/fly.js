@@ -13,7 +13,7 @@ export const createEnemyFly = () => {
   const e = createEnemyBase('Sprite_EnemyFly')
     .addComponent('RandomStart, MoveZigZag, Delay, KillZ')
     .setHitbox(16)
-    .setStructure(15, 0, { explode: 'Sprite_ExplosionEnemyFly' })
+    .setStructure(20, 0, { explode: 'Sprite_ExplosionEnemyFly', sound: 'ExplosionSmall01', volume: 0.5 })
     .setScorePoint(100)
     .setRandomStart({ top: -64, bottom: -16 })
     .moveZigZag(12000, 3000, MOVE_SPEED)

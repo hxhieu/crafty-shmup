@@ -13,7 +13,7 @@ import { PhysicsManager } from '@/physics'
 import { createPlayerFighterRed, createPlayerFighterGreen } from '@/ships/player'
 import { ParallaxSpaceScene } from './scenes'
 import { GenericSpawner, PowerHostSpawner } from '@/spawners'
-import { createEnemyFly } from '@/ships/enemies'
+import { createEnemyFly, createWallerSwarm } from '@/ships/enemies'
 import { SpitterSpawner } from './spawners'
 import { createYellowCrabBoss } from './ships/enemies/yellow-crab-boss'
 
@@ -86,19 +86,25 @@ window.gameStart = function (progress, godmode, chosen) {
     this.spitterSpawner = new SpitterSpawner()
     timer.delay(() => {
       this.spitterSpawner.start()
-    }, 60000)
+    }, 120000)
 
-    this.flySpawner = new GenericSpawner(createEnemyFly, 2000, 5000, 'Sprite_EnemyFly')
+    this.flySpawner = new GenericSpawner(createEnemyFly, 10000, 15000, 'Sprite_EnemyFly')
     timer.delay(() => {
       this.flySpawner.start()
     }, 15000)
+
+    this.wallerSpawner = new GenericSpawner(createWallerSwarm, 5000, 7000, 'Sprite_EnemyWaller')
+    timer.delay(() => {
+      this.wallerSpawner.start()
+    }, 60000)
 
     // TODO: Probably better to have an event to do this
     timer.delay(() => {
       clearSpawners([
         this.powerHostSpawner,
         this.spitterSpawner,
-        this.flySpawner
+        this.flySpawner,
+        this.wallerSpawner
       ])
       spawnBoss(bg, function () {
         const timer = Crafty.e('Delay')
@@ -114,7 +120,7 @@ window.gameStart = function (progress, godmode, chosen) {
             .bind(Events.MOVE_TO_ENDED, window.endStage)
         }, 5000)
       })
-    }, 240000)
+    }, 200000)
   }, progress)
 }
 

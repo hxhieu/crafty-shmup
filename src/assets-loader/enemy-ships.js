@@ -86,4 +86,20 @@ export default () => {
         .animate('level', -1)
     }
   })
+
+  Crafty.c('Sprite_EnemyWaller', {
+    init: function () {
+      this.requires('Canvas, SpriteAnimationExt, EnemyWallerSprite')
+        .attr({ w: 24, h: 24 })
+        .origin(12, 12)
+        .reel('level', 250, [
+          [5, 3, 1, 1],
+          [6, 3, 1, 1],
+          [7, 3, 1, 1],
+          [8, 3, 1, 1]
+        ])
+
+        .animate('level', -1)
+    }
+  })
 }

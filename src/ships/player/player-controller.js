@@ -12,6 +12,7 @@ const BASE_SPEED = 40
 const weaponTemplate = new WeakMap()
 const playerSprie = new WeakMap()
 const multiples = new WeakMap()
+const powerLevel = new WeakMap()
 
 // Component definition
 
@@ -40,6 +41,7 @@ Crafty.c('PlayerController', {
     this.powerUpPanel = Crafty.e('PowerUpPanel')
     this.fourwayBounded(BASE_SPEED, screenSize)
     multiples.set(this, [])
+    powerLevel.set(this, 1)
   },
 
   useWeapon: function (template) {
@@ -62,6 +64,10 @@ Crafty.c('PlayerController', {
     // weapon.startFire()
     // this.fourwayBounded(BASE_SPEED * 2, screenSize)
     return this
+  },
+
+  getPowerLevel: function () {
+    return powerLevel.get(this)
   }
 })
 
@@ -124,26 +130,31 @@ function powerUp () {
   if (!canPowerUp) {
     return
   }
+  const currentPower = powerLevel.get(this)
   switch (activeIndex) {
     case PlayerEquipments.SPEED:
     {
       speedUp.call(this)
+      powerLevel.set(this, currentPower + 1)
       break
     }
-    case PlayerEquipments.MISSILE:
+    // case PlayerEquipments.MISSILE:
     case PlayerEquipments.WEAPON:
     {
       weaponUp.call(this, activeIndex)
+      powerLevel.set(this, currentPower + 3)
       break
     }
     case PlayerEquipments.MULTIPLE:
     {
       multipleUp.call(this)
+      powerLevel.set(this, currentPower + 4)
       break
     }
     case PlayerEquipments.SHIELD:
     {
       shieldUp.call(this)
+      powerLevel.set(this, currentPower + 5)
       break
     }
   }

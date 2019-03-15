@@ -50,7 +50,9 @@ const assets = {
         EnemyFlySprite: [0, 1, 1, 1],
         ExplosionEnemyFlySprite: [0, 0, 1, 1],
         EnemySpitterSprite: [0, 3, 1, 1],
-        ExplosionEnemySpitterSprite: [0, 2, 1, 1]
+        ExplosionEnemySpitterSprite: [0, 2, 1, 1],
+        EnemyWallerSprite: [5, 3, 1, 1],
+        ExplosionEnemyWallerSprite: [5, 2, 1, 1]
       }
     },
     'Enemies_Projectile.png': {

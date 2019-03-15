@@ -1,3 +1,5 @@
+import { getPlayerInstance } from '@/ships/player'
+
 export class GenericSpawner {
   constructor (spawn, lowInterval, highInterval, sprite, count) {
     lowInterval = lowInterval || 1000
@@ -28,6 +30,15 @@ function spawnLoop () {
   }
 
   const { spawn, lowInterval, highInterval, count } = this.options
+  const player = getPlayerInstance()
+  const playerPower = player ? player.getPowerLevel() : 1
+  let spawnRate = 1 - (playerPower * 2 / 100)
+  if (spawnRate <= 0.5) {
+    spawnRate = 0.5
+  }
+
+  console.log(spawnRate)
+
   spawn()
   this.currentCount++
   if (this.currentCount >= count) {
@@ -36,6 +47,6 @@ function spawnLoop () {
   }
 
   // Recursive calls here
-  const rand = Crafty.math.randomInt(lowInterval, highInterval)
+  const rand = Crafty.math.randomInt(lowInterval * spawnRate, highInterval * spawnRate)
   this.timer.delay(() => spawnLoop.call(this), rand)
 }

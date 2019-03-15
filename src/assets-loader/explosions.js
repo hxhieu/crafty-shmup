@@ -111,6 +111,22 @@ export default () => {
     }
   })
 
+  Crafty.c('Sprite_ExplosionEnemyWaller', {
+    init: function () {
+      this.requires('Canvas, SpriteAnimationExt, ExplosionEnemyWallerSprite')
+        .origin(16, 16)
+        .reel('default', 250, [
+          [5, 2, 1, 1],
+          [6, 2, 1, 1],
+          [7, 2, 1, 1],
+          [8, 2, 1, 1],
+          [9, 2, 1, 1]
+        ])
+        .animate('default')
+        .destroyOnEnd()
+    }
+  })
+
   Crafty.c('Sprite_ExplosionAcidSplash', {
     init: function () {
       this.requires('Canvas, SpriteAnimationExt, ExplosionAcidSplashSprite')
