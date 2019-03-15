@@ -92,7 +92,7 @@
       margin-top: 10px;
     }
 
-    #menu {
+    #menu, #post-game {
       padding: 40px 0;
     }
 
@@ -160,6 +160,12 @@
         <button id="btn-chooser-red" class="focused">RED</button>
         <button id="btn-chooser-green">GREEN</button>
         <button id="btn-chooser-back">BACK</button>
+      </div>
+    </div>
+    <div id="post-game" class="hide screen" tabindex="0">
+      <h2>To be continue...</h2>
+      <div>
+        <button id="btn-post-end" class="focused">OKAY</button>
       </div>
     </div>
     <div id="game" class="hide"></div>
@@ -304,6 +310,17 @@
       })
 
       optionMenu.build()
+
+      var postGameMenu = new Menu(
+        document.getElementById('post-game'),
+        function(){
+          location.reload()
+        },
+      )
+      postGameMenu.addButton(document.getElementById('btn-post-end'), function(){
+          location.reload()
+        },)
+      postGameMenu.build()
     };
 
     buildUI()

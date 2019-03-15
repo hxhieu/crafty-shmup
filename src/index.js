@@ -42,8 +42,11 @@ window.gamePause = function () {
 }
 
 window.endStage = function () {
-  // TODO: Post screen
-  window.location.reload()
+  document.getElementById('container').removeChild(document.getElementById('game'))
+  const post = document.getElementById('post-game')
+  post.classList.remove('hide')
+  post.classList.remove('show')
+  post.focus()
 }
 
 window.gameStart = function (progress, godmode, chosen) {
@@ -120,7 +123,7 @@ window.gameStart = function (progress, godmode, chosen) {
             .bind(Events.MOVE_TO_ENDED, window.endStage)
         }, 5000)
       })
-    }, 200000)
+    }, 2000)
   }, progress)
 }
 
