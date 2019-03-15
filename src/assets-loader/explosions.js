@@ -84,11 +84,11 @@ export default () => {
       this.requires('Canvas, SpriteAnimationExt, ExplosionEnemyFlySprite')
         .origin(16, 16)
         .reel('default', 250, [
-          [0, 0, 1, 1],
-          [1, 0, 1, 1],
-          [2, 0, 1, 1],
-          [3, 0, 1, 1],
-          [4, 0, 1, 1]
+          [5, 0, 1, 1],
+          [6, 0, 1, 1],
+          [7, 0, 1, 1],
+          [8, 0, 1, 1],
+          [9, 0, 1, 1]
         ])
         .animate('default')
         .destroyOnEnd()

@@ -47,8 +47,8 @@ const assets = {
       map: {
         EnemyPowerHostSprite: [10, 3, 1, 1],
         ExplosionEnemyPowerHostSprite: [10, 2, 1, 1],
-        EnemyFlySprite: [0, 1, 1, 1],
-        ExplosionEnemyFlySprite: [0, 0, 1, 1],
+        EnemyFlySprite: [5, 1, 1, 1],
+        ExplosionEnemyFlySprite: [5, 0, 1, 1],
         EnemySpitterSprite: [0, 3, 1, 1],
         ExplosionEnemySpitterSprite: [0, 2, 1, 1],
         EnemyWallerSprite: [5, 3, 1, 1],
