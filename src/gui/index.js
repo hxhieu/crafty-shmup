@@ -14,7 +14,8 @@ export class GuiManager {
     Crafty.e()
       .setName('__GUIManager')
       .bind('KeyUp', keyUp)
-    Crafty.e('DebugInfo')
+
+    // Crafty.e('DebugInfo')
 
     const scoreLabel = Crafty.e('UILabel')
       .attr({ w: 100, x: 225 })

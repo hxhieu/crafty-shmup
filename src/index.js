@@ -17,7 +17,7 @@ import { createEnemyFly, createWallerSwarm } from '@/ships/enemies'
 import { SpitterSpawner } from './spawners'
 import { createYellowCrabBoss } from './ships/enemies/yellow-crab-boss'
 
-window.debug = true
+window.debug = false
 
 Crafty.paths({
   images: 'assets/images/',
@@ -123,7 +123,7 @@ window.gameStart = function (progress, godmode, chosen) {
             .bind(Events.MOVE_TO_ENDED, window.endStage)
         }, 5000)
       })
-    }, 2000)
+    }, 200000)
   }, progress)
 }
 

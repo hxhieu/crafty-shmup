@@ -37,8 +37,6 @@ function spawnLoop () {
     spawnRate = 0.5
   }
 
-  console.log(spawnRate)
-
   spawn()
   this.currentCount++
   if (this.currentCount >= count) {
